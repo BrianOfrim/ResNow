@@ -1,5 +1,5 @@
-<p>
-  rsvpnow Works!
-</p>
-
-<router-outlet></router-outlet>
+<ul *ngFor="#item of items | async">
+  <li class="text">
+    {{item}}
+  </li>
+</ul>
