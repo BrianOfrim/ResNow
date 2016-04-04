@@ -1,29 +1,24 @@
 import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
-import {CliRouteConfig} from './route-config';
+import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {AngularFire} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
+import {RsvpFormComponent} from "./rsvp-form.component"
+import {RsvpService} from "./rsvp.service"
 
 @Component({
   selector: 'rsvpnow-app',
-  providers: [ROUTER_PROVIDERS],
-  templateUrl: 'app/rsvpnow.html',
-  directives: [ROUTER_DIRECTIVES],
+  providers: [RsvpService],
+  directives: [ROUTER_DIRECTIVES,RsvpFormComponent],
+  template: `
+  <h2>Hello World</h2>
+  <rsvp-form></rsvp-form>
+  `,
   pipes: []
 })
 @RouteConfig([
 
-].concat(CliRouteConfig))
+])
 
 export class RsvpnowApp {
-  items: Observable<any[]>;
-  constructor(af: AngularFire) {
-    // create a list at /items
-    this.items = af.list('/items');
-  }
-  defaultMeaning: number = 42;
-
-  meaningOfLife(meaning?: number) {
-    return `The meaning of life is ${meaning || this.defaultMeaning}`;
-  }
+  constructor(private rsvpService:RsvpService){}
 }

@@ -1,0 +1,24 @@
+<div class="container">
+    <h1>Time Form</h1>
+    <form>
+        {{diagnostic}}
+
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" required
+                   [(ngModel)]="model.name" >
+        </div>
+        <div class="form-group">
+            <label for="startTime">Start:</label>
+            <input type="text" class="form-control" required
+                   [(ngModel)]="model.startTime" >
+        </div>
+        <div class="form-group">
+            <label for="endTime">Start:</label>
+            <input type="text" class="form-control" required
+                   [(ngModel)]="model.endTime" >
+        </div>
+
+        <button type="button" class="btn btn-default" (click)="submitReservation()">New Time</button>
+    </form>
+</div>

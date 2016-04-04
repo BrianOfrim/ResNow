@@ -34,10 +34,18 @@
 
   <script>
     System.config({
+      map: {
+        firebase: 'vendor/firebase/lib/firebase-web.js',
+        angularfire2: 'vendor/angularfire2'
+      },
       packages: {
         app: {
           format: 'register',
           defaultExtension: 'js'
+        },
+        angularfire2: {
+          defaultExtension: 'js',
+          main: 'angularfire2.js'
         }
       }
     });
