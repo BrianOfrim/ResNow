@@ -8,16 +8,17 @@ import { Reservation, IReservation } from './core/reservation/reservation';
 
 @Injectable()
 export class RsvpService{
-    rsvpItem$: FirebaseListObservable<IReservation[]>;
+    rsvpItems$: FirebaseListObservable<IReservation[]>;
     constructor(af: AngularFire, @Inject(FirebaseRef) private ref: Firebase){
         const path = `/`;
-        this.rsvpItem$ = af.list(path) as FirebaseListObservable<IReservation[]>;
+        this.rsvpItems$ = af.list(path) as FirebaseListObservable<IReservation[]>;
 
         this.ref = ref.child(path);
 
     }
 
     createRsvp(name:string,startTime:string,endTime:string): Promise<any>{
-        return this.rsvpItem$.add(new Reservation(name,startTime,endTime));
+        return this.rsvpItems$.add(new Reservation(name,startTime,endTime));
     }
+
 }
