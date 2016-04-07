@@ -5,14 +5,16 @@ import {Observable} from 'rxjs/Observable';
 import {RsvpFormComponent} from "./rsvp-form.component"
 import {RsvpService} from "./rsvp.service"
 import {RsvpList} from "./rsvp-list.component"
+import {DatepickerDemo} from "./datepicker.component"
 
 @Component({
   selector: 'rsvpnow-app',
   providers: [RsvpService],
-  directives: [ROUTER_DIRECTIVES,RsvpFormComponent,RsvpList],
+  directives: [ROUTER_DIRECTIVES,RsvpFormComponent,RsvpList,DatepickerDemo],
   template: `
   <h2>Hello World</h2>
   <rsvp-form></rsvp-form>
+  <datepicker-demo></datepicker-demo>
   <rsvp-list [rsvpItems$] = "rsvpService.rsvpItems$"></rsvp-list>
   `,
   pipes: []
