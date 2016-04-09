@@ -1,0 +1,56 @@
+<p>
+  user-enty Works!
+</p>
+
+<style>
+  .full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+  }
+  .partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+  }
+</style>
+
+<div>
+  <pre class="card card-block card-header">Selected date is: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>
+  <h4>Inline</h4>
+  <div style="display:inline-block; min-height:290px;">
+    <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true"></datepicker>
+  </div>
+
+  <hr />
+  <button type="button" class="btn btn-sm btn-info" (click)="today()">Today</button>
+  <button type="button" class="btn btn-sm btn-danger" (click)="clear()">Clear</button>
+  <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="toggleMin()" tooltip="After today restriction">Min date</button>
+</div>
+
+
+<button type="button" class="btn btn-default" (click)= "upHour()">hr up</button>
+<span class="label label-success">{{hour}}</span>
+<button type="button" class="btn btn-default" (click)= "downHour()">hr down</button>
+
+
+<button type="button" class="btn btn-default" (click)= "upMinute()">min up</button>
+<span class="label label-success">{{minute}}</span>
+<button type="button" class="btn btn-default" (click)= "downMinute()">min down</button>
+
+<button type="button" class="btn btn-default" (click)= "meridiemToggle()">{{meridiem}}</button>
+
+
+<div class="input-group">
+  <label for="name">Name:</label>
+  <input type="text" class="form-control" placeholder= "Name..." required [(ngModel)]="name" >
+</div>
+
+<div class="input-group">
+  <label for="notes">Notes:</label>
+  <textarea class="span6" rows="3" placeholder="What's up?" required [(ngModel)]="note"></textarea>
+</div>
+
+<button type="button" class="btn btn-default" (click)= "addReservation()">Add Reservation</button>
+
+

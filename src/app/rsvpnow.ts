@@ -6,16 +6,21 @@ import {RsvpFormComponent} from "./rsvp-form.component"
 import {RsvpService} from "./rsvp.service"
 import {RsvpList} from "./rsvp-list.component"
 import {DatepickerDemo} from "./datepicker.component"
+import {Timepicker } from "./timepicker/timepicker"
+import {UserEntry} from  "./userEntry/userEntry"
+import {ReservationService} from "./core/reservation2/reservation2.service"
 
 @Component({
   selector: 'rsvpnow-app',
-  providers: [RsvpService],
-  directives: [ROUTER_DIRECTIVES,RsvpFormComponent,RsvpList,DatepickerDemo],
+  providers: [RsvpService,ReservationService],
+  directives: [ROUTER_DIRECTIVES,RsvpFormComponent,RsvpList,DatepickerDemo,Timepicker,UserEntry],
   template: `
   <h2>Hello World</h2>
+  <!-- <timepicker></timepicker>
   <rsvp-form></rsvp-form>
   <datepicker-demo></datepicker-demo>
-  <rsvp-list [rsvpItems$] = "rsvpService.rsvpItems$"></rsvp-list>
+  <rsvp-list [rsvpItems$] = "rsvpService.rsvpItems$"></rsvp-list>-->
+  <user-entry></user-entry>
   `,
   pipes: []
 })
@@ -24,5 +29,5 @@ import {DatepickerDemo} from "./datepicker.component"
 ])
 
 export class RsvpnowApp {
-  constructor(private rsvpService:RsvpService){}
+  constructor(private rsvpService:RsvpService,private reservationService: ReservationService){}
 }
