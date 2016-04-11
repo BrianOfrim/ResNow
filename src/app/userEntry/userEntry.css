@@ -1,0 +1,19 @@
+.time {
+    font-size: 90px;
+
+}
+
+.hour{
+    font-size: 100px;
+    color: #00e6e6;
+}
+
+.minute{
+    font-size: 100px;
+    color: #ffbc2b;
+
+}
+
+.colon{
+    font-size: 100px;
+}

@@ -10,7 +10,9 @@ import {Reservation2} from '../core/reservation2/reservation2'
 @Component({
   selector: 'user-entry',
   templateUrl: 'app/userEntry/userEntry.html',
-  directives: [DATEPICKER_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES]
+  styleUrls: ['app/userEntry/userEntry.css'],
+  directives: [DATEPICKER_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES],
+
 })
 
 export class UserEntry {
