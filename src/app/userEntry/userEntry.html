@@ -29,28 +29,30 @@
     <!--<button type="button" class="btn btn-sm btn-default btn-secondary" (click)="toggleMin()" tooltip="After today restriction">Min date</button>-->
     <div class = "col-md-8">
       <div class = "row">
-        <div class = "col-md-10">
+        <div class = "col-md-8" align = "right">
           <span class = "time" >{{hour}}</span>
           <span class = "time">:</span>
           <span class = "time">{{("0" + minute).slice(-2)}}</span>
-          <span class = "time" >{{meridiem}}</span>
+          <span class = "meridiem" (click)= "meridiemToggle()" >{{meridiem}}</span>
         </div>
-        <div class = "col-md-2">
-          <div class = "row">
-            <button type="button" class="btn btn-default btn-md" (click)= "downHour()">
-              <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
-            </button>
-            <button type="button" class="btn btn-default btn-md" (click)= "upHour()">
-              <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
-            </button>
-          </div>
-          <div class = "row">
-              <button type="button" class="btn btn-default btn-md" (click)= "downMinute()">
-                <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+        <div class = "col-md-4 btnGroup">
+          <div class = "controlBtnGroup">
+            <div class = "row">
+              <button type="button" class="btn btn-default btn-lg pop" (click)= "downHour()">
+                <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
               </button>
-              <button type="button" class="btn btn-default btn-md" (click)= "upMinute()">
-                <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+              <button type="button" class="btn btn-default btn-lg pop" (click)= "upHour()">
+                <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
               </button>
+            </div>
+            <div class = "row">
+                <button type="button" class="btn btn-default btn-lg pop" (click)= "downMinute()">
+                  <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-lg pop" (click)= "upMinute()">
+                  <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+                </button>
+            </div>
           </div>
         </div>
       </div>
@@ -72,8 +74,6 @@
       </div>
     </div>
   </div>
-{{hour}}:{{minute}}
-  <span>{{hour}}</span>:<span>{{("0" + minute).slice(-2)}}</span>
   <button type="button" class="btn btn-default" (click)= "addReservation()">Add Reservation</button>
 </div>
 

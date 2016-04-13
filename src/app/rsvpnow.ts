@@ -9,11 +9,13 @@ import {DatepickerDemo} from "./datepicker.component"
 import {Timepicker } from "./timepicker/timepicker"
 import {UserEntry} from  "./userEntry/userEntry"
 import {ReservationService} from "./core/reservation2/reservation2.service"
+import {ResList} from "./res-list/res-list"
+
 
 @Component({
   selector: 'rsvpnow-app',
   providers: [RsvpService,ReservationService],
-  directives: [ROUTER_DIRECTIVES,RsvpFormComponent,RsvpList,DatepickerDemo,Timepicker,UserEntry],
+  directives: [ROUTER_DIRECTIVES,RsvpFormComponent,RsvpList,DatepickerDemo,Timepicker,UserEntry,ResList],
   template: `
   <h2>Hello World</h2>
   <!-- <timepicker></timepicker>
@@ -21,6 +23,7 @@ import {ReservationService} from "./core/reservation2/reservation2.service"
   <datepicker-demo></datepicker-demo>
   <rsvp-list [rsvpItems$] = "rsvpService.rsvpItems$"></rsvp-list>-->
   <user-entry></user-entry>
+  <res-list [resItems$] = "reservationService.reservationItems$"></res-list>
   `,
   pipes: []
 })

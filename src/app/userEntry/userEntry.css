@@ -17,3 +17,26 @@
 .colon{
     font-size: 100px;
 }
+
+.meridiem{
+    font-size: 90px;
+    border-radius: 25px;
+    border: 2px solid black;
+    padding-left: 3px;
+}
+
+.controlBtnGroup{
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+.btn.pop{
+    border: 2px solid black;
+    margin: 1px 1px 1px 1px;
+}
+
+.col-md-4.btnGroup{
+    height: 128px;
+    position: relative;
+}
