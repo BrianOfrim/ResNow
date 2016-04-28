@@ -23,6 +23,11 @@
     border-radius: 25px;
     border: 2px solid black;
     padding-left: 3px;
+    cursor: pointer;
+    cursor: hand;
+}
+.meridiem:hover{
+    background: #eeeeee;
 }
 
 .controlBtnGroup{

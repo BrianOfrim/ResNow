@@ -14,6 +14,7 @@ export class ResItem {
   @Input() reservation: IReservation2;
   itemDate:Date;
   ngOnInit(){
-    this.itemDate = new Date(this.reservation.year,this.reservation.month,this.reservation.day,this.reservation.hour, this.reservation.minute);
+    this.itemDate = new Date(this.reservation.date);
   }
 }
+ 

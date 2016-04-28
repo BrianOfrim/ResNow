@@ -6,33 +6,18 @@ export interface IReservation2{
     //createdAt: number;
     name: string;
     note: string;
-    year: number;
-    month: number;
-    day: number;
-    hour: number;
-    minute: number;
-    meridiem: string;
+    date: string;
 }
 
 export class Reservation2 implements IReservation2{
     //createdAt: Firebase.ServerValue.TIMESTAMP;
     name: string;
     note: string;
-    year: number;
-    month: number;
-    day: number;
-    hour: number;
-    minute: number;
-    meridiem: string;
+    date: string;
 
-    constructor(name:string, note: string, year: number, month: number,day: number,hour: number,minute: number,meridiem: string){
+    constructor(name:string, note: string, date: string){
         this.name = name;
         this.note = note;
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.hour = hour;
-        this.minute = minute;
-        this.meridiem = meridiem;
+        this.date = date;
     }
 }

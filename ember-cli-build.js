@@ -8,7 +8,9 @@ module.exports = function(defaults) {
       'angularfire2/**/*.js',
       'firebase/lib/*.js',
       'ng2-bootstrap/bundles/*.js',
-      'moment/moment.js'
+      'moment/moment.js',
+      'ng2-datetime/src/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js',
+      'ng2-datetime/src/vendor/bootstrap-timepicker/bootstrap-timepicker.min.js'
     ]
   });
   return app.toTree();
