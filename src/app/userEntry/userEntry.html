@@ -24,52 +24,54 @@
     <!--<button type="button" class="btn btn-sm btn-default btn-secondary" (click)="toggleMin()" tooltip="After today restriction">Min date</button>-->
     <div class = "col-md-8">
       <div class = "row">
-        <div class = "col-md-8" align = "right">
+          <div align = "right" class = "col-md-6">
           <span class = "time" >{{hour}}</span>
           <span class = "time">:</span>
           <span class = "time">{{("0" + minute).slice(-2)}}</span>
           <span class = "meridiem" (click)= "meridiemToggle()" >{{meridiem}}</span>
-        </div>
-        <div class = "col-md-4 btnGroup">
-          <div class = "controlBtnGroup">
+          </div>
+          <div class = "col-md-6" style="height:100px">
+            <div class = "controlBtnGroup">
             <div class = "row">
-              <button type="button" class="btn btn-default btn-lg pop" (mousedown)= "downHour()">
+              <button type="button" class="btn btn-default btn-md pop" (mousedown)= "downHour()">
                 <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
               </button>
-              <button type="button" class="btn btn-default btn-lg pop" (click)= "upHour()">
+              <button type="button" class="btn btn-default btn-md pop" (click)= "upHour()">
                 <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
               </button>
             </div>
             <div class = "row">
-                <button type="button" class="btn btn-default btn-lg pop" (click)= "downMinute()">
+                <button type="button" class="btn btn-default btn-md pop" (click)= "downMinute()">
                   <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="btn btn-default btn-lg pop" (click)= "upMinute()">
+                <button type="button" class="btn btn-default btn-md pop" (click)= "upMinute()">
                   <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
                 </button>
             </div>
           </div>
-        </div>
+          </div>
       </div>
       <div class = "row">
-        <div class = "col-md-12">
+        <div class = "col-md-12" style="margin-bottom: 10px">
           <div class="input-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" placeholder= "Name..." required [(ngModel)]="name" >
+            <span class="input-group-addon" id="basic-addon1">Name:</span>
+            <input type="text" class="form-control" aria-describedby="basic-addon1" required [(ngModel)]="name" >
           </div>
         </div>
       </div>
       <div class = "row">
         <div class = "col-md-12">
           <div class="input-group">
-            <label for="notes">Notes:</label>
-            <textarea class="form-control" cols = "60" rows="3" placeholder="Any notes?" required [(ngModel)]="note"></textarea>
+            <span class="input-group-addon" id="basic-addon1">Notes:</span>
+            <textarea class="form-control" cols = "60" rows="3" aria-describedby="basic-addon1" required [(ngModel)]="note"></textarea>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <button type="button" class="btn btn-default" (click)= "addReservation()">Add Reservation</button>
+  <div align = "center" class ="row">
+  <button type="button" class="btn btn-default btn-lg pop" (click)= "addReservation()">Add reservation</button>
+  </div>
 </div>
 
 
