@@ -21,22 +21,6 @@ export class Authentication {
   get id(): string {
     return this.authenticated ? this.authState.uid : '';
   }
-  signInWithGithub(): Promise<FirebaseAuthState> {
-    return this.auth$.login({
-      provider: AuthProviders.Github
-    });
-  }
-  signInWithGoogle(): Promise<FirebaseAuthState> {
-    return this.auth$.login({
-      provider: AuthProviders.Google
-    });
-  }
-  
-  signInWithTwitter(): Promise<FirebaseAuthState> {
-    return this.auth$.login({
-      provider: AuthProviders.Twitter
-    });
-  }
 
   signOut(): void {
     this.auth$.logout();

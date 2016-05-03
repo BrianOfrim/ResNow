@@ -4,7 +4,7 @@ import { RsvpnowApp } from '../rsvpnow';
 import {SignIn} from '../signIn/signIn';
 
 @RouteConfig([
-  {path: '/sign-in', name: 'SignIn', component: SignIn,useAsDefault: true},
+  {path: '/', name: 'SignIn', component: SignIn,useAsDefault: true},
   {path: '/rsvp-now', name: 'RsvpNow', component: RsvpnowApp}
 ])
 

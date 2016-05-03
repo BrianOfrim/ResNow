@@ -3,10 +3,11 @@ import { bootstrap } from 'angular2/platform/browser';
 import { APP_BASE_HREF, ROUTER_PROVIDERS } from 'angular2/router';
 import {Landing} from './app/landing/landing';
 import {FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig,AuthMethods,AuthProviders} from 'angularfire2';
-
+import {Authentication} from './app/authentication/authentication';
 bootstrap(Landing, [
     FIREBASE_PROVIDERS,
     defaultFirebase('https://rsvpnow.firebaseio.com/'),
+    Authentication,
     firebaseAuthConfig({
       method: AuthMethods.Popup,
       provider: AuthProviders.Github,
