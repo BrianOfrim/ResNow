@@ -22,6 +22,11 @@ export class Authentication {
     return this.authenticated ? this.authState.uid : '';
   }
 
+  signInGithub(): Promise<FirebaseAuthState>{
+    return this.auth$.login({
+      provider: AuthProviders.Github
+    });
+  }
   signOut(): void {
     this.auth$.logout();
   }

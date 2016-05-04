@@ -1,7 +1,8 @@
 
 import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+import {RouteConfig, ROUTER_DIRECTIVES,Router} from 'angular2/router';
 import {AngularFire,FirebaseAuth} from 'angularfire2';
+import {Authentication} from '../authentication/authentication';
  
 @Component({
   selector: 'sign-in',
@@ -12,7 +13,7 @@ import {AngularFire,FirebaseAuth} from 'angularfire2';
       <button (click) = "af.auth.logout() "> Log out</button>
     </span>
     <span *ngIf="!(af.auth | async)">
-      <button (click)= "af.auth.login()"> Log in </button>
+      <button (click)= "startlogin()"> Log in </button>
     </span>
   </div>
   `,
@@ -22,10 +23,15 @@ import {AngularFire,FirebaseAuth} from 'angularfire2';
 })
 
 export class SignIn{
-  constructor(public af:AngularFire,private _auth: FirebaseAuth){}
+  constructor(public af:AngularFire, private auth: Authentication,private router:Router){}
+  
+ 
   startlogin():void{
-   this._auth.login(); 
+    this.auth.signInGithub().then(()=>this.postSignIn());
   }  
   
+  private postSignIn() :void{
+    this.router.navigate(['RsvpNow'])
+  }
   
 }
