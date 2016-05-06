@@ -1,3 +1,38 @@
-<p>
-  sign-in Works!
-</p>
+<div classs="container">
+  <div class="row">
+    <span *ngIf="af.auth | async">
+        Logged in as {{ (af.auth | async).github.username }}
+        <button (click) = "af.auth.logout()"> Log out</button>
+      </span>
+    <span *ngIf="!(af.auth | async)">
+      <h2 style = "text-align:center">Sign in with</h2>
+      <div class = "row">
+        <div class = "sign-in-row">
+          <button  type="button" class="btn btn-lg sign-in-btn" (click)= "startGoogleLogin()">
+            <span>Google  </span><img src="app/images/google-login.png">
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="sign-in-row">
+          <button type="button" class="btn btn-lg sign-in-btn" (click)="startFacebookLogin()">
+            <span>Facbook  </span><img src = "app/images/facebook-login.png">
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="sign-in-row">
+          <button type="button" class="btn btn-lg sign-in-btn" (click)="startTwitterLogin()">
+            <span>Twitter  </span><img src = "app/images/twitter-login.png">
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="sign-in-row">
+          <button type="button" class="btn btn-lg sign-in-btn" (click)="startGithubLogin()">
+            <span>Github  </span><img src = "app/images/GitHub-Mark-32px.png">
+          </button>
+        </div>
+      </div>
+  </span>
+</div>

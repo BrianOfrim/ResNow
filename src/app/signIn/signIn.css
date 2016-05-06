@@ -1,0 +1,10 @@
+.sign-in-row{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.sign-in-btn{
+    border: solid 1.5px #222;
+    color: #222;
+    width: 200px;
+}

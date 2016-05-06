@@ -21,10 +21,24 @@ export class Authentication {
   get id(): string {
     return this.authenticated ? this.authState.uid : '';
   }
-
   signInGithub(): Promise<FirebaseAuthState>{
     return this.auth$.login({
       provider: AuthProviders.Github
+    });
+  }
+  signInFacebook(): Promise<FirebaseAuthState>{
+    return this.auth$.login({
+      provider:AuthProviders.Facebook
+    });
+  }
+ signInTwitter(): Promise<FirebaseAuthState>{
+    return this.auth$.login({
+      provider:AuthProviders.Twitter
+    });
+  }
+  signInGoogle(): Promise<FirebaseAuthState>{
+    return this.auth$.login({
+      provider:AuthProviders.Google
     });
   }
   signOut(): void {

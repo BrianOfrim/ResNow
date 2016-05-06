@@ -1,10 +1,18 @@
 .jumbotron{
     padding-top: 0px;
     padding-bottom: 0px;
+    margin-bottom: 0px;
     color: wheat;
     background-color: #45546F;
 }
 
 .navbar{
     margin-bottom: 0px;
+}
+
+.navbar-btn{
+    color:#9d9d9d;
+    border: solid 1.5px #9d9d9d;
+    background-color: #222;
+    margin-right: 0px;
 }
