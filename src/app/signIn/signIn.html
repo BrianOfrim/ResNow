@@ -1,9 +1,21 @@
 <div classs="container">
   <div class="row">
     <span *ngIf="af.auth | async">
-        Logged in as {{ (af.auth | async).github.username }}
-        <button (click) = "af.auth.logout()"> Log out</button>
-      </span>
+      <div class = "row">
+        <div class = "sign-in-row">
+          <button  type="button" class="btn btn-lg sign-in-btn" (click)= "goToEvents()">
+            <span>Go to events</span>
+          </button>
+        </div>
+      </div>        
+      <div class = "row">
+        <div class = "sign-in-row">
+          <button  type="button" class="btn btn-lg sign-in-btn" (click)= "signOut()">
+            <span>Sign out</span>
+          </button>
+        </div>
+      </div>         
+    </span>
     <span *ngIf="!(af.auth | async)">
       <h2 style = "text-align:center">Sign in with</h2>
       <div class = "row">

@@ -29,6 +29,12 @@ export class SignIn{
   startTwitterLogin():void{
     this.auth.signInTwitter().then(()=>this.postSignIn());
   } 
+  signOut():void{
+    this.auth.signOut();
+  }
+  goToEvents():void{
+    this.router.navigate(['RsvpNow'])
+  }
   
   private postSignIn() :void{
     this.router.navigate(['RsvpNow'])

@@ -3,8 +3,10 @@ import { AuthProviders, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
 
 @Injectable()
 export class Authentication {
-  private authState: FirebaseAuthState;
+  private authState: FirebaseAuthData|FirebaseAuthState;
+  public username: String;
   constructor(public auth$: FirebaseAuth) {
+    // this.authState = auth$.getAuth();
     auth$.subscribe((state: FirebaseAuthState) => {
       this.authState = state;
     });
@@ -21,6 +23,10 @@ export class Authentication {
   get id(): string {
     return this.authenticated ? this.authState.uid : '';
   }
+  get userName():Promise<String>{ 
+    return this.authState.google.username
+  } 
+  
   signInGithub(): Promise<FirebaseAuthState>{
     return this.auth$.login({
       provider: AuthProviders.Github
@@ -40,6 +46,9 @@ export class Authentication {
     return this.auth$.login({
       provider:AuthProviders.Google
     });
+  }
+  setUsername():void{
+    
   }
   signOut(): void {
     this.auth$.logout();
