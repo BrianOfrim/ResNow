@@ -4,7 +4,10 @@
     <div class = "col-md-12">
       <div class = "row">
         <div class = "col-md-12">
-          <span>{{itemDate | date:'medium'}}</span>
+          <span>{{startDate | date:'medium'}}</span>
+        </div>
+        <div class = "col-md-12">
+          <span>{{endDate | date:'medium'}}</span>
         </div>
       </div>
       <div class = "row">
@@ -13,9 +16,13 @@
         </div>
       </div>
       <div class = "row">
-        <div class = "col-md-12">
+        <div class = "col-md-6">
           <span>{{reservation.note}}</span>
         </div>
+        <div class = "col-md-6">
+          <button class="btn btn-default" type="submit" (click)="remove.emit()">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          </button>
       </div>
     </div>
   </div>   

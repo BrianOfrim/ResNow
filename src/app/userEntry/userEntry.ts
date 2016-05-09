@@ -6,13 +6,13 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {DATEPICKER_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {ReservationService} from '../core/reservation2/reservation2.service';
 import {Reservation2} from '../core/reservation2/reservation2'
-import {DatePicker,Timepicker} from "ng2-bootstrap/ng2-bootstrap";
+import {DatePicker,Timepicker,Alert} from "ng2-bootstrap/ng2-bootstrap";
 import {AngularFire} from 'angularfire2';
 @Component({
   selector: 'user-entry',
   templateUrl: 'app/userEntry/userEntry.html',
   styleUrls: ['app/userEntry/userEntry.css'],
-  directives: [DATEPICKER_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES,Timepicker],
+  directives: [DATEPICKER_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES,Timepicker,Alert],
 
 })
 
@@ -21,14 +21,16 @@ export class UserEntry {
   name:string;
   note:string;
   public dt:Date;
+  public startDt:Date;
+  public endDt:Date;
   public minDate:Date = void 0;
   public todayDate:Date;
   public hstep: number;
   public mstep:number;
-  public ismeridian:Boolean;
-  private opened:boolean = false;
   public timeDate:Date;
-
+  public editingStart:boolean;
+  public editingEnd:boolean; // start vs end
+  private invalidEnd:boolean;
   constructor(private reservationService :ReservationService,public af:AngularFire) {}
 
   ngOnInit() {
@@ -39,25 +41,67 @@ export class UserEntry {
     this.timeDate = new Date()
     this.timeDate.setHours(12);
     this.timeDate.setMinutes(0);
+    this.timeDate.setSeconds(0);
+    this.timeDate.setMilliseconds(0);
     this.name = "";
     this.note = "";
+    this.editingStart = false;
+    this.editingEnd = false;
     this.dt = new Date();
-  }
-  public toggleMode():void {
-    this.ismeridian = !this.ismeridian;
-  };
-  public disabled(date:Date, mode:string):boolean {
-    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    this.startDt = this.dt;
+    this.endDt = this.dt;
+    this.startDt.setHours(this.timeDate.getHours());
+    this.startDt.setMinutes(this.timeDate.getMinutes());
+    this.startDt.setSeconds(this.timeDate.getSeconds());
+    this.endDt.setMilliseconds(this.timeDate.getMilliseconds());
+    this.endDt.setHours(this.timeDate.getHours());
+    this.endDt.setMinutes(this.timeDate.getMinutes());
+    this.endDt.setSeconds(this.timeDate.getSeconds());
+    this.endDt.setMilliseconds(this.timeDate.getMilliseconds());
+    this.invalidEnd = false;
   }
 
-  public open():void {
-    this.opened = !this.opened;
+  public editStart():void{
+    this.editingStart = true;
+    this.editingEnd = false;
+    console.log("setting stat " + this.editingStart);
+    
   }
-
+  public editEnd():void{
+    this.editingEnd = true;
+    this.editingStart = false;
+  }
+  
+  public setEnd(){
+    this.endDt = this.dt;
+    this.endDt.setHours(this.timeDate.getHours());
+    this.endDt.setMinutes(this.timeDate.getMinutes()); 
+    console.log(this.endDt);     
+    this.editingEnd = false;  
+  }
+  
+  public setStart(){
+    this.startDt = this.dt;
+    this.startDt.setHours(this.timeDate.getHours());
+    this.startDt.setMinutes(this.timeDate.getMinutes());
+    console.log(this.startDt);
+    this.editingStart = false;
+  }
+  
+  public setDateClasses(){
+   var classes =  {
+      startSelect: this.editingStart,
+      endSelect: this.editingEnd,
+    }
+    return classes
+  }
   
   addReservation(): void{
-    let dateToSend:Date = new Date(this.dt.getFullYear(),this.dt.getMonth(),this.dt.getDate(),
-this.timeDate.getHours(),this.timeDate.getMinutes());
-    this.reservationService.createReservation(new Reservation2(this.name,this.note,dateToSend.toJSON()));
+    if(this.startDt.getTime() > this.endDt.getTime()){
+      this.invalidEnd = true;
+    } else{
+      this.reservationService.createReservation(new Reservation2(this.name,this.note,this.startDt.toJSON(),this.endDt.toJSON()));
+      this.invalidEnd = false;
+    }
   }
 }

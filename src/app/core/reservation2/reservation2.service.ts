@@ -11,13 +11,14 @@ export class ReservationService{
         af.auth.subscribe((state: FirebaseAuthState) => {
             this.authState = state;
         });
-        const path = '/' + auth.id;
-        this.reservationItems$ = af.list(path) as FirebaseListObservable<IReservation2[]>;
-
-        this.ref = ref.child(path);
-
+        this.reservationItems$ = af.list(`events/${auth.id}`) as FirebaseListObservable<IReservation2[]>;
     }
     createReservation(reservation: Reservation2): Promise<any>{
         return this.reservationItems$.add(reservation);
+    }
+    
+    removeReservation(reservation: IReservation2): Promise<any>{
+        console.log("Item deleted" + reservation.$key)
+        return this.reservationItems$.remove(reservation.$key);
     }
 }

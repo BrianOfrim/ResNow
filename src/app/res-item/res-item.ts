@@ -12,9 +12,12 @@ import {Reservation2,IReservation2} from '../core/reservation2/reservation2'
 })
 export class ResItem {
   @Input() reservation: IReservation2;
-  itemDate:Date;
+  @Output() remove: EventEmitter<any> = new EventEmitter(false);
+  startDate:Date;
+  endDate:Date;
   ngOnInit(){
-    this.itemDate = new Date(this.reservation.date);
+    this.startDate = new Date(this.reservation.startDate);
+    this.endDate =  new Date(this.reservation.endDate);
   }
 }
  

@@ -1,50 +1,99 @@
-<style>
-  .full button span {
-    background-color: limegreen;
-    border-radius: 32px;
-    color: black;
-  }
-  .partially button span {
-    background-color: orange;
-    border-radius: 32px;
-    color: black;
-  }
-</style>
 <div class = "container">
   <div class = "row">
     <!--<pre class="card card-block card-header">Selected date is: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>-->
     <div class = "col-md-4">
-      <div style="display:inline-block; min-height:290px;">
+      <div [ngClass] = "{startSelect: editingStart, endSelect: editingEnd}" style="display:inline-block;">
         <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true"></datepicker>
       </div>
     </div>
     <div class = "col-md-8">
       <div class = "row">
-        <div class = "col-md-4">
+        <div class = "col-md-6">
           <timepicker [(ngModel)]="timeDate" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian"></timepicker>
         </div>
-        <div class = "col-md-8" style = "height:102px">
+        <div class = "col-md-6" style = "height:102px">
             <div class="input-group nameEntry">
               <span class="input-group-addon" id="basic-addon1">Name:</span>
               <input type="text" class="form-control" aria-describedby="basic-addon1" required [(ngModel)]="name">
           </div>
-
         </div>
       </div>
       <div class = "row">
-        <div class = "col-md-12">
-          <div class="input-group">
-            <span class="input-group-addon" id="basic-addon1">Notes:</span>
-            <textarea class="form-control" cols = "60" rows="3" aria-describedby="basic-addon1" required [(ngModel)]="note"></textarea>
+        <div class = "col-md-6">
+          <div class ="row">
+            <div class ="col-md-12">
+              <div class = "panel panel-default">
+                <div class = "panel-body">
+                  <div class = "row">
+                    <div class = "col-md-7">
+                      <div class = "row">
+                        <div class = "col-md-12">
+                          <span>Start date:</span>
+                        </div>
+                      </div>
+                      <div class = "row">
+                        <div class = "col-md-12">
+                          <span>{{startDt | date:'yMMMdjm'}}</span> 
+                        </div>
+                      </div>
+                    </div>
+                    <div class = "col-md-5">                    
+                      <button type="button" class="btn btn-default btn-md" (click) = "editStart()">Edit</button>
+                      <button type="button" class="btn btn-default btn-md" (click) = "setStart()" *ngIf = "editingStart">Set</button>                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class ="row">
+            <div class ="col-md-12">
+              <div class = "panel panel-default">
+                <div class = "panel-body">
+                  <div class = "row">
+                    <div class = "col-md-7">
+                      <div class = "row">
+                        <div class = "col-md-12">
+                          <span>End date:</span>
+                        </div>
+                      </div>
+                      <div class = "row">
+                        <div class = "col-md-12">
+                          <span>{{endDt | date:'yMMMdjm'}}</span> 
+                        </div>
+                      </div>
+                    </div>
+                    <div class = "col-md-5">
+                      <button type="button" class="btn btn-default btn-md" (click) = "editEnd()">Edit</button>
+                      <button type="button" class="btn btn-default btn-md" (click) = "setEnd()" *ngIf = "editingEnd">Set</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class = "col-md-6">
+          <div class = "row">
+            <div class = "col-md-12">
+              <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Notes:</span>
+                <textarea class="form-control" cols = "60" rows="3" aria-describedby="basic-addon1" required [(ngModel)]="note"></textarea>
+              </div>
+            </div>
+            <div class = "col-md-12">
+              <div align="center" class="row">
+                <button type="button" style = "margin-top:12.5px"class="btn btn-default btn-lg pop" (click)="addReservation()">Add reservation</button>
+              </div>              
+            </div>
           </div>
         </div>
       </div>
-        <div align="center" class="row">
-          <button type="button" style = "margin-top:12.5px"class="btn btn-default btn-lg pop" (click)="addReservation()">Add reservation</button>
-        </div>
     </div>
   </div>
-
+  <alert *ngIf = "invalidEnd" type = "danger">
+    Start date must be before the end date.
+  </alert>
 </div>
 
 

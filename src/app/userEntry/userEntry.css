@@ -40,11 +40,10 @@
 .btn.pop{
     border: 2px solid black;
     margin: 1px 1px 1px 1px;
-    background-color:#EEEEEE;
 }
-.btn.pop:hover{
+/*.btn.pop:hover{
     background: white; 
-}
+}*/
 
 .col-md-4.btnGroup{
     position: relative;
@@ -56,6 +55,27 @@
   transform: translateY(-50%);
 }
 
+.startSelect{
+    border: solid 2px #ffbc2b;
+    color: #ffbc2b;
+}
 
+.endSelect{
+    border: solid 2px #00e6e6;
+    color: #00e6e6;
+}
 
+.full button span {
+background-color: limegreen;
+border-radius: 32px;
+color: black;
+}
+.partially button span {
+background-color: orange;
+border-radius: 32px;
+color: black;
+}
+.well{
+    margin-bottom: 0px !important;
+}
 

@@ -15,6 +15,7 @@ import { ResItem } from '../res-item/res-item';
 })
 export class ResList {
   @Input() resItems$: FirebaseListObservable<IReservation2[]>;
+  @Output() remove: EventEmitter<IReservation2> = new EventEmitter(false);
   constructor() {}
 
 }

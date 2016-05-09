@@ -5,6 +5,9 @@
 </style>
 <div class = "mainView">
 <user-entry></user-entry>
-<res-list [resItems$] = "reservationService.reservationItems$"></res-list>
+<res-list 
+    [resItems$] = "reservationService.reservationItems$" 
+    (remove)= "reservationService.removeReservation($event)">
+</res-list>
 </div>
  

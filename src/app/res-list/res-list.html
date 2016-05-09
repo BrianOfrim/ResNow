@@ -1,3 +1,6 @@
-<div>
-  <res-item *ngFor = "#reservation of resItems$ | async" [reservation] = "reservation"></res-item>
+<div class = "container">
+  <res-item 
+  *ngFor = "#reservation of resItems$ | async" 
+  [reservation] = "reservation" 
+  (remove) = "remove.emit(reservation)"></res-item>
 </div>
