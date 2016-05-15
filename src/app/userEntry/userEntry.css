@@ -65,6 +65,22 @@
     color: #00e6e6;
 }
 
+.startEditBtn{
+    border: solid 2px #ffbc2b;
+}
+
+.startEditBtn:hover{
+    border: solid 2px #ffbc2b;
+}
+
+.endEditBtn{
+    border: solid 2px #00e6e6;
+}
+
+.endEditBtn:hover{
+    border: solid 2px #00e6e6;
+}
+
 .full button span {
 background-color: limegreen;
 border-radius: 32px;
@@ -75,7 +91,7 @@ background-color: orange;
 border-radius: 32px;
 color: black;
 }
-.well{
-    margin-bottom: 0px !important;
+.well well-sm bg-faded p-a card{
+    margin-bottom: 0px;
 }
 
