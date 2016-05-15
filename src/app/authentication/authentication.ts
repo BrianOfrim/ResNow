@@ -1,4 +1,4 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import { AuthProviders, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
 
 @Injectable()
@@ -6,7 +6,8 @@ export class Authentication {
   private authState: FirebaseAuthData|FirebaseAuthState;
   public username: String;
   constructor(public auth$: FirebaseAuth) {
-    // this.authState = auth$.getAuth();
+    this.authState = auth$.getAuth();
+  
     auth$.subscribe((state: FirebaseAuthState) => {
       this.authState = state;
     });

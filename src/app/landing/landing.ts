@@ -1,5 +1,5 @@
-import {Component} from 'angular2/core';
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS,Router} from 'angular2/router';
+import {Component} from '@angular/core';
+import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS,Router} from '@angular/router-deprecated';
 import { RsvpnowApp } from '../rsvpnow';
 import {SignIn} from '../signIn/signIn';
 import {AngularFire,FirebaseAuth} from 'angularfire2';

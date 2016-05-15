@@ -1,18 +1,19 @@
 /**
  * Created by brianofrim on 2016-04-06.
  */
-import {Component,OnInit,AfterViewInit,AfterViewChecked,AfterContentInit} from 'angular2/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
-import {DATEPICKER_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
+import {Component,OnInit,AfterViewInit,AfterViewChecked,AfterContentInit} from '@angular/core';
+import {CORE_DIRECTIVES, FORM_DIRECTIVES} from '@angular/common';
+//import {DATEPICKER_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {ReservationService} from '../core/reservation2/reservation2.service';
-import {Reservation2} from '../core/reservation2/reservation2'
-import {DatePicker,Timepicker,Alert} from "ng2-bootstrap/ng2-bootstrap";
+import {Reservation2} from '../core/reservation2/reservation2';
+//import {DatePicker,Timepicker,Alert} from "ng2-bootstrap/ng2-bootstrap";
+import {DATEPICKER_DIRECTIVES,TimepickerComponent} from 'ng2-bootstrap/ng2-bootstrap';
 import {AngularFire} from 'angularfire2';
 @Component({
   selector: 'user-entry',
   templateUrl: 'app/userEntry/userEntry.html',
   styleUrls: ['app/userEntry/userEntry.css'],
-  directives: [DATEPICKER_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES,Timepicker,Alert],
+  directives: [DATEPICKER_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES,TimepickerComponent],
 
 })
 

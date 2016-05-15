@@ -1,6 +1,6 @@
 
-import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES,Router} from 'angular2/router';
+import {Component} from '@angular/core';
+import {RouteConfig, ROUTER_DIRECTIVES,Router} from '@angular/router-deprecated';
 import {AngularFire,FirebaseAuth} from 'angularfire2';
 import {Authentication} from '../authentication/authentication';
  
