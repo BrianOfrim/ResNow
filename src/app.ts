@@ -13,8 +13,7 @@ bootstrap(Landing, [
     Authentication,
     firebaseAuthConfig({
       method: AuthMethods.Popup,
-      provider: AuthProviders.Github,
-      scope: ['email'] 
+      provider: AuthProviders.Github
     }),
     ROUTER_PROVIDERS
 ]);

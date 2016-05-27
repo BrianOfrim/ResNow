@@ -1,0 +1,15 @@
+<style>
+.mainView{
+    background-color: #DDDDDD;
+}
+</style>
+<div class = "mainView">
+    <div class = "container">
+        <user-entry></user-entry>
+        <res-list 
+            [resItems$] = "reservationService.reservationItems$" 
+            (remove)= "reservationService.removeReservation($event)">
+        </res-list>
+        <p-schedule [events]="events"></p-schedule>
+    </div>
+</div> 

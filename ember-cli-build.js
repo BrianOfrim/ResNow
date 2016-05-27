@@ -29,7 +29,16 @@ module.exports = function(defaults) {
       '@angular/platform-browser/**/*.js',
       '@angular/platform-browser-dynamic/**/*.js',
       'reflect-metadata/Reflect.js',
-      'zone.js/dist/*.js'
+      'zone.js/dist/*.js',
+      'bootstrap/dist/css/bootstrap.css',
+      'bootstrap/dist/fonts/*',
+      'primeui/primeui-ng-all.min.js',
+      'primeui/primeui/primeui-ng-all.min.css',
+      'primeui/themes/delta/theme.css',
+      'primeng/primeng.js',
+      'primeng/components/**/*.js',
+      'fullcalendar/dist/*.js',
+      'fullcalendar/dist/*.css'
     ]
   });
   return app.toTree();

@@ -6,21 +6,21 @@ export interface IReservation2{
     //createdAt: number;
     name: string;
     note: string;
-    startDate: string;
-    endDate:string;
+    start: string;
+    end:string;
 }
 
 export class Reservation2 implements IReservation2{
     //createdAt: Firebase.ServerValue.TIMESTAMP;
     name: string;
     note: string;
-    startDate: string;
-    endDate:string;
+    start: string; 
+    end:string;
 
-    constructor(name:string, note: string, startDate: string, endDate: string){
+    constructor(name:string, note: string, start: string, end: string){
         this.name = name;
         this.note = note;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.start = start;
+        this.end = end;
     }
 }

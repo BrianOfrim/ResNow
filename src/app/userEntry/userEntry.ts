@@ -98,11 +98,15 @@ export class UserEntry {
   }
   
   addReservation(): void{
+    let newRes = new Reservation2(this.name,this.note,this.startDt.toJSON(),this.endDt.toJSON());
     if(this.startDt.getTime() > this.endDt.getTime()){
       this.invalidEnd = true;
-    } else{
-      this.reservationService.createReservation(new Reservation2(this.name,this.note,this.startDt.toJSON(),this.endDt.toJSON()));
-      this.invalidEnd = false;
+    }
+    //else if(this.reservationService.hasDateCollision(newRes)){
+    //   this.invalidEnd = true;
+    //   console.log("Collision Detected");
+    else{
+      this.reservationService.createReservation(newRes);
     }
   }
 }

@@ -33,11 +33,11 @@ export class SignIn{
     this.auth.signOut();
   }
   goToEvents():void{
-    this.router.navigate(['RsvpNow'])
+    this.router.navigate(['ResMain'])
   }
   
   private postSignIn() :void{
-    this.router.navigate(['RsvpNow'])
+    this.router.navigate(['ResMain'])
   }
   
 }

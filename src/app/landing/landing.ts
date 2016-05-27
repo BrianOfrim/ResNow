@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS,Router} from '@angular/router-deprecated';
-import { RsvpnowApp } from '../rsvpnow';
+import { ResMain } from '../res-main/res-main';
 import {SignIn} from '../signIn/signIn';
 import {AngularFire,FirebaseAuth} from 'angularfire2';
 
 @RouteConfig([
   {path: '/', name: 'SignIn', component: SignIn,useAsDefault: true},
-  {path: '/rsvp-now', name: 'RsvpNow', component: RsvpnowApp}
+  {path: '/rsvp-main', name: 'ResMain', component: ResMain}
 ])
 
 
@@ -19,7 +19,6 @@ import {AngularFire,FirebaseAuth} from 'angularfire2';
   pipes: []
 })
 export class Landing {
-
   constructor(public af:AngularFire,private router: Router) {}
   
    signOut(): void {
