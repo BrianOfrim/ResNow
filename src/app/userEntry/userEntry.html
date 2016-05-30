@@ -2,7 +2,7 @@
   <div class = "row">
     <!--<pre class="card card-block card-header">Selected date is: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>-->
     <div class = "col-md-4">
-      <div [ngClass] = "{startSelect: editingStart, endSelect: editingEnd}" style="display:inline-block;">
+      <div class = "defaultDatePicker" [ngClass] = "{startSelect: editingStart, endSelect: editingEnd}" style="display:inline-block;">
         <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true"></datepicker>
       </div>
     </div>
@@ -11,11 +11,24 @@
         <div class = "col-md-6">
           <timepicker [(ngModel)]="timeDate" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian"></timepicker>
         </div>
-        <div class = "col-md-6" style = "height:102px">
-            <div class="input-group nameEntry">
-              <span class="input-group-addon" id="basic-addon1">Name:</span>
-              <input type="text" class="form-control" aria-describedby="basic-addon1" required [(ngModel)]="name">
+        <div class = "col-md-6">
+          <div class = "row">
+            <div class = "col-xs-12">
+              <div class="input-group single-line-input">
+                  <span class="input-group-addon" id="basic-addon1">Title:</span>
+                  <input type="text" class="form-control" aria-describedby="basic-addon1" required [(ngModel)]="title">
+              </div>
+            </div>
           </div>
+          <div class = "row">
+            <div class = "col-xs-12">
+              <div class="input-group single-line-input">
+                  <span class="input-group-addon" id="basic-addon1">Name:</span>
+                  <input type="text" class="form-control" aria-describedby="basic-addon1" required [(ngModel)]="name">
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
         </div>
       </div>
       <div class = "row">
@@ -54,7 +67,7 @@
                     <div class = "col-md-7">
                       <div class = "row">
                         <div class = "col-md-12">
-                          <span>End date:</span>
+                          <span>End date (Optional):</span>
                         </div>
                       </div>
                       <div class = "row">
@@ -83,7 +96,7 @@
             </div>
             <div class = "col-md-12">
               <div align="center" class="row">
-                <button type="button" style = "margin-top:12.5px"class="btn btn-default btn-lg pop" (click)="addReservation()">Add reservation</button>
+                <button type="button" style = "margin-top:12.5px"class="btn btn-default btn-lg pop" (click)="addReservation()">Create reservation</button>
               </div>              
             </div>
           </div>

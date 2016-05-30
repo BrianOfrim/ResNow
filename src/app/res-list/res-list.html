@@ -1,6 +1,9 @@
-<div class = "container">
-  <res-item 
-  *ngFor = "let reservation of resItems$ | async" 
-  [reservation] = "reservation" 
-  (remove) = "remove.emit(reservation)"></res-item>
+<div class = "row">
+  <div class = "col-xs-12">
+    <res-item 
+    *ngFor = "let reservation of resItems$ | async" 
+    [reservation] = "reservation" 
+    (remove) = "remove.emit(reservation)">
+    </res-item>
+  </div>
 </div>

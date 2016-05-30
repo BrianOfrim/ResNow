@@ -33,12 +33,13 @@ module.exports = function(defaults) {
       'bootstrap/dist/css/bootstrap.css',
       'bootstrap/dist/fonts/*',
       'primeui/primeui-ng-all.min.js',
-      'primeui/primeui/primeui-ng-all.min.css',
-      'primeui/themes/delta/theme.css',
+      'primeui/primeui-ng-all.min.css',
+      'primeui/themes/delta/**',
       'primeng/primeng.js',
       'primeng/components/**/*.js',
       'fullcalendar/dist/*.js',
-      'fullcalendar/dist/*.css'
+      'fullcalendar/dist/*.css',
+      'angular2-modal/**'
     ]
   });
   return app.toTree();

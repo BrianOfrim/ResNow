@@ -59,7 +59,8 @@
         angularfire2: 'vendor/angularfire2',
         moment: 'vendor/moment/moment.js',
         '@angular': 'vendor/@angular',
-        primeng: 'vendor/primeng'
+        primeng: 'vendor/primeng',
+        'angular2-modal':'vendor/angular2-modal'
    }
    var packageNameObj = [
      "@angular/core",
@@ -67,7 +68,14 @@
      "@angular/router-deprecated",
      "@angular/platform-browser-dynamic",
      "@angular/platform-browser",
-     "@angular/compiler"
+     "@angular/compiler",
+     "angular2-modal/platform-browser",
+     "angular2-modal/plugins/bootstrap"
+    //  "angular2-modal/angular2-modal",
+    //  "angular2-modal/models/modal-open-context",
+    //  "angular2-modal/providers/modal",
+    //  "angular2-modal/framework/utils", 
+    //  "angular2-modal/framework/fluent-assign" 
    ]
    
    var packageObj = {
@@ -79,7 +87,8 @@
           defaultExtension: 'js',
           main: 'angularfire2.js'
         },
-        primeng : {defaultExtension: 'js'}
+        primeng : {defaultExtension: 'js'},
+        'angular2-modal' : {defaultExtension: 'js'}
       };
       
       packageNameObj.forEach(function(packName){

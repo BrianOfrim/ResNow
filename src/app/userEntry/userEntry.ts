@@ -18,7 +18,7 @@ import {AngularFire} from 'angularfire2';
 })
 
 export class UserEntry {
-  
+  title:string;
   name:string;
   note:string;
   public dt:Date;
@@ -44,6 +44,7 @@ export class UserEntry {
     this.timeDate.setMinutes(0);
     this.timeDate.setSeconds(0);
     this.timeDate.setMilliseconds(0);
+    this.title = "";
     this.name = "";
     this.note = "";
     this.editingStart = false;
@@ -98,15 +99,12 @@ export class UserEntry {
   }
   
   addReservation(): void{
-    let newRes = new Reservation2(this.name,this.note,this.startDt.toJSON(),this.endDt.toJSON());
+    let newRes = new Reservation2(this.title,this.name,this.note,this.startDt.toISOString(),this.endDt.toISOString());
     if(this.startDt.getTime() > this.endDt.getTime()){
       this.invalidEnd = true;
-    }
-    //else if(this.reservationService.hasDateCollision(newRes)){
-    //   this.invalidEnd = true;
-    //   console.log("Collision Detected");
-    else{
+    }else{
       this.reservationService.createReservation(newRes);
+      console.log()
     }
   }
 }
