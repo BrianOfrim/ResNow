@@ -27,16 +27,48 @@
             <div class = "panel-body">
                 <res-list 
                     [resItems$] = "reservationService.reservationItems$" 
-                    (remove)= "reservationService.removeReservation($event)" *ngIf="listMode">
+                    (remove)= "reservationService.removeReservation($event)"
+                    (toDisplay)= "updateExisting($event)" *ngIf="listMode">
                 </res-list>
-                <p-schedule [events]="events" [editable]="true" 
-                (onDayClick) = "handleDayClick($event)" 
-                (onEventClick) = "showDetailModal($event)"
-                [locale]="{timeFormat:'h:mmt'}"
-                [header]="headerConfig" *ngIf="calendarMode">    
-                </p-schedule>
-                <p-dialog></p-dialog>
+                <!--<res-calendar *ngIf="calendarMode"></res-calendar>-->
             </div>
         </div>
     </div>
 </div> 
+<res-display></res-display>
+<!--<button type="button" class="btn btn-default" (click)="openModal()">Open Modal</button>
+
+    <modal [animation]="true" [keyboard]="true" [backdrop]="true" (onClose)="closed()" (onDismiss)="dismissed()"
+        (onOpen)="opened()" #modal>
+        <form #modalForm="ngForm">
+            <modal-header [show-close]="true">
+                <h4 class="modal-title">Crete Reservation</h4>
+            </modal-header>
+            <modal-body>
+                <div class="form-group">
+                    <label for="Title">Title</label>
+                    <input type="text" class="form-control" required [(ngModel)]="reservation.title" ngControl="Title" #lastName="ngForm">
+                </div>
+                <div class="form-group">
+                    <label for="Name">Name</label>
+                    <input type="text" class="form-control" required [(ngModel)]="reservation.name" ngControl="Name" #firstName="ngForm">
+                </div>
+                <div class="form-group">
+                    <label for="Note">Note</label>
+                    <input type="text" class="form-control" required [(ngModel)]="reservation.note" ngControl="Note" #lastName="ngForm">
+                </div>
+                <div class="form-group">
+                    <label for="StatDate">Start</label>
+                    <input type="text" class="form-control" required [(ngModel)]="reservation.start" ngControl="StatDate" #lastName="ngForm">
+                </div>
+                <div class="form-group">
+                    <label for="EndDate">End</label>
+                    <input type="text" class="form-control" required [(ngModel)]="reservation.end" ngControl="EndDate" #lastName="ngForm">
+                </div>
+            </modal-body>
+            <modal-footer>
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+                <button type="button" class="btn btn-primary" [disabled]="!modalForm.valid" (click)="modal.close()">Save</button>
+            </modal-footer>
+        </form>
+    </modal>-->

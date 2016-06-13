@@ -49,7 +49,8 @@
   <link href="vendor/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
   <!--<link href="vendor/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet">-->
   <script src="vendor/fullcalendar/dist/fullcalendar.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
   <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">-->
   <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
   
@@ -60,7 +61,8 @@
         moment: 'vendor/moment/moment.js',
         '@angular': 'vendor/@angular',
         primeng: 'vendor/primeng',
-        'angular2-modal':'vendor/angular2-modal'
+        'angular2-modal':'vendor/angular2-modal',
+        'ng2-bs3-modal':'vendor/ng2-bs3-modal'
    }
    var packageNameObj = [
      "@angular/core",
@@ -88,7 +90,8 @@
           main: 'angularfire2.js'
         },
         primeng : {defaultExtension: 'js'},
-        'angular2-modal' : {defaultExtension: 'js'}
+        'angular2-modal' : {defaultExtension: 'js'},
+        'ng2-bs3-modal' : {defaultExtension: 'js'}
       };
       
       packageNameObj.forEach(function(packName){

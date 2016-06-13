@@ -8,7 +8,7 @@ import {ReservationService} from '../core/reservation2/reservation2.service';
 import {Reservation2} from '../core/reservation2/reservation2';
 //import {DatePicker,Timepicker,Alert} from "ng2-bootstrap/ng2-bootstrap";
 import {DATEPICKER_DIRECTIVES,TimepickerComponent} from 'ng2-bootstrap/ng2-bootstrap';
-
+import {AngularFire} from 'angularfire2';
 @Component({
   selector: 'user-entry',
   templateUrl: 'app/userEntry/userEntry.html',
@@ -32,7 +32,7 @@ export class UserEntry {
   public editingStart:boolean;
   public editingEnd:boolean; // start vs end
   private invalidEnd:boolean;
-  constructor(private reservationService :ReservationService) {}
+  constructor(private reservationService :ReservationService,public af:AngularFire) {}
 
   ngOnInit() {
     this.todayDate = new Date;

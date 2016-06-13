@@ -13,11 +13,16 @@ import {Reservation2,IReservation2} from '../core/reservation2/reservation2'
 export class ResItem {
   @Input() reservation: IReservation2;
   @Output() remove: EventEmitter<any> = new EventEmitter(false);
+  @Output() update: EventEmitter<any> = new EventEmitter(false);
   startDate:Date;
   endDate:Date;
   ngOnInit(){
-    this.startDate = new Date(this.reservation.start);
-    this.endDate =  new Date(this.reservation.end);
+    this.startDate = new Date(parseInt(this.reservation.start));
+    this.endDate =  new Date(parseInt(this.reservation.end));
+  }
+
+  emitUpdate(){
+    console.log('Event update sent');
   }
 }
- 
+  

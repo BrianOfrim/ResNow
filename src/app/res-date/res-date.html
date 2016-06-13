@@ -1,0 +1,10 @@
+<div class = "day-container">
+    <div class = "day-header" style = "text-align:center">
+        <span>{{currDate | date:'d'}} - {{currDOW}}</span>
+    </div>
+    <div class = "day-body">
+        <div *ngFor="let event of events">
+            {{event.title}}
+        </div>
+    </div>
+</div>

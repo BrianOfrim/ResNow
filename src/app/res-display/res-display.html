@@ -1,0 +1,34 @@
+<div class="panel panel-default">
+    <nav class="navbar navbar-default navbar-inverse">
+        <div class="container-fluid">
+            <div class="btn-group navbar-left" role="group">
+                <button type="button" class="btn btn-default btn-md navbar-btn cal-navbar-btn">M</button>
+                <button type="button" class="btn btn-default btn-md navbar-btn cal-navbar-btn">W</button>
+                <button type="button" class="btn btn-default btn-md navbar-btn cal-navbar-btn">D</button>
+            </div>
+            <button type="button" (click) = "decrementMonth()" class = "btn btn-default btn-sm navbar-btn cal-navbar-btn"><span class = "glyphicon glyphicon-menu-left"></span></button>
+            <span class = "nav-text">{{firstOfCurrentMonth.getFullYear()}} - {{months[firstOfCurrentMonth.getMonth()]}}</span>
+            <button type="button" (click) = "incrementMonth()" class = "btn btn-default btn-sm navbar-btn cal-navbar-btn"><span class = "glyphicon glyphicon-menu-right"></span></button>
+        </div>
+    </nav>
+    <div *ngFor="let week of currentDisplayDates" class = "row">
+        <div class = "col-xs-12">
+            <div class = "panel panel-defaul week-panel">
+                <div class = "panel-heading week-panel-heading" style = "text-align:center">
+                    <h3 class = "panel-title">
+                        {{getDate(week[0]) | date:'d'}} - {{getDate(week[6]) | date:'d'}}
+                        <button (click) = "isOpen = !isOpen" class="btn btn-default btn-xs pull-right" type="submit"><span class = "glyphicon glyphicon-chevron-right"></span></button>
+
+                    </h3>
+                </div>
+                <div class = "panel-body week-panel-body">
+                    <div class = "week-row">
+                        <div *ngFor = "let day of week">
+                            <res-date [date] = "day" [events] = "getEvents(day)"></res-date>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </div>  
+    </div>
+</div>

@@ -18,12 +18,11 @@ export class Reservation2 implements IReservation2{
     note: string;
     start: string; 
     end:string;
-
-    constructor(title:string,name:string, note: string, start: string, end: string){
-        this.title = title;
-        this.name = name;
-        this.note = note;
-        this.start = start;
-        this.end = end;
+    constructor(title?:string,name?:string, note?: string, start?: string, end?: string){
+        this.title = title || "";
+        this.name = name || "";
+        this.note = note || "";
+        this.start = start || "";
+        this.end = end || "";
     }
 }

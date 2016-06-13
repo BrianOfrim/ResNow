@@ -1,0 +1,11 @@
+.day-container{
+    background-color: #bbb
+}
+
+.day-header{
+    height:20px;
+}
+
+.day-body{
+    max-height: 60px
+}

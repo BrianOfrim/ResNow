@@ -1,0 +1,34 @@
+    <modal [animation]="true" [keyboard]="true" [backdrop]="true" (onClose)="closed()" (onDismiss)="dismissed()"
+        (onOpen)="opened()" #modal>
+        <form #modalForm="ngForm">
+            <modal-header [show-close]="true">
+                <h4 class="modal-title">Crete Reservation</h4>
+            </modal-header>
+            <modal-body>
+                <div class="form-group">
+                    <label for="Title">Title</label>
+                    <input type="text" class="form-control" required [(ngModel)]="reservation.title" ngControl="Title" #lastName="ngForm">
+                </div>
+                <div class="form-group">
+                    <label for="Name">Name</label>
+                    <input type="text" class="form-control" required [(ngModel)]="reservation.name" ngControl="Name" #firstName="ngForm">
+                </div>
+                <div class="form-group">
+                    <label for="Note">Note</label>
+                    <input type="text" class="form-control" required [(ngModel)]="reservation.note" ngControl="Note" #lastName="ngForm">
+                </div>
+                <div class="form-group">
+                    <label for="StatDate">Start</label>
+                    <input type="text" class="form-control" required [(ngModel)]="reservation.start" ngControl="StatDate" #lastName="ngForm">
+                </div>
+                <div class="form-group">
+                    <label for="EndDate">End</label>
+                    <input type="text" class="form-control" required [(ngModel)]="reservation.end" ngControl="EndDate" #lastName="ngForm">
+                </div>
+            </modal-body>
+            <modal-footer>
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="validationModal.dismiss()">Cancel</button>
+                <button type="button" class="btn btn-primary" [disabled]="!modalForm.valid" (click)="validationModal.close()">Save</button>
+            </modal-footer>
+        </form>
+    </modal>

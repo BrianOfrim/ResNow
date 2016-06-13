@@ -1,0 +1,12 @@
+.day-container{
+    border: 1px solid black;
+}
+
+.day-header{
+    background-color: #bbb;
+    height:20px
+}
+
+.day-body{
+    height:80px
+}

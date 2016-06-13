@@ -1,0 +1,6 @@
+<p-schedule [events]="events" [editable]="true" 
+(onDayClick) = "handleDayClick($event)" 
+(onEventClick) = "handelEventClick($event)"
+[locale]="{timeFormat:'h:mmt'}"
+[header]="headerConfig">    
+</p-schedule>

@@ -3,7 +3,8 @@
     <res-item 
     *ngFor = "let reservation of resItems$ | async" 
     [reservation] = "reservation" 
-    (remove) = "remove.emit(reservation)">
+    (remove) = "remove.emit(reservation)"
+    (update) = "emitUpdate(reservation)">   
     </res-item>
   </div>
 </div>

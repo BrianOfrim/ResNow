@@ -8,7 +8,7 @@ module.exports = function(defaults) {
       'angularfire2/**/*.js',
       'firebase/lib/*.js',
       'ng2-bootstrap/bundles/*.js',
-      'moment/moment.js',
+      'moment/**',
       'ng2-bootstrap/bundles/ng2-bootstrap.js',
       'es6-shim/es6-shim.js',
       'systemjs/dist/system.src.js',
@@ -39,7 +39,8 @@ module.exports = function(defaults) {
       'primeng/components/**/*.js',
       'fullcalendar/dist/*.js',
       'fullcalendar/dist/*.css',
-      'angular2-modal/**'
+      'angular2-modal/**',
+      'ng2-bs3-modal/**'
     ]
   });
   return app.toTree();
