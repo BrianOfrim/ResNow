@@ -1,10 +1,12 @@
-<div class = "day-container">
-    <div class = "day-header" style = "text-align:center">
-        <span>{{currDate | date:'d'}} - {{currDOW}}</span>
+<div class = "day-container" [ngClass] = "{'no-events-border':events.length==0,'has-events-border':events.length}">
+    <div class = "day-header" [ngClass] = "{'no-events': !events.length,'has-events':events.length}">
+        <span class = "pull-left" style = "margin-left:5px">{{currDate | date:'d'}}<sup>{{currDOW}}</sup></span>
+            <span class = "pull-right event-num"  *ngIf= "events.length" style = "margin-right:5px">{{events.length}}</span>
     </div>
     <div class = "day-body">
-        <div *ngFor="let event of events">
-            {{event.title}}
+        <div class = "event-cell" *ngFor="let event of events">
+            <div class = "time-cell">{{getStartTime(event) | date:'shortTime' }}</div>
+            <div class = "title-cell">{{getEventTitle(event)}}</div>
         </div>
     </div>
 </div>

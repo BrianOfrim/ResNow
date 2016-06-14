@@ -5,11 +5,12 @@ import { ResDate } from '../res-date/res-date'
 import {  DateService } from '../core/date_services/date_service';
 import { FirebaseListObservable } from 'angularfire2';
 import {ReservationService} from '../core/reservation2/reservation2.service';
+import { ResList} from '../res-list/res-list';
 
 @Component({
   selector: 'res-display',
   providers: [DateService],
-  directives: [ResDate],
+  directives: [ResDate,ResList],
   templateUrl: "app/res-display/res-display.html",
   styleUrls: ["app/res-display/res-display.css"],
   pipes: []
@@ -22,7 +23,8 @@ export class ResDisplay{
     firstOfCurrentMonth:Date;
     currentDisplayDates: any[];
     months: String[] = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    
+    showCalendar:boolean;
+
     ngOnInit(){
         this.currentDate = new Date();
         this.firstOfCurrentMonth = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),1);
@@ -30,6 +32,7 @@ export class ResDisplay{
         //this.currentYear = currentDate.getYear();
         this.currentDisplayDates = this.dateService.getDates(this.firstOfCurrentMonth.getFullYear(), this.firstOfCurrentMonth.getMonth());   
         this.events = [];    
+        this.showCalendar = true;
         this.resService.reservationItems$.subscribe(eventData=>{
             console.log(eventData)
             this.events = eventData;
@@ -69,5 +72,8 @@ export class ResDisplay{
         })
         return returnArr
 
+    }
+    updateExisting(e){
+      console.log(e)
     }
 }

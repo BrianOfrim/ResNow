@@ -1,12 +1,75 @@
 .day-container{
-    border: 1px solid black;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 7px;
+  margin: 2px;
+  overflow: hidden;
+  height:100px;
+}
+
+.no-events-border{
+    border-color: #45546F;
+}
+
+.has-events-border{
+    border-color: #3C7630;
+}
+
+.no-events{
+    color:#45546F;
+}
+.has-events{
+    color: #3C7630;
 }
 
 .day-header{
-    background-color: #bbb;
-    height:20px
+    /*color: wheat;
+    background-color:#45546F;*/
+    /*border-top-left-radius: 10px;
+    border-top-right-radius: 10px;*/
+    /*text-align: center;
+    display: table;
+    table-layout: fixed;*/
+    /*width:100%;*/
+    font-size: 20px; 
+    padding: 3px;
+    height:26px;
+    vertical-align: middle;
+    margin-bottom: 5px;
+}
+
+.day-header span{
+    /*display: table-cell;*/
+}
+
+.event-num{
+    border: #3C7630 1px solid;
+    border-radius: 5px;
+    padding: 0px 5px;
+    font-size:15px;
+    margin-top:2px;
 }
 
 .day-body{
-    height:80px
+    font-size: 11px;
+}
+
+.event-cell{
+    width:100%;
+}
+
+.time-cell{
+    width:40%;
+    text-align: left;
+    float:left;
+}
+
+.title-cell{
+    width:60%;
+    text-align:left;
+    float:left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding:0px 3px;
 }

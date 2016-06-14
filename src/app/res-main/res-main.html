@@ -13,29 +13,9 @@
 <div class = "mainView">
     <div class = "container" style="{margin-top:20px}">
         <user-entry></user-entry>
-        <div class = "panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    Existing events
-                    <div class="btn-group pull-right" role="group">
-                        <button type="button" class="btn btn-default" (click)="setCalendarMode()" [ngClass] = {active:calendarMode}>Calendar</button>
-                        <button type="button" class="btn btn-default" (click)="setListMode()" [ngClass] = {active:listMode}>List</button>
-                    </div>
-                </h3>
-                <div class="clearfix"></div>
-            </div>
-            <div class = "panel-body">
-                <res-list 
-                    [resItems$] = "reservationService.reservationItems$" 
-                    (remove)= "reservationService.removeReservation($event)"
-                    (toDisplay)= "updateExisting($event)" *ngIf="listMode">
-                </res-list>
-                <!--<res-calendar *ngIf="calendarMode"></res-calendar>-->
-            </div>
-        </div>
+        <res-display></res-display>
     </div>
 </div> 
-<res-display></res-display>
 <!--<button type="button" class="btn btn-default" (click)="openModal()">Open Modal</button>
 
     <modal [animation]="true" [keyboard]="true" [backdrop]="true" (onClose)="closed()" (onDismiss)="dismissed()"

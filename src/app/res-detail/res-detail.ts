@@ -3,6 +3,7 @@ import{DialogRef,ModalComponent} from 'angular2-modal/index';
 import {BSModalContext} from 'angular2-modal/plugins/bootstrap/index';
 import { Reservation2 } from '../core/reservation2/reservation2';
 import { ReservationService } from '../core/reservation2/reservation2.service';
+import { ResList} from '../res-list/res-list';
 
 export class ResDetailData extends BSModalContext{
     constructor(public reservation:Reservation2, public resKey?:string){

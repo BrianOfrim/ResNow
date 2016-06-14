@@ -21,4 +21,16 @@ export class ResDate{
         this.currDate = new Date(this.date);
         this.currDOW = this.daysOfWeek[this.currDate.getDay()];
     }
+    getStartTime(event){
+        return new Date(parseInt(event.start));
+    }
+    getEventTitle(event){
+        let eventTitle:string;
+        if(event.title != ""){
+            eventTitle = event.title;
+        }else{
+            eventTitle = '\u00A0'; // non-breaking white space
+        }
+        return eventTitle;
+    }
 }
