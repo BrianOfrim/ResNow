@@ -5,8 +5,10 @@
     </div>
     <div class = "day-body">
         <div class = "event-cell" *ngFor="let event of events">
+            <a (click) = "displayEvent(event)">
             <div class = "time-cell">{{getStartTime(event) | date:'shortTime' }}</div>
             <div class = "title-cell">{{getEventTitle(event)}}</div>
+            </a>
         </div>
     </div>
 </div>

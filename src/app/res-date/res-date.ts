@@ -1,4 +1,4 @@
-import {Component,OnInit, Input} from '@angular/core';
+import {Component,OnInit, Input, Output,EventEmitter} from '@angular/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
 
@@ -14,6 +14,7 @@ import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
 export class ResDate{
     @Input() date: string;
     @Input() events: IReservation2[]; 
+    @Output() displayRes: EventEmitter<any> = new EventEmitter(false);
     currDate:Date;
     daysOfWeek: String[] = ['S','M','T','W','R','F','S'];
     currDOW: String;
@@ -32,5 +33,9 @@ export class ResDate{
             eventTitle = '\u00A0'; // non-breaking white space
         }
         return eventTitle;
+    }
+
+    displayEvent(event){
+        this.displayRes.emit(event)
     }
 }

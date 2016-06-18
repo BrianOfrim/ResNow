@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
+import {Component,ViewContainerRef} from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS,Router} from '@angular/router-deprecated';
 import { ResMain } from '../res-main/res-main';
 import {SignIn} from '../signIn/signIn';
 import {AngularFire,FirebaseAuth} from 'angularfire2';
+
 
 @RouteConfig([
   {path: '/', name: 'SignIn', component: SignIn,useAsDefault: true},
@@ -19,7 +20,9 @@ import {AngularFire,FirebaseAuth} from 'angularfire2';
   pipes: []
 })
 export class Landing {
-  constructor(public af:AngularFire,private router: Router) {}
+  constructor(public af:AngularFire,private router: Router,public viewContainerRef:ViewContainerRef) {
+    this.viewContainerRef = viewContainerRef;
+  }
   
    signOut(): void {
      this.af.auth.logout();

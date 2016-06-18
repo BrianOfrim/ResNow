@@ -9,10 +9,12 @@
             <button *ngIf = "showCalendar" type="button" (click) = "decrementMonth()" class = "btn btn-default btn-sm navbar-btn cal-navbar-btn"><span class = "glyphicon glyphicon-menu-left"></span></button>
             <span *ngIf = "showCalendar" class = "nav-text">{{firstOfCurrentMonth.getFullYear()}} - {{months[firstOfCurrentMonth.getMonth()]}}</span>
             <button *ngIf = "showCalendar" type="button" (click) = "incrementMonth()" class = "btn btn-default btn-sm navbar-btn cal-navbar-btn"><span class = "glyphicon glyphicon-menu-right"></span></button>
+            
             <div class="btn-group navbar-right display-opts" role="group">
                 <button type="button" class="btn btn-default btn-md navbar-btn cal-navbar-btn" (click) = "showCalendar = true">Calendar</button>
                 <button type="button" class="btn btn-default btn-md navbar-btn cal-navbar-btn" (click) = "showCalendar = false">List</button>
             </div>
+            <button (click) = "createRes()" class = "btn btn-default btn-md navbar-btn cal-navbar-btn navbar-right display-opts">+ Create</button>
         </div>
     </nav>
     <div *ngIf = "showCalendar">
@@ -20,7 +22,7 @@
             <div class = "col-xs-12">
                 <div class = "week-row">
                     <div *ngFor = "let day of week">
-                        <res-date [date] = "day" [events] = "getEvents(day)"></res-date>
+                        <res-date [date] = "day" [events] = "getEvents(day)" (displayRes) = "displayReservation($event)"></res-date>
                     </div>
                 </div> 
             </div>     
@@ -29,6 +31,54 @@
     <res-list 
         [resItems$] = "resService.reservationItems$" 
         (remove)= "resService.removeReservation($event)"
-        (toDisplay)= "updateExisting($event)" *ngIf="!showCalendar">
+        (toDisplay)= "displayReservation($event)" *ngIf="!showCalendar">
     </res-list>
+</div>
+
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" (onHide) = "modalClosed()" (onShow) = "modalOpening()">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">{{eventToDisplay.title }}</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+        <div class="form-group">
+          <label for="alterEgo">Name</label>
+          <input type="text" class="form-control" [(ngModel)] = "eventToDisplay.name">
+        </div>
+        <div class="form-group">
+          <label for="alterEgo">Title</label>
+          <input type="text" class="form-control" [(ngModel)] = "eventToDisplay.title">
+        </div>
+        <div class="form-group">
+          <label for="alterEgo">Start</label>
+            <div class = "well well-sm" style = "text-align:center">
+                {{dt | date:'yMMMdjm'}}
+            </div>
+            <div class = "row" *ngIf = "modalOpen">
+                <div class = "col-xs-7">
+                    <datepicker [(ngModel)]="dt" [initDate]="dt" [minDate]="currentDate" [showWeeks]="true"></datepicker>
+                </div>
+                <div class = "col-xs-5">
+                    <timepicker [(ngModel)]="dt"  [hourStep]="hstep" [minuteStep]="mstep"></timepicker>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="alterEgo">Note</label>
+          <textarea class="form-control" rows="3"  required [(ngModel)]="eventToDisplay.note"></textarea>
+        </div>
+        </form>
+        <div style = "text-align:right" [ngSwitch]="createNew">
+            <button class="btn btn-default" type="submit" (click) = "lgModal.hide()">Cancel</button>
+            <button class="btn btn-success" *ngSwitchWhen="true" type="submit" (click) = "pushUpdate(eventToDisplay)" >Create</button>
+            <button class="btn btn-success" *ngSwitchWhen="false" type="submit" (click) = "pushUpdate(eventToDisplay)" >Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

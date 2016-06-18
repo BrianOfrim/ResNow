@@ -35,7 +35,7 @@ export class UserEntry {
   constructor(private reservationService :ReservationService) {}
 
   ngOnInit() {
-    this.todayDate = new Date;
+    this.todayDate = new Date();
     (this.minDate = new Date()).setDate(this.todayDate.getDate());
     this.hstep = 1;
     this.mstep = 5;
@@ -51,15 +51,9 @@ export class UserEntry {
     this.editingEnd = false;
     this.dt = new Date();
     this.startDt = this.dt;
-    this.endDt = this.dt;
     this.startDt.setHours(this.timeDate.getHours());
     this.startDt.setMinutes(this.timeDate.getMinutes());
     this.startDt.setSeconds(this.timeDate.getSeconds());
-    this.endDt.setMilliseconds(this.timeDate.getMilliseconds());
-    this.endDt.setHours(this.timeDate.getHours());
-    this.endDt.setMinutes(this.timeDate.getMinutes());
-    this.endDt.setSeconds(this.timeDate.getSeconds());
-    this.endDt.setMilliseconds(this.timeDate.getMilliseconds());
     this.invalidEnd = false;
   }
 
@@ -74,13 +68,6 @@ export class UserEntry {
     this.editingStart = false;
   }
   
-  public setEnd(){
-    this.endDt = this.dt;
-    this.endDt.setHours(this.timeDate.getHours());
-    this.endDt.setMinutes(this.timeDate.getMinutes()); 
-    console.log(this.endDt);     
-    this.editingEnd = false;  
-  }
   
   public setStart(){
     this.startDt = this.dt;
@@ -99,12 +86,9 @@ export class UserEntry {
   }
   
   addReservation(): void{
-    let newRes = new Reservation2(this.title,this.name,this.note,this.startDt.getTime().toString(),this.endDt.getTime().toString());
-    if(this.startDt.getTime() > this.endDt.getTime()){
-      this.invalidEnd = true;
-    }else{
-      this.reservationService.createReservation(newRes);
-      console.log()
-    }
+    let newRes = new Reservation2(this.title,this.name,this.note,this.startDt.getTime().toString());
+    this.reservationService.createReservation(newRes);
+    console.log()
+
   }
 }

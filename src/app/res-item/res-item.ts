@@ -15,10 +15,9 @@ export class ResItem {
   @Output() remove: EventEmitter<any> = new EventEmitter(false);
   @Output() update: EventEmitter<any> = new EventEmitter(false);
   startDate:Date;
-  endDate:Date;
+  // endDate:Date;
   ngOnInit(){
     this.startDate = new Date(parseInt(this.reservation.start));
-    this.endDate =  new Date(parseInt(this.reservation.end));
   }
 
   emitUpdate(){

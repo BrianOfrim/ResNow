@@ -23,7 +23,7 @@ export class UserEntry {
   note:string;
   public dt:Date;
   public startDt:Date;
-  public endDt:Date;
+  // public endDt:Date;
   public minDate:Date = void 0;
   public todayDate:Date;
   public hstep: number;
@@ -51,15 +51,15 @@ export class UserEntry {
     this.editingEnd = false;
     this.dt = new Date();
     this.startDt = this.dt;
-    this.endDt = this.dt;
+    // this.endDt = this.dt;
     this.startDt.setHours(this.timeDate.getHours());
     this.startDt.setMinutes(this.timeDate.getMinutes());
     this.startDt.setSeconds(this.timeDate.getSeconds());
-    this.endDt.setMilliseconds(this.timeDate.getMilliseconds());
-    this.endDt.setHours(this.timeDate.getHours());
-    this.endDt.setMinutes(this.timeDate.getMinutes());
-    this.endDt.setSeconds(this.timeDate.getSeconds());
-    this.endDt.setMilliseconds(this.timeDate.getMilliseconds());
+    // this.endDt.setMilliseconds(this.timeDate.getMilliseconds());
+    // this.endDt.setHours(this.timeDate.getHours());
+    // this.endDt.setMinutes(this.timeDate.getMinutes());
+    // this.endDt.setSeconds(this.timeDate.getSeconds());
+    // this.endDt.setMilliseconds(this.timeDate.getMilliseconds());
     this.invalidEnd = false;
   }
 
@@ -74,13 +74,13 @@ export class UserEntry {
     this.editingStart = false;
   }
   
-  public setEnd(){
-    this.endDt = this.dt;
-    this.endDt.setHours(this.timeDate.getHours());
-    this.endDt.setMinutes(this.timeDate.getMinutes()); 
-    console.log(this.endDt);     
-    this.editingEnd = false;  
-  }
+  // public setEnd(){
+  //   this.endDt = this.dt;
+  //   this.endDt.setHours(this.timeDate.getHours());
+  //   this.endDt.setMinutes(this.timeDate.getMinutes()); 
+  //   console.log(this.endDt);     
+  //   this.editingEnd = false;  
+  // }
   
   public setStart(){
     this.startDt = this.dt;
@@ -99,12 +99,12 @@ export class UserEntry {
   }
   
   addReservation(): void{
-    let newRes = new Reservation2(this.title,this.name,this.note,this.startDt.getTime().toString(),this.endDt.getTime().toString());
-    if(this.startDt.getTime() > this.endDt.getTime()){
-      this.invalidEnd = true;
-    }else{
+    let newRes = new Reservation2(this.title,this.name,this.note,this.startDt.getTime().toString());
+    // if(this.startDt.getTime() > this.endDt.getTime()){
+    //   this.invalidEnd = true;
+    // }else{
       this.reservationService.createReservation(newRes);
       console.log()
-    }
+    // }
   }
 }

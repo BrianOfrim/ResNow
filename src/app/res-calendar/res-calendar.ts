@@ -32,12 +32,12 @@ export class ResCalendar{
           this.events = eventData.map(ev =>{
             let startDate = new Date(parseInt(ev.start));
             startDate =   new Date( startDate.getTime() - ( startDate.getTimezoneOffset() * 60000 ) );
-            let endDate = new Date(parseInt(ev.end));
-            endDate =   new Date( endDate.getTime() - ( endDate.getTimezoneOffset() * 60000 ) );
+            // let endDate = new Date(parseInt(ev.end));
+            // endDate =   new Date( endDate.getTime() - ( endDate.getTimezoneOffset() * 60000 ) );
             console.log('Start '+startDate);
-            console.log('End '+endDate)
+            // console.log('End '+endDate)
             ev.start = startDate.toISOString();
-            ev.end = endDate.toISOString();
+            // ev.end = endDate.toISOString();
             return ev;
           })
           console.log(this.events)
@@ -53,7 +53,7 @@ export class ResCalendar{
     handelEventClick(e) {
       console.log(e)
       
-      let tempRes = new Reservation2(e.calEvent.title,e.calEvent.name,e.calEvent.note,e.calEvent.start.format('x'),e.calEvent.start.format('x'))
+      let tempRes = new Reservation2(e.calEvent.title,e.calEvent.name,e.calEvent.note,e.calEvent.start.format('x'))
       console.log(tempRes);
       console.log(e.calEvent.$)
       //return this.modal.open(ResDetail,new ResDetailData(tempRes,e.calEvent.$key));
