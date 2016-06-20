@@ -22,7 +22,7 @@
             <div class = "col-xs-12">
                 <div class = "week-row">
                     <div *ngFor = "let day of week">
-                        <res-date [date] = "day" [events] = "getEvents(day)" (displayRes) = "displayReservation($event)"></res-date>
+                        <res-date (displayDay) = "showDateModal($event)" [date] = "day" [events] = "getEvents(day)" (displayRes) = "displayReservation($event)"></res-date>
                     </div>
                 </div> 
             </div>     
@@ -35,14 +35,14 @@
     </res-list>
 </div>
 
-<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" (onHide) = "modalClosed()" (onShow) = "modalOpening()">
+<div bsModal #lgModal="bs-modal" class="modal fade display-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" (onHide) = "modalClosed()" (onShow) = "modalOpening()">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">{{eventToDisplay.title }}</h4>
+        <h4 class="modal-title">{{ eventToDisplay.title }}</h4>
       </div>
       <div class="modal-body">
         <form>
@@ -78,6 +78,22 @@
             <button class="btn btn-success" *ngSwitchWhen="true" type="submit" (click) = "pushUpdate(eventToDisplay)" >Create</button>
             <button class="btn btn-success" *ngSwitchWhen="false" type="submit" (click) = "pushUpdate(eventToDisplay)" >Update</button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<button class="btn btn-primary" (click)="dateModal.show()">Large modal</button>-->
+<div bsModal #dateModal="bs-modal" class="modal fade display-modal" tabindex="-1" role="dialog" (onHide) = "dateModalClosed()" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="dateModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" *ngIf = "showDayEventsModal">{{getDate(dateToShow) | date:"fullDate"}}</h4>
+      </div>
+      <div class="modal-body">
+          <day-event-list *ngIf = "showDayEventsModal" [events] = "getEvents(dateToShow)" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></day-event-list>
       </div>
     </div>
   </div>

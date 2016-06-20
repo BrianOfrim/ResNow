@@ -46,3 +46,8 @@
 .display-opts{
     margin-right: 10px !important;
 }
+
+.display-modal{
+    /*max-height: 600px;*/
+    overflow-y: scroll;
+}

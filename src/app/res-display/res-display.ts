@@ -9,12 +9,13 @@ import { ResDate } from '../res-date/res-date'
 import {  DateService } from '../core/date_services/date_service';
 import {ReservationService} from '../core/reservation2/reservation2.service';
 import { ResList} from '../res-list/res-list';
+import {DayEventList} from '../day-event-list/day-event-list';
 
 
 @Component({
   selector: 'res-display',
   providers: [DateService,BS_VIEW_PROVIDERS],
-  directives: [ResDate,ResList,MODAL_DIRECTVES,ModalDirective,DATEPICKER_DIRECTIVES,TimepickerComponent],
+  directives: [ResDate,ResList,MODAL_DIRECTVES,ModalDirective,DATEPICKER_DIRECTIVES,TimepickerComponent,DayEventList],
   templateUrl: "app/res-display/res-display.html",
   styleUrls: ["app/res-display/res-display.css"],
   pipes: []
@@ -34,9 +35,12 @@ export class ResDisplay{
     currentDisplayDates: any[];
     months: String[] = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     showCalendar:boolean;
+    showDayEventsModal: boolean = false;
+    dateToShow: string;
     @ViewChild('lgModal')
     lgModal: ModalDirective;
-
+    @ViewChild('dateModal')
+    dateModal: ModalDirective;
     ngOnInit(){
         this.eventToDisplay = new Reservation2();
         this.currentDate = new Date();
@@ -97,18 +101,17 @@ export class ResDisplay{
         this.dt.setHours(12,0,0,0);
         this.lgModal.show()
     }
+
     displayReservation(e){
-        console.log(this.eventToDisplay);
-        this.createNew = false;
+        if(this.showDayEventsModal){
+            this.dateModal.hide();
+            this.showDayEventsModal = false;
+        } 
         this.eventToDisplay = e;
         this.dt = new Date(parseInt(this.eventToDisplay.start))
-        //this.timeDate = new Date(parseInt(this.eventToDisplay.start))
-        console.log(this.eventToDisplay);
+        this.createNew = false;
         this.lgModal.show()
         
-    }
-    updateExisting(e){
-      console.log(e)
     }
 
     modalOpening(){
@@ -127,6 +130,7 @@ export class ResDisplay{
         this.lgModal.hide()
     }
 
+
     modalClosed(){
        this.eventToDisplay = new Reservation2();
        this.dt = new Date()
@@ -134,5 +138,16 @@ export class ResDisplay{
        console.log(this.eventToDisplay);
        console.log('Modal Closed');
        this.modalOpen = false;
+    }
+
+    showDateModal(eventsDate:string){
+        this.dateToShow = eventsDate;
+        this.showDayEventsModal = true;
+        this.dateModal.show()
+    }
+
+    dateModalClosed(){
+        this.showDayEventsModal = false;
+        this.dateToShow = "";
     }
 }

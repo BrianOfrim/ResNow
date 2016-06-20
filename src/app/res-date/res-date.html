@@ -1,7 +1,7 @@
 <div class = "day-container" [ngClass] = "{'no-events-border':events.length==0,'has-events-border':events.length}">
     <div class = "day-header" [ngClass] = "{'no-events': !events.length,'has-events':events.length}">
         <span class = "pull-left" style = "margin-left:5px">{{currDate | date:'d'}}<sup>{{currDOW}}</sup></span>
-            <span class = "pull-right event-num"  *ngIf= "events.length" style = "margin-right:5px">{{events.length}}</span>
+        <a (click)= "displayDayEvents()"><span class = "pull-right event-num"  *ngIf= "events.length"  style = "margin-right:5px">{{events.length}}</span></a>
     </div>
     <div class = "day-body">
         <div class = "event-cell" *ngFor="let event of events">

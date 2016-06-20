@@ -15,6 +15,7 @@ export class ResDate{
     @Input() date: string;
     @Input() events: IReservation2[]; 
     @Output() displayRes: EventEmitter<any> = new EventEmitter(false);
+    @Output() displayDay: EventEmitter<any> = new EventEmitter(false);
     currDate:Date;
     daysOfWeek: String[] = ['S','M','T','W','R','F','S'];
     currDOW: String;
@@ -33,6 +34,11 @@ export class ResDate{
             eventTitle = '\u00A0'; // non-breaking white space
         }
         return eventTitle;
+    }
+
+    displayDayEvents(){
+        console.log("Show day's events")
+        this.displayDay.emit(this.date)
     }
 
     displayEvent(event){
