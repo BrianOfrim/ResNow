@@ -98,7 +98,7 @@
       </div>
       <div class="modal-body">
           <day-event-list *ngIf = "showDayEventsModal && showDayEventList" [events] = "getEvents(dateToShow)" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></day-event-list>
-          <day-event-schedule *ngIf = "showDayEventsModal && !showDayEventList" [events] = "getEvents(dateToShow)" [startOfDay] = "getDate(dateToShow).getTime()"></day-event-schedule>
+          <day-event-schedule *ngIf = "showDayEventsModal && !showDayEventList" [events] = "getEvents(dateToShow)" [startOfDay] = "getDate(dateToShow).getTime()" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></day-event-schedule>
       </div>
     </div>
   </div>
