@@ -1,11 +1,10 @@
 <div *ngFor="let event of events">
-    <div class = "well well-sm">
+    <!--<div class = "well well-sm">
         <div class = "row">
             <div class = "col-xs-3" style = "text-align:left">
                 <h4>
                     {{getStartTime(event) | date:"shortTime"}}                  
                 </h4>
-                <!--{{event.start}}-->
             </div>
             <div class = "col-xs-6" style = "text-align:center">
                 <h4>
@@ -29,6 +28,48 @@
         <div class = "row">
             <div class = "col-xs-12">
                 <p>Notes: {{event.note}}</p>
+            </div>
+        </div>
+    </div>-->
+
+    <div class = "well well-sm">
+        <div class = "row">
+            <div class = "col-xs-10">
+                <div class = "row">
+                    <div class = "col-xs-3" style = "text-align:left">
+                        <span class = "well-title"> 
+                            <b>{{getStartTime(event) | date:"shortTime"}}  </b>                  
+                        </span>
+                        <!--{{event.start}}-->
+                    </div>
+                    <div class = "col-xs-9">
+                        <span class = "well-title">
+                            <b>{{event.title}}</b>
+                        </span>
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-xs-12">
+                        <span class = "well-body"><b>Name: </b>{{event.name}}</span>
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-xs-12">
+                        <span class = "well-body"><b>Notes: </b>{{event.note}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class = "col-xs-2">
+                <div class = "row" style = "text-align:center">
+                        <button type="button" class="btn btn-default btn-sm edit-btn" (click) = "update.emit(event)">
+                            <span class = "glyphicon glyphicon-pencil"></span>
+                        </button>
+                </div>
+                <div class = "row" style = "text-align:center">
+                        <button type="button" class="btn btn-default btn-sm delete-btn" (click) = "remove.emit(event)">
+                            <span class = "glyphicon glyphicon-trash"></span>
+                        </button>
+                </div>
             </div>
         </div>
     </div>

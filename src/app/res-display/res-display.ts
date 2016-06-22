@@ -10,14 +10,14 @@ import {  DateService } from '../core/date_services/date_service';
 import {ReservationService} from '../core/reservation2/reservation2.service';
 import { ResList} from '../res-list/res-list';
 import {DayEventList} from '../day-event-list/day-event-list';
-
+import { DayEventSchedule } from '../day-event-schedule/day-event-schedule'
 
 @Component({
   selector: 'res-display',
   providers: [DateService,BS_VIEW_PROVIDERS],
-  directives: [ResDate,ResList,MODAL_DIRECTVES,ModalDirective,DATEPICKER_DIRECTIVES,TimepickerComponent,DayEventList],
+  directives: [ResDate,ResList,MODAL_DIRECTVES,ModalDirective,DATEPICKER_DIRECTIVES,TimepickerComponent,DayEventList,DayEventSchedule],
   templateUrl: "app/res-display/res-display.html",
-  styleUrls: ["app/res-display/res-display.css"],
+  styleUrls: ["app/res-display/res-display.css"], 
   pipes: []
 })
 
@@ -29,7 +29,8 @@ export class ResDisplay{
     currentDate:Date;
     modalOpen:boolean;
     hstep: number = 1;
-    mstep:number = 15;
+    mstep:number = 10;
+    showDayEventList:boolean = true;
     eventToDisplay:Reservation2;
     firstOfCurrentMonth:Date;
     currentDisplayDates: any[];
@@ -79,20 +80,9 @@ export class ResDisplay{
         startOfDayDate.setHours(0,0,0,0);
         var endOfDayDate = new Date(startOfDay);
         endOfDayDate.setHours(23,59,59,999);   
-        // let returnArr =  this.events.filter(event =>{
-        //     return (parseInt(event.start) >= startOfDayDate.valueOf()) && (parseInt(event.start) <= endOfDayDate.valueOf())
-        // });
-        // console.log(returnArr)
-        let returnArr = []
-        this.events.forEach(event =>{
-            // console.log("Evs"+event.start)
-            // console.log(startOfDayDate.valueOf())
-            if((parseInt(event.start) >= startOfDayDate.valueOf()) && (parseInt(event.start) <= endOfDayDate.valueOf())){
-                returnArr.push(event);
-            }
-        })
-        return returnArr
-
+        return this.events.filter(event => {
+            return (parseInt(event.start) >= startOfDayDate.valueOf()) && (parseInt(event.start) <= endOfDayDate.valueOf())
+        });
     }
 
     createRes(){

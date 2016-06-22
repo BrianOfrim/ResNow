@@ -90,10 +90,15 @@
         <button type="button" class="close" (click)="dateModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <div class="btn-group btn-group-sm pull-right day-list-choice-btn" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" [ngClass] = "{active:showDayEventList}" (click) = "showDayEventList = true">List</button>
+            <button type="button" class="btn btn-default" [ngClass] = "{active:!showDayEventList}"  (click) = "showDayEventList = false">Schedule</button>
+        </div>
         <h4 class="modal-title" *ngIf = "showDayEventsModal">{{getDate(dateToShow) | date:"fullDate"}}</h4>
       </div>
       <div class="modal-body">
-          <day-event-list *ngIf = "showDayEventsModal" [events] = "getEvents(dateToShow)" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></day-event-list>
+          <day-event-list *ngIf = "showDayEventsModal && showDayEventList" [events] = "getEvents(dateToShow)" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></day-event-list>
+          <day-event-schedule *ngIf = "showDayEventsModal && !showDayEventList" [events] = "getEvents(dateToShow)" [startOfDay] = "getDate(dateToShow).getTime()"></day-event-schedule>
       </div>
     </div>
   </div>
