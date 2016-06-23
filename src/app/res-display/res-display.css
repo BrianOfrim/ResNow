@@ -2,12 +2,12 @@
     display: table;
     table-layout: fixed;
     width:100%;
-    /*height:100px;*/
+    height:100px;
 }
 
 .week-row div{
     display: table-cell;
-    /*height:100px;*/
+    height:100px;
 }
 
 .week-panel{
@@ -54,5 +54,5 @@
 
 .day-list-choice-btn{
     margin-left: 5px;
-    margin-right: 15px;
+    margin-right:5px;
 }

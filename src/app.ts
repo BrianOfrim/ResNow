@@ -4,9 +4,11 @@
 import { ComponentRef, enableProdMode, ReflectiveInjector } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { ROUTER_PROVIDERS } from '@angular/router-deprecated';
-import {Landing} from './app/landing/landing';
 import {FIREBASE_PROVIDERS, defaultFirebase, firebaseAuthConfig,AuthMethods,AuthProviders} from 'angularfire2';
 import {Authentication} from './app/authentication/authentication';
+
+import {Landing} from './app/landing/landing';
+import {ReservationService} from './app/core/reservation2/reservation2.service';  
 
 bootstrap(Landing, [
     FIREBASE_PROVIDERS,
@@ -16,5 +18,6 @@ bootstrap(Landing, [
       method: AuthMethods.Popup,
       provider: AuthProviders.Github
     }),
+    ReservationService,
     ROUTER_PROVIDERS
 ]);

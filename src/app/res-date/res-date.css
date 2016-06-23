@@ -17,9 +17,15 @@
 
 .no-events{
     color:#45546F;
+    border-color: #45546F;
 }
 .has-events{
     color: #3C7630;
+    border-color: #3C7630;
+}
+
+.has-events a{
+    color: #3C7630; 
 }
 
 .day-header{
@@ -50,12 +56,20 @@
     margin-top:2px;
 }
 
+
+.event-num:hover{
+    background-color: #3C7630;
+    color: #f5f5f5; 
+    cursor: pointer;
+}
+
 .day-body{
     font-size: 10px;
 }
 
 .event-cell{
     width:100%;
+    display: inline;
 }
 
 .edit-cell{
@@ -74,17 +88,32 @@
 }
 
 .time-cell{
-    width:40%;
+    width:30%;
     text-align: left;
     float:left;
+    border-bottom: solid 0.5px;
+}
+
+.time-cell:hover{
+    background-color: #3C7630;
+    color: #f5f5f5; 
+    cursor: pointer;
 }
 
 .title-cell{
-    width:60%;
+    width:70%;
     text-align:left;
     float:left;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding:0px 3px;
+    border-bottom: solid  0.5px;
+
+}
+
+.title-cell:hover{
+    background-color: #3C7630;
+    color: #f5f5f5; 
+    cursor: pointer;
 }
