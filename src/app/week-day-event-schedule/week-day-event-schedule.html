@@ -1,0 +1,41 @@
+<div *ngFor="let hour of hourIntervals">
+    <span class = "time-header">{{getStartTime(hour.startTime) | date:"h"}}</span>
+    <div *ngFor="let event of getHourEvents(hour)">    
+        <div class = "well well-sm event-well">
+            <div class = "row">
+                <div class = "col-xs-6" style = "text-align:left">
+                    <span class = "well-title"> 
+                        <b>:{{getMinutes(toInt(event.start))}}</b>                  
+                    </span>
+                </div>
+                <div class = "col-xs-6" style = "text-align:center">
+                    <button type="button" class="btn btn-default btn-xs edit-btn" (click) = "update.emit(event)">
+                        <span class = "glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button type="button" class="btn btn-default btn-xs delete-btn" (click) = "remove.emit(event)">
+                        <span class = "glyphicon glyphicon-trash"></span>
+                    </button>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-xs-12">
+                    <span class = "well-title"> 
+                        <b>{{event.title}} </b>                  
+                    </span>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-xs-12">
+                <span class = "well-body"><b>Name: </b>{{event.name}}</span>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-xs-12">
+                    <span class = "well-body"><b>Notes: </b>{{event.note}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+

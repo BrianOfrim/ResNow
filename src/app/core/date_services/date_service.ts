@@ -9,7 +9,7 @@ export class DateService{
         }
         return returnData;
     }
-    public getDates(year:number, month:number){
+    public getMonthDates(year:number, month:number){
         var firstOfMonth = new Date(year,month,1);
         firstOfMonth.setHours(0, 0, 0,0);
         var lastOfMonth = new Date(year,month + 1,0);
@@ -22,9 +22,22 @@ export class DateService{
         var displayDates = []
         var currDay = firstOfMonth
         while(currDay<=lastDisplayDate){
-            displayDates.push(currDay.toISOString())
+            displayDates.push(currDay.getTime())
             currDay.setDate( currDay.getDate() + 1);
         }
         return this.chunkData(displayDates,7)
+    }
+
+    public getWeekDates(dateStr:string){
+        let date = new Date(parseInt(dateStr));
+        
+        // get start of week
+        date.setDate(date.getDate() - date.getDay())
+        let returnArr = []
+        for(let i = 0; i < 7; i++){
+            returnArr.push(date.getTime())
+            date.setDate(date.getDate() + 1)
+        }
+        return returnArr
     }
 }

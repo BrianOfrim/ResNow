@@ -2,23 +2,30 @@
     <nav class="navbar navbar-default navbar-inverse">
         <div class="container-fluid">
             <div class="btn-group navbar-left" role="group" *ngIf = "showCalendar">
-                <button type="button" class="btn btn-default btn-md navbar-btn cal-navbar-btn">M</button>
-                <button type="button" class="btn btn-default btn-md navbar-btn cal-navbar-btn">W</button>
-                <button type="button" class="btn btn-default btn-md navbar-btn cal-navbar-btn">D</button>
+                <button type="button" [ngClass] = "{active: displayOption == 'month'}" (click) = "displayOption = 'month'" class="btn btn-default btn-md navbar-btn cal-navbar-btn">Month</button>
+                <button type="button" [ngClass] = "{active: displayOption == 'week'}" (click) = "displayOption = 'week'" class="btn btn-default btn-md navbar-btn cal-navbar-btn">Week</button>
+                <button type="button" [ngClass] = "{active: displayOption == 'day'}" (click) = "displayOption = 'day'" class="btn btn-default btn-md navbar-btn cal-navbar-btn">Day</button>
+                <button type="button" [ngClass] = "{active: displayOption == 'list'}" (click) = "displayOption = 'list'" class="btn btn-default btn-md navbar-btn cal-navbar-btn">List</button>
             </div>
-            <button *ngIf = "showCalendar" type="button" (click) = "decrementMonth()" class = "btn btn-default btn-sm navbar-btn cal-navbar-btn"><span class = "glyphicon glyphicon-menu-left"></span></button>
-            <span *ngIf = "showCalendar" class = "nav-text">{{firstOfCurrentMonth.getFullYear()}} - {{months[firstOfCurrentMonth.getMonth()]}}</span>
-            <button *ngIf = "showCalendar" type="button" (click) = "incrementMonth()" class = "btn btn-default btn-sm navbar-btn cal-navbar-btn"><span class = "glyphicon glyphicon-menu-right"></span></button>
-            
-            <div class="btn-group navbar-right display-opts" role="group">
-                <button type="button" class="btn btn-default btn-md navbar-btn cal-navbar-btn" (click) = "showCalendar = true">Calendar</button>
-                <button type="button" class="btn btn-default btn-md navbar-btn cal-navbar-btn" (click) = "showCalendar = false">List</button>
+            <div *ngIf="displayOption == 'month'" style = "display: inline">
+                <button type="button" (click) = "decrementMonth()" class = "btn btn-default btn-sm navbar-btn cal-navbar-btn"><span class = "glyphicon glyphicon-menu-left"></span></button>
+                <span class = "nav-text">{{months[firstOfCurrentMonth.getMonth()]}} - {{firstOfCurrentMonth.getFullYear()}}</span>
+                <button type="button" (click) = "incrementMonth()" class = "btn btn-default btn-sm navbar-btn cal-navbar-btn"><span class = "glyphicon glyphicon-menu-right"></span></button>
+            </div>
+            <div *ngIf="displayOption == 'week'" style = "display: inline">
+                <button type="button" (click) = "decrementWeek()" class = "btn btn-default btn-sm navbar-btn cal-navbar-btn"><span class = "glyphicon glyphicon-menu-left"></span></button>
+                <span class = "nav-text">{{getDate(currentWeekDisplayDates[0]) | date:'mediumDate'}} - {{getDate(currentWeekDisplayDates[6]) | date:'mediumDate'}}</span>
+                <button type="button" (click) = "incrementWeek()" class = "btn btn-default btn-sm navbar-btn cal-navbar-btn"><span class = "glyphicon glyphicon-menu-right"></span></button>
             </div>
             <button (click) = "createRes()" class = "btn btn-default btn-md navbar-btn cal-navbar-btn navbar-right display-opts">+ Create</button>
+            <div *ngIf="displayOption == 'week'" class = "btn-group navbar-right display-opts" style = "display: inline">
+                <button type="button" (click) = "weekDisplayIsList = true" [ngClass] = "{active: weekDisplayIsList}" class="btn btn-default btn-md navbar-btn cal-navbar-btn">List</button>
+                <button type="button" (click) = "weekDisplayIsList = false" [ngClass] = "{active: !weekDisplayIsList}" class="btn btn-default btn-md navbar-btn cal-navbar-btn">Schedule</button>
+            </div>
         </div>
     </nav>
-    <div *ngIf = "showCalendar">
-        <div *ngFor="let week of currentDisplayDates" class = "row">
+    <div *ngIf = "displayOption == 'month'">
+        <div *ngFor="let week of currentMonthDisplayDates" class = "row">
             <div class = "col-xs-12">
                 <div class = "week-row">
                     <div *ngFor = "let day of week">
@@ -31,8 +38,23 @@
     <res-list 
         [resItems$] = "resService.reservationItems$" 
         (remove)= "resService.removeReservation($event)"
-        (toDisplay)= "displayReservation($event)" *ngIf="!showCalendar">
+        (toDisplay)= "displayReservation($event)" *ngIf="displayOption == 'list'">
     </res-list>
+    <div *ngIf = "displayOption == 'week'">
+        <!--<span *ngFor = "let day of currentWeekDisplayDates">{{day}}</span> -->
+        <div class = "display-week">
+            <div *ngFor = "let day of currentWeekDisplayDates" class = "display-week-day">
+                <div class = "week-header">
+                    <span> {{ getDate(day) | date:'d' }} <sup>{{daysOfWeek[getDate(day).getDay()]}}</sup> </span>
+                </div>
+                <div class = "week-column">
+                    <week-day-event-list *ngIf = "weekDisplayIsList" [events] = "getEvents(day)" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></week-day-event-list>
+                    <week-day-event-schedule *ngIf = "!weekDisplayIsList" [startOfDay] = "getDate(day).getTime()" [events] = "getEvents(day)" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></week-day-event-schedule>
+                </div>
+                <!--<day-event-schedule  [events] = "getEvents(day)" [startOfDay] = "getDate(day).getTime()" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></day-event-schedule>-->
+            </div>
+        </div> 
+    </div>
 </div>
 
 <div bsModal #lgModal="bs-modal" class="modal fade display-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" (onHide) = "modalClosed()" (onShow) = "modalOpening()">

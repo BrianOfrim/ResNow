@@ -56,3 +56,30 @@
     margin-left: 5px;
     margin-right:5px;
 }
+
+.display-week{
+    display: table;
+    table-layout: fixed;
+    width:100%;
+}
+.week-column{
+    border-left: solid #45546F 1px;
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden; 
+}
+
+.display-week-day{
+    display: table-cell;
+}
+
+.week-header{
+    width: 100%;
+    text-align:center;
+    color: wheat; 
+    background-color: #45546F;
+    font-size: 18px;
+    padding-top:3px;
+    padding-bottom:3px;
+    
+}

@@ -20,7 +20,7 @@ export class ResDate{
     daysOfWeek: String[] = ['S','M','T','W','R','F','S'];
     currDOW: String;
     ngOnInit(){
-        this.currDate = new Date(this.date);
+        this.currDate = new Date(parseInt(this.date));
         this.currDOW = this.daysOfWeek[this.currDate.getDay()];
     }
     getStartTime(event){

@@ -68,8 +68,19 @@
 }
 
 .event-cell{
-    width:100%;
-    display: inline;
+    width: 100%;
+    overflow: hidden;
+    float:left;
+}
+.event-cell:hover{
+    background-color: #3C7630;
+    color: #f5f5f5; 
+    cursor: pointer;
+}
+
+.event-cell:hover div{
+    color: #f5f5f5; 
+    cursor: pointer; 
 }
 
 .edit-cell{
@@ -91,14 +102,14 @@
     width:30%;
     text-align: left;
     float:left;
-    border-bottom: solid 0.5px;
+    overflow: hidden;
 }
 
-.time-cell:hover{
+/*.time-cell:hover{
     background-color: #3C7630;
     color: #f5f5f5; 
     cursor: pointer;
-}
+}*/
 
 .title-cell{
     width:70%;
@@ -108,12 +119,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding:0px 3px;
-    border-bottom: solid  0.5px;
-
 }
 
-.title-cell:hover{
+/*.title-cell:hover{
     background-color: #3C7630;
     color: #f5f5f5; 
     cursor: pointer;
-}
+}*/
