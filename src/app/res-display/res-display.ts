@@ -13,11 +13,15 @@ import {DayEventList} from '../day-event-list/day-event-list';
 import { DayEventSchedule } from '../day-event-schedule/day-event-schedule';
 import {WeekDayEventList} from '../week-day-event-list/week-day-event-list';
 import {WeekDayEventSchedule} from '../week-day-event-schedule/week-day-event-schedule';
+import { DayResList} from '../day-res-list/day-res-list';
 
 @Component({
   selector: 'res-display',
   providers: [DateService,BS_VIEW_PROVIDERS],
-  directives: [ResDate,ResList,MODAL_DIRECTVES,ModalDirective,DATEPICKER_DIRECTIVES,TimepickerComponent,DayEventList,DayEventSchedule,WeekDayEventList,WeekDayEventSchedule],
+
+  directives: [ResDate,ResList,MODAL_DIRECTVES,ModalDirective,DATEPICKER_DIRECTIVES,
+  TimepickerComponent,DayEventList,DayEventSchedule,WeekDayEventList,WeekDayEventSchedule,DayResList],
+  
   templateUrl: "app/res-display/res-display.html",
   styleUrls: ["app/res-display/res-display.css"], 
   pipes: []
@@ -34,8 +38,9 @@ export class ResDisplay{
     mstep:number = 10;
     showDayEventList:boolean = true;
     eventToDisplay:Reservation2;
-    firstOfCurrentMonth:Date;
-    firstOfCurrentWeek:Date;
+    // firstOfCurrentMonth:Date;
+    // firstOfCurrentWeek:Date;
+    displayDate:Date;
     currentMonthDisplayDates: any[];
     currentWeekDisplayDates: any[];
     months: String[] = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -44,7 +49,7 @@ export class ResDisplay{
     dateToShow: string;
     displayOption: string;
     daysOfWeek: String[] = ['S','M','T','W','R','F','S'];
-    weekDisplayIsList:boolean = true;
+    displayIsList:boolean = true;
     @ViewChild('lgModal')
     lgModal: ModalDirective;
     @ViewChild('dateModal')
@@ -56,16 +61,19 @@ export class ResDisplay{
         this.dt = new Date();
         this.dt.setHours(12,0,0,0);
 
-        this.firstOfCurrentMonth = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),1);
-        this.firstOfCurrentMonth.setHours(0,0,0,0);
-        this.currentMonthDisplayDates = this.dateService.getMonthDates(this.firstOfCurrentMonth.getFullYear(), this.firstOfCurrentMonth.getMonth());  
+        // this.firstOfCurrentMonth = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),1);
+        // this.firstOfCurrentMonth.setHours(0,0,0,0);
 
-        this.firstOfCurrentWeek = new Date(this.currentDate.getTime());
-        this.firstOfCurrentWeek.setDate(this.currentDate.getDate() - this.currentDate.getDay());
-        this.firstOfCurrentWeek.setHours(0,0,0,0);
-        this.currentWeekDisplayDates = this.dateService.getWeekDates(this.firstOfCurrentWeek.getTime().toString());
-        console.log("Week dates")
-        console.log(this.currentWeekDisplayDates);
+        this.displayDate = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),1);
+        this.displayDate.setHours(0,0,0,0);
+        this.currentMonthDisplayDates = this.dateService.getMonthDates(this.displayDate.getFullYear(), this.displayDate.getMonth());  
+
+        // this.firstOfCurrentWeek = new Date(this.currentDate.getTime());
+        // this.firstOfCurrentWeek.setDate(this.currentDate.getDate() - this.currentDate.getDay());
+        // this.firstOfCurrentWeek.setHours(0,0,0,0);
+        //this.currentWeekDisplayDates = this.dateService.getWeekDates(this.displayDate.getTime().toString());
+        // console.log("Week dates")
+        // console.log(this.currentWeekDisplayDates);
         //this.currentYear = currentDate.getYear(); 
         this.events = [];  
         this.createNew = false;  
@@ -78,31 +86,71 @@ export class ResDisplay{
         });
     }
 
+    sortEvents(evs:any[]){
+        return evs.sort(function(a, b) {
+            return parseInt(a.start) - parseInt(b.start);
+        });
+    }
+
     getDate(dateStr:string){
         return new Date(dateStr);
     }
 
+    changeDisplay(option:string){
+        this.displayOption = option;
+        this.currentWeekDisplayDates = this.dateService.getWeekDates(this.displayDate.getTime().toString());
+        this.currentMonthDisplayDates = this.dateService.getMonthDates(this.displayDate.getFullYear(), this.displayDate.getMonth());  
+
+    }
     incrementMonth(){
-        this.firstOfCurrentMonth.setMonth(this.firstOfCurrentMonth.getMonth()+1);
-        this.currentMonthDisplayDates = this.dateService.getMonthDates(this.firstOfCurrentMonth.getFullYear(), this.firstOfCurrentMonth.getMonth());
+        // this.firstOfCurrentMonth.setMonth(this.firstOfCurrentMonth.getMonth()+1);
+        // this.currentMonthDisplayDates = this.dateService.getMonthDates(this.firstOfCurrentMonth.getFullYear(), this.firstOfCurrentMonth.getMonth());
+
+        this.displayDate.setMonth(this.displayDate.getMonth()+1);
+        this.displayDate.setDate(1);
+        console.log(this.displayDate);
+        this.currentMonthDisplayDates = this.dateService.getMonthDates(this.displayDate.getFullYear(), this.displayDate.getMonth());
     }
     decrementMonth(){
-        this.firstOfCurrentMonth.setMonth(this.firstOfCurrentMonth.getMonth()-1);
-        this.currentMonthDisplayDates = this.dateService.getMonthDates(this.firstOfCurrentMonth.getFullYear(), this.firstOfCurrentMonth.getMonth());
+        // this.firstOfCurrentMonth.setMonth(this.firstOfCurrentMonth.getMonth()-1);
+        // this.currentMonthDisplayDates = this.dateService.getMonthDates(this.firstOfCurrentMonth.getFullYear(), this.firstOfCurrentMonth.getMonth());
+
+        this.displayDate.setMonth(this.displayDate.getMonth()-1);
+        this.displayDate.setDate(1);
+        console.log(this.displayDate);
+        this.currentMonthDisplayDates = this.dateService.getMonthDates(this.displayDate.getFullYear(), this.displayDate.getMonth());
     }
 
     incrementWeek(){
-        this.firstOfCurrentWeek.setDate(this.firstOfCurrentWeek.getDate()+7);
-        this.currentWeekDisplayDates = this.dateService.getWeekDates(this.firstOfCurrentWeek.getTime().toString());
+        // this.firstOfCurrentWeek.setDate(this.firstOfCurrentWeek.getDate()+7);
+        // this.currentWeekDisplayDates = this.dateService.getWeekDates(this.firstOfCurrentWeek.getTime().toString());
+
+        this.displayDate.setDate(this.displayDate.getDate()+7);
+        this.displayDate.setDate(this.displayDate.getDate() - this.displayDate.getDay());
+        console.log(this.displayDate);
+        this.currentWeekDisplayDates = this.dateService.getWeekDates(this.displayDate.getTime().toString());
     }
     decrementWeek(){
-        this.firstOfCurrentWeek.setDate(this.firstOfCurrentWeek.getDate()-7);
-        this.currentWeekDisplayDates = this.dateService.getWeekDates(this.firstOfCurrentWeek.getTime().toString());
+        // this.firstOfCurrentWeek.setDate(this.firstOfCurrentWeek.getDate()-7);
+        // this.currentWeekDisplayDates = this.dateService.getWeekDates(this.firstOfCurrentWeek.getTime().toString());
+
+        this.displayDate.setDate(this.displayDate.getDate()-7);
+        this.displayDate.setDate(this.displayDate.getDate() - this.displayDate.getDay());
+        console.log(this.displayDate);
+        this.currentWeekDisplayDates = this.dateService.getWeekDates(this.displayDate.getTime().toString());
     }
 
-    
+    incrementDay(){
+        this.displayDate.setDate(this.displayDate.getDate() + 1);
+        console.log(this.displayDate);
+    }
+
+    decrementDay(){
+        this.displayDate.setDate(this.displayDate.getDate() - 1);
+        console.log(this.displayDate);
+    }
     getEvents(startOfDay:string){
-        console.log(startOfDay)
+        //console.log(startOfDay)
         let startOfDayDate = new Date(startOfDay);
         startOfDayDate.setHours(0,0,0,0);
         var endOfDayDate = new Date(startOfDay);

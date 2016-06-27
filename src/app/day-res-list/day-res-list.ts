@@ -3,7 +3,7 @@ import { RouterLink, RouteParams } from '@angular/router-deprecated';
 import { FirebaseListObservable } from 'angularfire2';
 
 import { Reservation2, IReservation2} from '../core/reservation2/reservation2';
-import { ResItem } from '../res-item/res-item';
+import { DayResItem } from '../day-res-item/day-res-item';
 
 // @Pipe({ name: 'sortByStart' })
 // export class SortByStartPipe implements PipeTransform {
@@ -21,14 +21,14 @@ import { ResItem } from '../res-item/res-item';
 // }
 
 @Component({
-  selector: 'res-list',
-  templateUrl: 'app/res-list/res-list.html',
-  styleUrls: ['app/res-list/res-list.css'],
+  selector: 'day-res-list',
+  templateUrl: 'app/day-res-list/day-res-list.html',
+  styleUrls: ['app/day-res-list/day-res-list.css'],
   providers: [],
-  directives: [ResItem],
+  directives: [DayResItem],
   pipes: []
 })
-export class ResList {
+export class DayResList {
   @Input() resItems$: FirebaseListObservable<IReservation2[]>;
   @Output() toDisplay : EventEmitter<IReservation2> = new EventEmitter(false);
   @Output() remove: EventEmitter<IReservation2> = new EventEmitter(false);
