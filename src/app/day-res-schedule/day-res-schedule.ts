@@ -1,16 +1,18 @@
 import {Component,OnInit, Input, Output,EventEmitter} from '@angular/core';
+
 import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
+import { DayResScheduleItem } from '../day-res-schedule-item/day-res-schedule-item'
 
 @Component({
-  selector: 'week-day-event-schedule',
+  selector: 'day-res-schedule',
   providers: [],
-  directives: [],
-  templateUrl: "app/week-day-event-schedule/week-day-event-schedule.html",
-  styleUrls: ["app/week-day-event-schedule/week-day-event-schedule.css"],
+  directives: [DayResScheduleItem],
+  templateUrl: "app/day-res-schedule/day-res-schedule.html",
+  styleUrls: ["app/day-res-schedule/day-res-schedule.css"],
   pipes: []
 })
 
-export class WeekDayEventSchedule{
+export class DayResSchedule{
     @Input() events: IReservation2[]; 
     @Input() startOfDay: string;
     @Output() update: EventEmitter<IReservation2> = new EventEmitter(false);
@@ -31,7 +33,6 @@ export class WeekDayEventSchedule{
                 endTime:(startOfDayMs + (i+1)*3600000 - 1)
             });
         }
-        console.log(returnArr);
         return returnArr
         
     }
@@ -63,5 +64,9 @@ export class WeekDayEventSchedule{
     getStartTime(startVal:number){
         return new Date(startVal)
     }
+
+  emitUpdate(res){
+    this.update.emit(res)
+  }
 
 }

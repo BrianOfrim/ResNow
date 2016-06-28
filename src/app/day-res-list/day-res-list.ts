@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Pipe, PipeTransform } from '@angular/core';
-import { RouterLink, RouteParams } from '@angular/router-deprecated';
-import { FirebaseListObservable } from 'angularfire2';
 
 import { Reservation2, IReservation2} from '../core/reservation2/reservation2';
 import { DayResItem } from '../day-res-item/day-res-item';
@@ -29,13 +27,13 @@ import { DayResItem } from '../day-res-item/day-res-item';
   pipes: []
 })
 export class DayResList {
-  @Input() resItems$: FirebaseListObservable<IReservation2[]>;
+  @Input() resItems$ : IReservation2[];
   @Output() toDisplay : EventEmitter<IReservation2> = new EventEmitter(false);
   @Output() remove: EventEmitter<IReservation2> = new EventEmitter(false);
 
   constructor() {}
 
-emitUpdate(res){
-  this.toDisplay.emit(res)
-}
+  emitUpdate(res){
+    this.toDisplay.emit(res)
+  }
 }

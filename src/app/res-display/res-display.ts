@@ -14,13 +14,14 @@ import { DayEventSchedule } from '../day-event-schedule/day-event-schedule';
 import {WeekDayEventList} from '../week-day-event-list/week-day-event-list';
 import {WeekDayEventSchedule} from '../week-day-event-schedule/week-day-event-schedule';
 import { DayResList} from '../day-res-list/day-res-list';
+import {DayResSchedule} from '../day-res-schedule/day-res-schedule'
 
 @Component({
   selector: 'res-display',
   providers: [DateService,BS_VIEW_PROVIDERS],
 
   directives: [ResDate,ResList,MODAL_DIRECTVES,ModalDirective,DATEPICKER_DIRECTIVES,
-  TimepickerComponent,DayEventList,DayEventSchedule,WeekDayEventList,WeekDayEventSchedule,DayResList],
+  TimepickerComponent,DayEventList,DayEventSchedule,WeekDayEventList,WeekDayEventSchedule,DayResList,DayResSchedule],
   
   templateUrl: "app/res-display/res-display.html",
   styleUrls: ["app/res-display/res-display.css"], 

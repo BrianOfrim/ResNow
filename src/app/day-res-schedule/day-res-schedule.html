@@ -1,0 +1,13 @@
+<div *ngFor="let hour of createIntervals(startOfDay)">
+    <span class = "time-header">{{getStartTime(hour.startTime) | date:"h"}}</span> 
+    <div class = "events">
+        <day-res-schedule-item
+            *ngFor = "let event of getHourEvents(hour)"
+            [reservation] = "event" 
+            (remove) = "remove.emit(event)"
+            (update) = "emitUpdate(event)">
+        </day-res-schedule-item>
+    </div>
+    <hr>
+</div>
+

@@ -1,0 +1,40 @@
+<div class = "well well-sm event-well">
+    <div class = "row">
+        <div class = "col-xs-10">
+            <div class = "row well-row">
+                <div class = "col-xs-12">
+                    <span class = "well-title">
+                        <b>:{{getMinutes(startDate.getMinutes())}}</b>
+                    </span>
+                </div>
+            </div>
+            <div class = "row well-row">
+                <div class = "col-xs-12">
+                    <span class = "well-body"><b>Title: </b>{{reservation.title}}</span>
+                </div>
+            </div>
+            <div class = "row well-row">
+                <div class = "col-xs-12">
+                    <span class = "well-body"><b>Name: </b>{{reservation.name}}</span>
+                </div>
+            </div>
+            <div class = "row well-row">
+                <div class = "col-xs-12">
+                    <span class = "well-body"><b>Notes: </b>{{reservation.note}}</span>
+                </div>
+            </div>
+        </div>
+        <div class = "col-xs-2">
+            <div class = "row" style = "text-align:center">
+                    <button type="button" class="btn btn-default btn-sm edit-btn" (click) = "update.emit()">
+                        <span class = "glyphicon glyphicon-pencil"></span>
+                    </button>
+            </div>
+            <div class = "row" style = "text-align:center">
+                    <button type="button" class="btn btn-default btn-sm delete-btn" (click) = "remove.emit()">
+                        <span class = "glyphicon glyphicon-trash"></span>
+                    </button>
+            </div>
+        </div>
+    </div>
+</div>

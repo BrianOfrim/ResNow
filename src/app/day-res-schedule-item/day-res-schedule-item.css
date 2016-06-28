@@ -1,0 +1,22 @@
+.event-well{
+    display: inline-block;
+    margin: 5px;
+    width: 300px;
+}
+
+.well-title{
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.well-body{
+    text-align: left;
+    font-size: 14px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.well-row{
+    text-align:left;
+}
