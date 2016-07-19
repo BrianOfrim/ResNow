@@ -1,10 +1,13 @@
 import {Component,OnInit,Input,ViewContainerRef,ViewChild} from '@angular/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import { Router, ActivatedRoute } from '@angular/router';
+import {FORM_DIRECTIVES} from '@angular/forms';
 import {DATEPICKER_DIRECTIVES,TimepickerComponent} from 'ng2-bootstrap/ng2-bootstrap';
 import { FirebaseListObservable } from 'angularfire2';
-import {MODAL_DIRECTVES, BS_VIEW_PROVIDERS,ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
+import { MODAL_DIRECTIVES ,BS_VIEW_PROVIDERS,ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
 
 import { Reservation2, IReservation2 } from '../core/reservation2/reservation2';
+import {UserService} from '../core/user.service/user.service';
+
 import { ResDate } from '../res-date/res-date'
 import {  DateService } from '../core/date_services/date_service';
 import {ReservationService} from '../core/reservation2/reservation2.service';
@@ -20,7 +23,7 @@ import {DayResSchedule} from '../day-res-schedule/day-res-schedule'
   selector: 'res-display',
   providers: [DateService,BS_VIEW_PROVIDERS],
 
-  directives: [ResDate,ResList,MODAL_DIRECTVES,ModalDirective,DATEPICKER_DIRECTIVES,
+  directives: [ResDate,ResList,MODAL_DIRECTIVES,ModalDirective,DATEPICKER_DIRECTIVES,FORM_DIRECTIVES,
   TimepickerComponent,DayEventList,DayEventSchedule,WeekDayEventList,WeekDayEventSchedule,DayResList,DayResSchedule],
   
   templateUrl: "app/res-display/res-display.html",
@@ -29,7 +32,9 @@ import {DayResSchedule} from '../day-res-schedule/day-res-schedule'
 })
 
 export class ResDisplay{
-    public constructor(private dateService:DateService, public resService: ReservationService){}
+    // @Input() reservations: IReservation2[];
+    public constructor(private dateService:DateService, public resService: ReservationService,
+     private userService: UserService, private route: ActivatedRoute, private router: Router){}
     events:any[];
     createNew:boolean;
     dt:Date;
@@ -39,6 +44,7 @@ export class ResDisplay{
     mstep:number = 10;
     showDayEventList:boolean = true;
     eventToDisplay:Reservation2;
+    calendarKey: string = '';
     // firstOfCurrentMonth:Date;
     // firstOfCurrentWeek:Date;
     displayDate:Date;
@@ -68,23 +74,27 @@ export class ResDisplay{
         this.displayDate = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),1);
         this.displayDate.setHours(0,0,0,0);
         this.currentMonthDisplayDates = this.dateService.getMonthDates(this.displayDate.getFullYear(), this.displayDate.getMonth());  
-
-        // this.firstOfCurrentWeek = new Date(this.currentDate.getTime());
-        // this.firstOfCurrentWeek.setDate(this.currentDate.getDate() - this.currentDate.getDay());
-        // this.firstOfCurrentWeek.setHours(0,0,0,0);
-        //this.currentWeekDisplayDates = this.dateService.getWeekDates(this.displayDate.getTime().toString());
-        // console.log("Week dates")
-        // console.log(this.currentWeekDisplayDates);
-        //this.currentYear = currentDate.getYear(); 
         this.events = [];  
         this.createNew = false;  
         this.modalOpen = false;
         this.showCalendar = true;
         this.displayOption = "month";
-        this.resService.reservationItems$.subscribe(eventData=>{
-            // console.log(eventData)
-            this.events = eventData;
-        });
+        this.route.params.subscribe(params => {
+            this.calendarKey = params['id']; 
+            console.log("The id = " + this.calendarKey);
+            this.resService.getCalendarReservations(this.calendarKey).subscribe( events => {
+                this.events = [];
+                events.forEach(event =>{
+                    firebase.database().ref(`/events/` + event['$key']).once('value').then(snapshot => {
+                        let ev = snapshot.val();
+                        ev["$key"] = snapshot.key;
+                        this.events.push(ev);
+                        console.log(ev);
+                    })
+                })
+            })
+        })
+
     }
 
     sortEvents(evs:any[]){
@@ -150,6 +160,9 @@ export class ResDisplay{
         this.displayDate.setDate(this.displayDate.getDate() - 1);
         console.log(this.displayDate);
     }
+    getAllEvents(){
+        return this.events;
+    }
     getEvents(startOfDay:string){
         //console.log(startOfDay)
         let startOfDayDate = new Date(startOfDay);
@@ -166,6 +179,10 @@ export class ResDisplay{
         this.dt = new Date();
         this.dt.setHours(12,0,0,0);
         this.lgModal.show()
+    }
+
+    deleteRes(ev:IReservation2){
+        this.resService.removeReservation(ev);
     }
 
     displayReservation(e){
@@ -187,9 +204,10 @@ export class ResDisplay{
     pushUpdate(updatedReservation: IReservation2){
         let newStart = this.dt
         newStart.setSeconds(0,0);
+        updatedReservation.calendar = this.calendarKey;
         updatedReservation.start = newStart.getTime().toString()
         if(this.createNew){
-            this.resService.createReservation(updatedReservation)
+            this.resService.createReservation(updatedReservation);
         }else{
             this.resService.updateReservation(updatedReservation);
         }

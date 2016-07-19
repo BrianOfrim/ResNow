@@ -15,8 +15,8 @@ import { DayResScheduleItem } from '../day-res-schedule-item/day-res-schedule-it
 export class DayResSchedule{
     @Input() events: IReservation2[]; 
     @Input() startOfDay: string;
-    @Output() update: EventEmitter<IReservation2> = new EventEmitter(false);
-    @Output() remove: EventEmitter<IReservation2> = new EventEmitter(false);
+    @Output() update: EventEmitter<any> = new EventEmitter(false);
+    @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
     hourIntervals: any[];
     ngOnInit(){

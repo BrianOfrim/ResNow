@@ -1,6 +1,7 @@
 
 import {Component} from '@angular/core';
-import {RouteConfig, ROUTER_DIRECTIVES,Router} from '@angular/router-deprecated';
+// import {RouteConfig, ROUTER_DIRECTIVES,Router} from '@angular/router-deprecated';
+import { Router } from '@angular/router';
 import {AngularFire,FirebaseAuth} from 'angularfire2';
 import {Authentication} from '../authentication/authentication';
  
@@ -9,7 +10,7 @@ import {Authentication} from '../authentication/authentication';
   templateUrl:'app/signIn/signIn.html',
   styleUrls: ['app/signIn/signIn.css'],
   providers:[],
-  directives: [ROUTER_DIRECTIVES],
+  directives: [],
   pipes: []
 })
 
@@ -32,12 +33,15 @@ export class SignIn{
   signOut():void{
     this.auth.signOut();
   }
-  goToEvents():void{
-    this.router.navigate(['Events'])
+  // goToEvents():void{
+  //   this.router.navigate(['/events'])
+  // }
+  goToHome():void{
+    this.router.navigate(['/home'])
   }
   
   private postSignIn() :void{
-    this.router.navigate(['Events'])
+    this.goToHome()
   }
   
 }

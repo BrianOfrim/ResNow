@@ -28,8 +28,8 @@ import { DayResItem } from '../day-res-item/day-res-item';
 })
 export class DayResList {
   @Input() resItems$ : IReservation2[];
-  @Output() toDisplay : EventEmitter<IReservation2> = new EventEmitter(false);
-  @Output() remove: EventEmitter<IReservation2> = new EventEmitter(false);
+  @Output() toDisplay : EventEmitter<any> = new EventEmitter(false);
+  @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
   constructor() {}
 

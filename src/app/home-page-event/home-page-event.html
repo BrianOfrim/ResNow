@@ -1,0 +1,22 @@
+<div class = "well well-sm event-well">
+    <div class = "row">
+        <div class ="col-xs-10">
+            <div class = "event-text">
+                {{ startDate | date:'mediumDate'}}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                {{ event.title}}
+            </div>
+        </div>
+        <div class ="col-xs-2" style = "text-align:right">
+            <button type="button" class="btn btn-default btn-sm edit-btn" (click) = "toggleShowNote()">
+                <span class = "glyphicon glyphicon-chevron-right" *ngIf = "!showNote"></span>
+                <span class = "glyphicon glyphicon-chevron-up" *ngIf = "showNote"></span>
+            </button>
+        </div>
+    </div>
+    <div class = "row" *ngIf = "showNote">
+        <div class = "col-xs-12">
+            {{event.note}}
+        </div>
+    </div>
+</div>

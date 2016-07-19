@@ -1,13 +1,21 @@
 <div classs="container">
   <div class="row">
-    <span *ngIf="af.auth | async">
-      <div class = "row">
+    <!--<span *ngIf="auth.userAuth | async">-->
+      <span *ngIf="auth.authenticated">
+      <!--<div class = "row">
         <div class = "sign-in-row">
           <button  type="button" class="btn btn-lg sign-in-btn" (click)= "goToEvents()">
             <span>Go to events</span>
           </button>
         </div>
-      </div>        
+      </div> -->
+      <div class = "row">
+        <div class = "sign-in-row">
+          <button  type="button" class="btn btn-lg sign-in-btn" (click)= "goToHome()">
+            <span>Home</span>
+          </button>
+        </div>
+      </div>      
       <div class = "row">
         <div class = "sign-in-row">
           <button  type="button" class="btn btn-lg sign-in-btn" (click)= "signOut()">
@@ -16,7 +24,8 @@
         </div>
       </div>         
     </span>
-    <span *ngIf="!(af.auth | async)">
+    <!--<span *ngIf="!(auth.userAuth  | async)">-->
+      <span *ngIf="!auth.authenticated">
       <h2 style = "text-align:center">Sign in with</h2>
       <div class = "row">
         <div class = "sign-in-row">
@@ -39,7 +48,7 @@
           </button>
         </div>
       </div>
-      <div class="row">
+      <div class="row"> 
         <div class="sign-in-row">
           <button type="button" class="btn btn-lg sign-in-btn" (click)="startGithubLogin()">
             <span>Github  </span><img src = "app/images/GitHub-Mark-32px.png">

@@ -12,8 +12,8 @@ import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
 
 export class WeekDayEventList{
     @Input() events: IReservation2[]; 
-    @Output() update: EventEmitter<IReservation2> = new EventEmitter(false);
-    @Output() remove: EventEmitter<IReservation2> = new EventEmitter(false);
+    @Output() update: EventEmitter<any> = new EventEmitter(false);
+    @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
 
     ngOnInit(){

@@ -8,6 +8,8 @@ export interface IReservation2{
     name: string;
     note: string;
     start: string;
+    calendar: string;
+    ownerUID: string;
 }
 
 export class Reservation2 implements IReservation2{
@@ -16,10 +18,14 @@ export class Reservation2 implements IReservation2{
     name: string;
     note: string;
     start: string; 
-    constructor(title?:string,name?:string, note?: string, start?: string){
+    calendar: string;
+    ownerUID: string;
+    constructor(title?:string,name?:string, note?: string, start?: string, calendar?: string, ownerUID?: string){
         this.title = title || "";
         this.name = name || "";
         this.note = note || "";
         this.start = start || "";
+        this.calendar = calendar || "";
+        this.ownerUID = ownerUID || "";
     }
 }

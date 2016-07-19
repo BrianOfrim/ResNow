@@ -53,26 +53,28 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
   <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">-->
   <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-  
  <script>
    var mapObj = {
-        firebase: 'vendor/firebase/lib/firebase-web.js',
-        angularfire2: 'vendor/angularfire2',
+        firebase: 'vendor/firebase/firebase.js',
+        'angularfire2': 'vendor/angularfire2',
         moment: 'vendor/moment/moment.js',
         '@angular': 'vendor/@angular',
-        primeng: 'vendor/primeng',
-        'angular2-modal':'vendor/angular2-modal',
-        'ng2-bs3-modal':'vendor/ng2-bs3-modal'
+        // primeng: 'vendor/primeng',
+        //'angular2-modal':'vendor/angular2-modal',
+        // 'ng2-bs3-modal':'vendor/ng2-bs3-modal'
+        'ng2-bootstrap':'vendor/ng2-bootstrap'
    }
    var packageNameObj = [
      "@angular/core",
      "@angular/common",
+     "@angular/router",
      "@angular/router-deprecated",
      "@angular/platform-browser-dynamic",
      "@angular/platform-browser",
      "@angular/compiler",
-     "angular2-modal/platform-browser",
-     "angular2-modal/plugins/bootstrap"
+     "@angular/forms",
+    //  "angular2-modal/platform-browser",
+    //  "angular2-modal/plugins/bootstrap",
     //  "angular2-modal/angular2-modal",
     //  "angular2-modal/models/modal-open-context",
     //  "angular2-modal/providers/modal",
@@ -85,13 +87,14 @@
           format: 'register',
           defaultExtension: 'js'
         },
-        angularfire2: {
+        'angularfire2': {
           defaultExtension: 'js',
           main: 'angularfire2.js'
         },
-        primeng : {defaultExtension: 'js'},
-        'angular2-modal' : {defaultExtension: 'js'},
-        'ng2-bs3-modal' : {defaultExtension: 'js'}
+        // primeng : {defaultExtension: 'js'},
+        //'angular2-modal' : {defaultExtension: 'js'},
+        'ng2-bootstrap' : {defaultExtension: 'js'}
+        //'ng2-bs3-modal' : {defaultExtension: 'js'},
       };
       
       packageNameObj.forEach(function(packName){
@@ -100,6 +103,7 @@
    
     System.config({
       map: mapObj,
+      //baseURL: '/',
       packages: packageObj
     });
     System.import('app.js').then(null, console.error.bind(console));

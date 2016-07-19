@@ -1,0 +1,40 @@
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon1">
+      <span class = "glyphicon glyphicon-search"></span>
+  </span>
+  <input [(ngModel)]="asyncSelected"
+         [typeahead]="dataSource"
+         (typeaheadLoading)="changeTypeaheadLoading($event)"
+         (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+         (typeaheadOnSelect)="typeaheadOnSelect($event)"
+         [typeaheadOptionsLimit]="7"
+         [typeaheadOptionField]="'name'"
+         placeholder="Search calendars..."
+         class="form-control"
+         aria-describedby="basic-addon1">
+  <div *ngIf="typeaheadLoading===true">
+    <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
+  </div>
+  <div *ngIf="typeaheadNoResults===true" class="" style="">
+    <i class="glyphicon glyphicon-remove"></i> No Results Found
+  </div>
+</div>
+
+<button class="btn btn-success" type="submit" (click) = "goToCalendar('mine')">Personal Calendar</button>
+
+<h4>Upcoming Reservations</h4>
+<div *ngFor ="let event of userService.userEvents">
+    <home-page-event [event] = "event"></home-page-event>
+</div>
+
+<h4>My Calendars</h4>
+<div class="form-group">
+    <label for="alterEgo">Calendar Title</label>
+    <input type="text" class="form-control" [(ngModel)] = "newCalName">
+</div>
+<button class="btn btn-success" type="submit" (click) = "createCalendar(newCalName)">Create</button>
+
+<div *ngFor = "let calendar of userService.userCalendars">
+    <home-page-calendar [calendar] = "calendar" (goToCalendar) = "goToCalendar($event)"></home-page-calendar>
+</div>
+

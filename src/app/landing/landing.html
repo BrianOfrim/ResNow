@@ -6,8 +6,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Res Now!</a>x
-      <button *ngIf = "af.auth | async" type="button" class="btn btn-default navbar-btn navbar-right" (click) = "signOut()">Sign out</button>
+      <a class="navbar-brand" href="/home">Res Now!</a>x
+      <button *ngIf = "auth.authenticated" type="button" class="btn btn-default navbar-btn navbar-right" (click) = "signOut()">Sign out</button>
   </div>
 </nav>
 <div class="jumbotron">

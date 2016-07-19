@@ -42,8 +42,8 @@
     </div>
     <div class = "day-body"  *ngIf="displayOption == 'list'">
         <res-list 
-            [resItems$] = "sortEvents(events)" 
-            (remove)= "resService.removeReservation($event)"
+            [resItems$] = "sortEvents(getAllEvents())" 
+            (remove)= "deleteRes($event)"
             (toDisplay)= "displayReservation($event)">
         </res-list>
     </div>
@@ -55,8 +55,8 @@
                     <span> {{ getDate(day) | date:'d' }} <sup>{{daysOfWeek[getDate(day).getDay()]}}</sup> </span>
                 </div>
                 <div class = "week-column">
-                    <week-day-event-list *ngIf = "displayIsList" [events] = "sortEvents(getEvents(day))" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></week-day-event-list>
-                    <week-day-event-schedule *ngIf = "!displayIsList" [startOfDay] = "getDate(day).getTime()" [events] = "sortEvents(getEvents(day))" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></week-day-event-schedule>
+                    <week-day-event-list *ngIf = "displayIsList" [events] = "sortEvents(getEvents(day))" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></week-day-event-list>
+                    <week-day-event-schedule *ngIf = "!displayIsList" [startOfDay] = "getDate(day).getTime()" [events] = "sortEvents(getEvents(day))" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></week-day-event-schedule>
                 </div>
                 <!--<day-event-schedule  [events] = "getEvents(day)" [startOfDay] = "getDate(day).getTime()" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></day-event-schedule>-->
             </div>
@@ -65,13 +65,13 @@
     <div *ngIf = "displayOption == 'day'" class = "day-body">
         <day-res-list 
             [resItems$] = "sortEvents(getEvents(displayDate.getTime()))" 
-            (remove)= "resService.removeReservation($event)"
+            (remove)= "deleteRes($event)"
             (toDisplay)= "displayReservation($event)" *ngIf="displayIsList">
         </day-res-list>
         <day-res-schedule
             [events] = "sortEvents(getEvents(displayDate.getTime()))" 
             [startOfDay] = "displayDate.getTime()"
-            (remove)= "resService.removeReservation($event)"
+            (remove)= "deleteRes($event)"
             (update) = "displayReservation($event)" *ngIf="!displayIsList">
         </day-res-schedule>
     </div>
@@ -90,11 +90,11 @@
         <form>
         <div class="form-group">
           <label for="alterEgo">Name</label>
-          <input type="text" class="form-control" [(ngModel)] = "eventToDisplay.name">
+          <input type="text" class="form-control" [(ngModel)] = "eventToDisplay.name" name = "name">
         </div>
         <div class="form-group">
           <label for="alterEgo">Title</label>
-          <input type="text" class="form-control" [(ngModel)] = "eventToDisplay.title">
+          <input type="text" class="form-control" [(ngModel)] = "eventToDisplay.title" name = "title">
         </div>
         <div class="form-group">
           <label for="alterEgo">Start</label>
@@ -103,22 +103,22 @@
             </div>
             <div class = "row" *ngIf = "modalOpen">
                 <div class = "col-xs-7">
-                    <datepicker [(ngModel)]="dt" [initDate]="dt" [minDate]="currentDate" [showWeeks]="true"></datepicker>
+                    <datepicker [(ngModel)]="dt" [initDate]="dt" [minDate]="currentDate" [showWeeks]="true" name = "datepick"></datepicker>
                 </div>
                 <div class = "col-xs-5">
-                    <timepicker [(ngModel)]="dt"  [hourStep]="hstep" [minuteStep]="mstep"></timepicker>
+                    <timepicker [(ngModel)]="dt"  [hourStep]="hstep" [minuteStep]="mstep" name = "timepick"></timepicker>
                 </div>
             </div>
         </div>
         <div class="form-group">
           <label for="alterEgo">Note</label>
-          <textarea class="form-control" rows="3"  required [(ngModel)]="eventToDisplay.note"></textarea>
+          <textarea class="form-control" rows="3"  required [(ngModel)]="eventToDisplay.note" name = "note"></textarea>
         </div>
         </form>
         <div style = "text-align:right" [ngSwitch]="createNew">
             <button class="btn btn-default" type="submit" (click) = "lgModal.hide()">Cancel</button>
-            <button class="btn btn-success" *ngSwitchWhen="true" type="submit" (click) = "pushUpdate(eventToDisplay)" >Create</button>
-            <button class="btn btn-success" *ngSwitchWhen="false" type="submit" (click) = "pushUpdate(eventToDisplay)" >Update</button>
+            <button class="btn btn-success" *ngSwitchCase="true" type="submit" (click) = "pushUpdate(eventToDisplay)" >Create</button>
+            <button class="btn btn-success" *ngSwitchCase="false" type="submit" (click) = "pushUpdate(eventToDisplay)" >Update</button>
         </div>
       </div>
     </div>
@@ -139,8 +139,8 @@
         <h4 class="modal-title" *ngIf = "showDayEventsModal">{{getDate(dateToShow) | date:"fullDate"}}</h4>
       </div>
       <div class="modal-body">
-          <day-event-list *ngIf = "showDayEventsModal && showDayEventList" [events] = "getEvents(dateToShow)" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></day-event-list>
-          <day-event-schedule *ngIf = "showDayEventsModal && !showDayEventList" [events] = "getEvents(dateToShow)" [startOfDay] = "getDate(dateToShow).getTime()" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></day-event-schedule>
+          <day-event-list *ngIf = "showDayEventsModal && showDayEventList" [events] = "getEvents(dateToShow)" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></day-event-list>
+          <day-event-schedule *ngIf = "showDayEventsModal && !showDayEventList" [events] = "getEvents(dateToShow)" [startOfDay] = "getDate(dateToShow).getTime()" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></day-event-schedule>
       </div>
     </div>
   </div>

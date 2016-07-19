@@ -13,8 +13,8 @@ import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
 export class WeekDayEventSchedule{
     @Input() events: IReservation2[]; 
     @Input() startOfDay: string;
-    @Output() update: EventEmitter<IReservation2> = new EventEmitter(false);
-    @Output() remove: EventEmitter<IReservation2> = new EventEmitter(false);
+    @Output() update: EventEmitter<any> = new EventEmitter(false);
+    @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
     hourIntervals: any[];
     ngOnInit(){

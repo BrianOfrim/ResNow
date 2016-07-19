@@ -7,11 +7,11 @@ import {Authentication} from '../../authentication/authentication';
 export class ReservationService{
     reservationItems$: FirebaseListObservable<any>;
     // datequeryItems$: FirebaseListObservable<any>;
-    private authState: FirebaseAuthData | FirebaseAuthState
-    constructor(public af: AngularFire, @Inject(FirebaseRef) private ref: Firebase,public auth: Authentication){
-        af.auth.subscribe((state: FirebaseAuthState) => {
-            this.authState = state;
-        });
+   //private authState: FirebaseAuthData | FirebaseAuthState
+    constructor(public af: AngularFire, public auth: Authentication){
+        // af.auth.subscribe((state: FirebaseAuthState) => {
+        //     this.authState = state;
+        // });
         this.reservationItems$ = af.database.list(`events/${auth.id}`)
         
     }
@@ -30,14 +30,35 @@ export class ReservationService{
             arrayOfStrings.splice(index, 1);
         }
     }
+
+    addToUserEventList(key: string,res :IReservation2): Promise<any>{
+        var newPostKey = firebase.database().ref().child(`/users/${this.auth.id}/events`).push().key;
+        var updates = {}
+        updates[`/users/${this.auth.id}/events/${newPostKey}`] = {valid:true};
+        if(res.calendar != 'mine') updates[`/calendars/${res.calendar}/events/${newPostKey}`] = {valid:true};
+        updates[`/events/${newPostKey}`] = res;
+
+        //updates[`/calendars/${newPostKey}/events/${newPostKey}`] = {valid:true
+        return firebase.database().ref().update(updates);
+    }
     
-    createReservation(reservation: Reservation2): Promise<any>{
-        return this.reservationItems$.push(reservation);
+    createReservation(reservation: IReservation2): Promise<any>{
+        reservation.ownerUID = this.auth.id;
+        return this.addToUserEventList(reservation.$key,reservation);
     }
     
     removeReservation(reservation: IReservation2): Promise<any>{
         console.log("Item deleted" + reservation.$key)
-        return this.reservationItems$.remove(reservation.$key);
+        return this.removeFromUserEventList(reservation);
+    }
+
+    removeFromUserEventList(reservation: IReservation2): Promise<any>{
+        var updates = {}
+        updates[`/users/${this.auth.id}/events/${reservation.$key}`] = null;
+        if(reservation.calendar != 'mine') updates[`/calendars/${reservation.calendar}/events/${reservation.$key}`] = null;
+        updates[`/events/${reservation.$key}`] = null;
+        console.log(updates);
+        return firebase.database().ref().update(updates);
     }
     
     removeFromKey(resKey: string): Promise<any>{
@@ -54,7 +75,17 @@ export class ReservationService{
         let keys = Object.keys(updatedReservation);
         this.removeString(keys,"$key");
         let updatedObj = this.pickSubset(keys,updatedReservation);
-        return this.reservationItems$.update(updatedReservation.$key,updatedObj);
+        var updates = {}
+        updates[`/events/${updatedReservation.$key}`] = updatedObj;
+        return firebase.database().ref().update(updates);
+    }
+
+    getCalendarReservations(calID:string):FirebaseListObservable<any>{
+        if(calID != 'mine') {
+            return this.af.database.list(`/calendars/${calID}/events/`);
+        } else{ 
+            return this.af.database.list(`/users/${this.auth.id}/events/`);
+        }
     }
 
 
