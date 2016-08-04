@@ -34,7 +34,7 @@
             <div class = "col-xs-12">
                 <div class = "week-row">
                     <div *ngFor = "let day of week">
-                        <res-date (displayDay) = "showDateModal($event)" [date] = "day" [events] = "sortEvents(getEvents(day))" (displayRes) = "displayReservation($event)"></res-date>
+                        <res-date (displayDay) = "showDateModal($event)" [date] = "day" [events] = "getEvents(day)" (displayRes) = "displayReservation($event)"></res-date>
                     </div>
                 </div> 
             </div>     

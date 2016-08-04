@@ -2,7 +2,7 @@
     <span class = "time-header">{{getStartTime(hour.startTime) | date:"h"}}</span> 
     <div class = "events">
         <day-res-schedule-item
-            *ngFor = "let event of getHourEvents(hour)"
+            *ngFor = "let event of getHourEvents(hour) | async"
             [reservation] = "event" 
             (remove) = "remove.emit(event)"
             (update) = "emitUpdate(event)">

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output,OnInit } from '@angular/core';
 import {Reservation2,IReservation2} from '../core/reservation2/reservation2'
-
+//import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'day-res-schedule-item',

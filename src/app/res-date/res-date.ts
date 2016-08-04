@@ -1,6 +1,7 @@
 import {Component,OnInit, Input, Output,EventEmitter} from '@angular/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'res-date',
@@ -13,7 +14,7 @@ import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
 
 export class ResDate{
     @Input() date: string;
-    @Input() events: IReservation2[]; 
+    @Input() events: Observable<any>; 
     @Output() displayRes: EventEmitter<any> = new EventEmitter(false);
     @Output() displayDay: EventEmitter<any> = new EventEmitter(false);
     currDate:Date;
@@ -22,6 +23,9 @@ export class ResDate{
     ngOnInit(){
         this.currDate = new Date(parseInt(this.date));
         this.currDOW = this.daysOfWeek[this.currDate.getDay()];
+        // this.events.subscribe(x =>{
+        //     console.log(x);
+        // })
     }
     getStartTime(event){
         return new Date(parseInt(event.start));

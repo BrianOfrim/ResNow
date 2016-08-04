@@ -33,9 +33,6 @@ export class HomePage implements OnInit{
     public dataSource:Observable<any>;
     public typeaheadLoading:boolean = false;
     public typeaheadNoResults:boolean = false;
-    
- 
-
 
     constructor(private resService:ReservationService,private calService:CalendarService,private userService:UserService,
     private route: ActivatedRoute, private router: Router){
@@ -46,12 +43,20 @@ export class HomePage implements OnInit{
         return query.test(calendar.name);
       }));
     });
+    this.userService.newUserEvents.subscribe(x=>{
+        console.log(x);
+    })
     }
     ngOnInit(){
         this.calService.allCalendars.subscribe(incomingCalendars =>{
-            console.log(incomingCalendars);
+            //console.log(incomingCalendars);
             this.currentCalendars = incomingCalendars;
         });
+
+        this.userService.getUserCalendars().subscribe(x=>{
+            //console.log(x);
+        })
+
     }
     compare(a,b) {
         if (a.start < b.start)

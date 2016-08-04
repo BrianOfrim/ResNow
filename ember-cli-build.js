@@ -11,7 +11,7 @@ module.exports = function(defaults) {
       'moment/**',
       'es6-shim/es6-shim.js',
       'systemjs/dist/system.src.js',
-      'rxjs/bundles/Rx.js',
+      'rxjs/**/*.js',
       'systemjs/dist/system-polyfills.js',
       '@angular/core/**/*.js',
       '@angular/router-deprecated/**/*.js',

@@ -1,10 +1,11 @@
 <div class = "day-container" [ngClass] = "{'no-events':events.length==0,'has-events':events.length}">
+    <!--<div class = "day-container" [ngClass] = "{'no-events':events.length==0,'has-events':events.length}">-->
     <div class = "day-header">
         <span class = "pull-left" style = "margin-left:5px">{{currDate | date:'d'}}<sup>{{currDOW}}</sup></span>
-        <a (click)= "displayDayEvents()"><span class = "pull-right event-num"  *ngIf= "events.length"  style = "margin-right:5px">{{events.length}}</span></a>
+        <!--<a (click)= "displayDayEvents()"><span class = "pull-right event-num"  *ngIf= "events.length"  style = "margin-right:5px">{{events.length}}</span></a>-->
     </div>
     <div class = "day-body">
-        <div *ngFor="let event of events" class = "event-cell">
+        <div *ngFor="let event of events | async" class = "event-cell">
             <a (click) = "displayEvent(event)">
             <div class = "time-cell">{{getStartTime(event) | date:'shortTime' }}</div>
             <div class = "title-cell">{{getEventTitle(event)}}</div>

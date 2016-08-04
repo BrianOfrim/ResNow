@@ -1,6 +1,6 @@
 <div *ngFor="let hour of hourIntervals">
     <span class = "time-header">{{getStartTime(hour.startTime) | date:"h"}}</span>
-    <div *ngFor="let event of getHourEvents(hour)">    
+    <div *ngFor="let event of getHourEvents(hour) | async">    
         <div class = "well well-sm event-well">
             <div class = "row">
                 <div class = "col-xs-10">

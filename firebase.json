@@ -1,9 +1,10 @@
 {
-  "firebase": "rsvpnow",
-  "public": "dist",
-  "ignore": [
-    "firebase.json",
-    "**/.*",
-    "**/node_modules/**"
-  ]
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+  "firebase.json",
+  "**/.*",
+  "**/node_modules/**"
+]
+  }
 }

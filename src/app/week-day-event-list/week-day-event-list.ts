@@ -1,5 +1,6 @@
 import {Component,OnInit, Input, Output,EventEmitter} from '@angular/core';
 import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'week-day-event-list',
@@ -11,7 +12,7 @@ import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
 })
 
 export class WeekDayEventList{
-    @Input() events: IReservation2[]; 
+    @Input() events: Observable<any>; 
     @Output() update: EventEmitter<any> = new EventEmitter(false);
     @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
@@ -19,7 +20,7 @@ export class WeekDayEventList{
     ngOnInit(){
         // console.log('Events1')
         // console.log(this.events)
-        this.events = this.events.sort(this.compare)
+        // this.events = this.events.sort(this.compare)
         // console.log('Events2')
         // console.log(this.events)
     }

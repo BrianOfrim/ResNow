@@ -1,5 +1,5 @@
 import {Reservation2,IReservation2} from './reservation2'
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/Rx';
 import { Injectable, Inject } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseRef,FirebaseAuthState } from 'angularfire2';
 import {Authentication} from '../../authentication/authentication';
@@ -80,12 +80,24 @@ export class ReservationService{
         return firebase.database().ref().update(updates);
     }
 
-    getCalendarReservations(calID:string):FirebaseListObservable<any>{
-        if(calID != 'mine') {
-            return this.af.database.list(`/calendars/${calID}/events/`);
-        } else{ 
-            return this.af.database.list(`/users/${this.auth.id}/events/`);
-        }
+    getCalendarReservations(calID:string): Observable<any>{
+
+        let path = (calID == 'mine') ? `/users/${this.auth.id}/events/` : `/calendars/${calID}/events/`;
+
+        let calObserv = this.af.database.list(path).map(reservations =>{
+            return reservations.map(res =>{
+                firebase.database().ref(`/events/${res.$key}`).once('value').then(snapshot =>{
+                    let ev = snapshot.val();
+                    ev.$key = snapshot.key;
+                    //console.log(ev);
+                    return ev;
+                })
+            })
+            
+        });
+        return calObserv;
+        
+
     }
 
 

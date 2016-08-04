@@ -18,6 +18,7 @@ import {WeekDayEventList} from '../week-day-event-list/week-day-event-list';
 import {WeekDayEventSchedule} from '../week-day-event-schedule/week-day-event-schedule';
 import { DayResList} from '../day-res-list/day-res-list';
 import {DayResSchedule} from '../day-res-schedule/day-res-schedule'
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'res-display',
@@ -35,7 +36,7 @@ export class ResDisplay{
     // @Input() reservations: IReservation2[];
     public constructor(private dateService:DateService, public resService: ReservationService,
      private userService: UserService, private route: ActivatedRoute, private router: Router){}
-    events:any[];
+    events:Observable<any> = new Observable;
     createNew:boolean;
     dt:Date;
     currentDate:Date;
@@ -74,7 +75,6 @@ export class ResDisplay{
         this.displayDate = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),1);
         this.displayDate.setHours(0,0,0,0);
         this.currentMonthDisplayDates = this.dateService.getMonthDates(this.displayDate.getFullYear(), this.displayDate.getMonth());  
-        this.events = [];  
         this.createNew = false;  
         this.modalOpen = false;
         this.showCalendar = true;
@@ -82,25 +82,29 @@ export class ResDisplay{
         this.route.params.subscribe(params => {
             this.calendarKey = params['id']; 
             console.log("The id = " + this.calendarKey);
-            this.resService.getCalendarReservations(this.calendarKey).subscribe( events => {
-                this.events = [];
-                events.forEach(event =>{
-                    firebase.database().ref(`/events/` + event['$key']).once('value').then(snapshot => {
-                        let ev = snapshot.val();
-                        ev["$key"] = snapshot.key;
-                        this.events.push(ev);
-                        console.log(ev);
-                    })
-                })
-            })
+            // this.resService.getCalendarReservations(this.calendarKey).subscribe( events => {
+            //     this.events = [];
+            //     events.forEach(event =>{
+            //         firebase.database().ref(`/events/` + event['$key']).once('value').then(snapshot => {
+            //             let ev = snapshot.val();
+            //             ev["$key"] = snapshot.key;
+            //             this.events.push(ev);
+            //             console.log(ev);
+            //         })
+            //     })
+            // })
+            this.events = this.resService.getCalendarReservations(this.calendarKey);
         })
 
     }
 
     sortEvents(evs:any[]){
-        return evs.sort(function(a, b) {
+        return evs.map(x =>{
+        return x.sort(function(a, b) {
             return parseInt(a.start) - parseInt(b.start);
         });
+        })
+
     }
 
     getDate(dateStr:string){
@@ -165,13 +169,22 @@ export class ResDisplay{
     }
     getEvents(startOfDay:string){
         //console.log(startOfDay)
+        if(!this.events) return; 
         let startOfDayDate = new Date(startOfDay);
         startOfDayDate.setHours(0,0,0,0);
         var endOfDayDate = new Date(startOfDay);
         endOfDayDate.setHours(23,59,59,999);   
-        return this.events.filter(event => {
-            return (parseInt(event.start) >= startOfDayDate.valueOf()) && (parseInt(event.start) <= endOfDayDate.valueOf())
+        console.log(this.events);
+        //return this.events;
+        return this.events.map(x =>{
+            return x;
+            // return x.filter(event => {
+            //     return (parseInt(event.start) >= startOfDayDate.valueOf()) && (parseInt(event.start) <= endOfDayDate.valueOf())
+            // });
         });
+        // return this.events.filter(event => {
+        //     return (parseInt(event.start) >= startOfDayDate.valueOf()) && (parseInt(event.start) <= endOfDayDate.valueOf())
+        // });
     }
 
     createRes(){

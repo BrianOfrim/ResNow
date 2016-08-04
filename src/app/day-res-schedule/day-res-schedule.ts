@@ -2,6 +2,7 @@ import {Component,OnInit, Input, Output,EventEmitter} from '@angular/core';
 
 import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
 import { DayResScheduleItem } from '../day-res-schedule-item/day-res-schedule-item'
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'day-res-schedule',
@@ -13,7 +14,7 @@ import { DayResScheduleItem } from '../day-res-schedule-item/day-res-schedule-it
 })
 
 export class DayResSchedule{
-    @Input() events: IReservation2[]; 
+    @Input() events: Observable<any>; 
     @Input() startOfDay: string;
     @Output() update: EventEmitter<any> = new EventEmitter(false);
     @Output() remove: EventEmitter<any> = new EventEmitter(false);
@@ -21,7 +22,7 @@ export class DayResSchedule{
     hourIntervals: any[];
     ngOnInit(){
         this.hourIntervals = this.createIntervals(this.startOfDay)
-        this.events = this.events.sort(this.compare)
+        // this.events = this.events.sort(this.compare)
     }
 
     createIntervals(startOfDayStr:string){
