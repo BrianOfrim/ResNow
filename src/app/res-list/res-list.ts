@@ -29,7 +29,7 @@ import { ResItem } from '../res-item/res-item';
   pipes: []
 })
 export class ResList {
-  @Input() resItems$: FirebaseListObservable<any[]>;
+  @Input() events: any[];
   @Output() toDisplay : EventEmitter<any> = new EventEmitter(false);
   @Output() remove: EventEmitter<any> = new EventEmitter(false);
 

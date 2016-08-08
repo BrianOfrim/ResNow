@@ -1,7 +1,7 @@
 <div class = "row">
   <div class = "col-xs-12" class = "item-container">
     <day-res-item 
-    *ngFor = "let reservation of resItems$" 
+    *ngFor = "let reservation of events" 
     [reservation] = "reservation" 
     (remove) = "remove.emit(reservation)"
     (update) = "emitUpdate(reservation)">   

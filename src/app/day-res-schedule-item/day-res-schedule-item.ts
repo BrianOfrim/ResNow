@@ -17,7 +17,7 @@ export class DayResScheduleItem {
   startDate:Date;
   // endDate:Date;
   ngOnInit(){
-    this.startDate = new Date(parseInt(this.reservation.start));
+    this.startDate = new Date(this.reservation.start);
   }
   toInt(str){
         return parseInt(str);

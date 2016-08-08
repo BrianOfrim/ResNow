@@ -14,24 +14,23 @@ import {Observable} from 'rxjs/Rx';
 })
 
 export class DayResSchedule{
-    @Input() events: Observable<any>; 
-    @Input() startOfDay: string;
+    @Input() events: any[]; 
+    @Input() startOfDay: number;
     @Output() update: EventEmitter<any> = new EventEmitter(false);
     @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
     hourIntervals: any[];
     ngOnInit(){
         this.hourIntervals = this.createIntervals(this.startOfDay)
-        // this.events = this.events.sort(this.compare)
     }
 
-    createIntervals(startOfDayStr:string){
-        let startOfDayMs = parseInt(startOfDayStr)
+    createIntervals(startOfDay:number){
+
         let returnArr =[]
         for(let i = 0; i < 24; i++){
             returnArr.push({
-                startTime:(startOfDayMs + i*3600000),
-                endTime:(startOfDayMs + (i+1)*3600000 - 1)
+                startTime:(startOfDay + i*3600000),
+                endTime:(startOfDay + (i+1)*3600000 - 1)
             });
         }
         return returnArr
@@ -44,23 +43,8 @@ export class DayResSchedule{
         });
     }
 
-    compare(a,b) {
-        if (a.start < b.start)
-            return -1;
-        if (a.start > b.start)
-            return 1;
-        return 0;
-    }
 
-    toInt(str){
-        return parseInt(str);
-    }
 
-    getMinutes(startVal:number){
-        let date = new Date(startVal)
-        let minutes = date.getMinutes()
-        return ("0" + minutes).slice(-2);
-    }
     
     getStartTime(startVal:number){
         return new Date(startVal)

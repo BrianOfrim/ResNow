@@ -1,4 +1,4 @@
-<div *ngFor="let event of events | async">
+<div *ngFor="let event of events">
     <div class = "well well-sm event-well">
         <div class = "row">
             <div class = "col-xs-10">
@@ -27,14 +27,14 @@
             </div>
             <div class = "col-xs-2">
                 <div class = "row" style = "text-align:center">
-                        <button type="button" class="btn btn-default btn-sm edit-btn" (click) = "update.emit(event)">
-                            <span class = "glyphicon glyphicon-pencil"></span>
-                        </button>
+                    <button type="button" class="btn btn-default btn-sm edit-btn" (click) = "update.emit(event)">
+                        <span class = "glyphicon glyphicon-pencil"></span>
+                    </button>
                 </div>
                 <div class = "row" style = "text-align:center">
-                        <button type="button" class="btn btn-default btn-sm delete-btn" (click) = "remove.emit(event)">
-                            <span class = "glyphicon glyphicon-trash"></span>
-                        </button>
+                    <button type="button" class="btn btn-default btn-sm delete-btn" (click) = "remove.emit(event)">
+                        <span class = "glyphicon glyphicon-trash"></span>
+                    </button>
                 </div>
             </div>
         </div>

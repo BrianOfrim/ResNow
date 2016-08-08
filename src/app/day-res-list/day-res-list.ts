@@ -1,22 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Pipe, PipeTransform } from '@angular/core';
+import { ChangeDetectionStrategy, OnInit,Component, EventEmitter, Input, Output, Pipe, PipeTransform } from '@angular/core';
 
 import { Reservation2, IReservation2} from '../core/reservation2/reservation2';
 import { DayResItem } from '../day-res-item/day-res-item';
-
-// @Pipe({ name: 'sortByStart' })
-// export class SortByStartPipe implements PipeTransform {
-//   transform(evs: any[]) {
-//     return evs.sort(function compare(a, b) {
-//       if (parseInt(a.start) < parseInt(b.start)) {
-//         return -1;
-//       }
-//       if (parseInt(a.start) > parseInt(b.start)) {
-//         return 1;
-//       }
-//       // a must be equal to b
-//       return 0;
-//     })}
-// }
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'day-res-list',
@@ -27,11 +13,19 @@ import { DayResItem } from '../day-res-item/day-res-item';
   pipes: []
 })
 export class DayResList {
-  @Input() resItems$ : IReservation2[];
+  @Input() events: any[]; 
+  @Input() startOfDay: number;
   @Output() toDisplay : EventEmitter<any> = new EventEmitter(false);
   @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
+
+    ngOnInit(){
+        // this.events = this.events.sort(this.compare)
+        console.log(this.events);
+        console.log(this.startOfDay);
+    }
   constructor() {}
+
 
   emitUpdate(res){
     this.toDisplay.emit(res)

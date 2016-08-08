@@ -5,7 +5,7 @@
         <!--<a (click)= "displayDayEvents()"><span class = "pull-right event-num"  *ngIf= "events.length"  style = "margin-right:5px">{{events.length}}</span></a>-->
     </div>
     <div class = "day-body">
-        <div *ngFor="let event of events | async" class = "event-cell">
+        <div *ngFor="let event of events" class = "event-cell">
             <a (click) = "displayEvent(event)">
             <div class = "time-cell">{{getStartTime(event) | date:'shortTime' }}</div>
             <div class = "title-cell">{{getEventTitle(event)}}</div>

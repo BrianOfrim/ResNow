@@ -1,40 +1,141 @@
-<div class="input-group">
-  <span class="input-group-addon" id="basic-addon1">
-      <span class = "glyphicon glyphicon-search"></span>
-  </span>
-  <input [(ngModel)]="asyncSelected"
-         [typeahead]="dataSource"
-         (typeaheadLoading)="changeTypeaheadLoading($event)"
-         (typeaheadNoResults)="changeTypeaheadNoResults($event)"
-         (typeaheadOnSelect)="typeaheadOnSelect($event)"
-         [typeaheadOptionsLimit]="7"
-         [typeaheadOptionField]="'name'"
-         placeholder="Search calendars..."
-         class="form-control"
-         aria-describedby="basic-addon1">
-  <div *ngIf="typeaheadLoading===true">
-    <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
+<div class = "container">
+
+    <div class = "row events-header">
+        <div class = "col-xs-6" style = "text-align:left">
+            <h4>Upcoming Reservations</h4>
+        </div>
+        <div class = "col-xs-6" style = "text-align:right">
+            <button class="btn btn-success" type="submit" (click) = "goToCalendar('mine')">View personal calendar</button>
+        </div>
+    </div>
+
+    <div class = "row">
+        <div class = "col-xs-12">
+            <div class = "home-events">
+                <div *ngFor ="let event of events | async">
+                    <home-page-event [event] = "event" (giveDetails) = "deleteEventDialog($event)" (goToCalendar)="goToCalendar($event)"></home-page-event>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <div class = "row">
+        <div class = "col-xs-12" style = "text-align:left">
+            <h4>Discover Calendars</h4>
+        </div>
+    </div>
+
+    <div class = "row search-bar">
+        <div class = "col-xs-12">
+            <div class = "home-events">
+            <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">
+                <span class = "glyphicon glyphicon-search"></span>
+            </span>
+            <input [(ngModel)]="asyncSelected"
+                    [typeahead]="dataSource"
+                    (typeaheadLoading)="changeTypeaheadLoading($event)"
+                    (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+                    (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                    [typeaheadOptionsLimit]="7"
+                    [typeaheadOptionField]="'name'"
+                    placeholder="Search all calendars..."
+                    class="form-control"
+                    aria-describedby="basic-addon1">
+            <div *ngIf="typeaheadLoading===true">
+                <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
+            </div>
+            <div *ngIf="typeaheadNoResults===true" class="" style="">
+                <i class="glyphicon glyphicon-remove"></i> No Results Found
+            </div>
+            </div>
+            </div>
+        </div>  
+    </div>
+
+    <div class = "row events-header">
+        <div class = "col-xs-6" style = "text-align:left">
+            <h4>My Calendars</h4>
+        </div>
+        <div class = "col-xs-6" style = "text-align:right">
+            <button class="btn btn-success" type="submit" (click) = "createCalendarDialog()">Create new calendar</button>
+        </div>
+    </div>
+
+    <div class = "row">
+        <div class = "col-xs-12 home-calendar">
+            <div *ngFor = "let calendar of calendars | async">
+                <home-page-calendar [calendar] = "calendar" (giveDetails) = "deleteCalendarDialog($event)" (goToCalendar) = "goToCalendar($event)"></home-page-calendar>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #createCalModal="bs-modal" class="modal fade" tabindex="-1" (onShow) = "resetCalVars()" (onHide) = "resetCalVars()" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="createCalModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Create calendar</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="alterEgo">Name</label>
+                <input type="text" class="form-control" [(ngModel)] = "newCalName" name = "name">
+            </div>
+            <div class="form-group">
+                <label for="alterEgo">Description</label>
+                <textarea  class="form-control" rows="3"  required [(ngModel)]="newCalDescription" name = "note"></textarea>
+            </div>
+        </form>
+        <div style = "text-align:right">
+            <button class="btn btn-default" type="submit" (click) = "createCalModal.hide()">Cancel</button>
+            <button class="btn btn-success" type="submit" (click) = "createCalendar(newCalName,newCalDescription)" >Create</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div *ngIf="typeaheadNoResults===true" class="" style="">
-    <i class="glyphicon glyphicon-remove"></i> No Results Found
+</div>
+
+<div bsModal #deleteCalModal="bs-modal" class="modal fade" tabindex="-1" (onHide) = "clearCalToDelete()" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="deleteCalModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Delete calendar</h4>
+      </div>
+      <div class="modal-body">
+          <p>Are you sure you want to delete {{calToDelete.name}}?</p>
+        <div style = "text-align:right">
+            <button class="btn btn-default" type="submit" (click) = "deleteCalModal.hide()">Nah</button>
+            <button class="btn btn-success" type="submit" (click) = "deleteCalendar(calToDelete.$key)">Yes</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<button class="btn btn-success" type="submit" (click) = "goToCalendar('mine')">Personal Calendar</button>
-
-<h4>Upcoming Reservations</h4>
-<div *ngFor ="let event of userService.userEvents">
-    <home-page-event [event] = "event"></home-page-event>
+<div bsModal #deleteEventModal="bs-modal" class="modal fade" tabindex="-1" (onHide) = "clearEventToDelete()" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="deleteEventModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Delete Event</h4>
+      </div>
+      <div class="modal-body">
+          <p>Are you sure you want to delete {{eventToDelete.title}}?</p>
+        <div style = "text-align:right">
+            <button class="btn btn-default" type="submit" (click) = "deleteEventModal.hide()">Nah</button>
+            <button class="btn btn-success" type="submit" (click) = "deleteEvent(eventToDelete)">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<h4>My Calendars</h4>
-<div class="form-group">
-    <label for="alterEgo">Calendar Title</label>
-    <input type="text" class="form-control" [(ngModel)] = "newCalName">
-</div>
-<button class="btn btn-success" type="submit" (click) = "createCalendar(newCalName)">Create</button>
-
-<div *ngFor = "let calendar of userService.userCalendars">
-    <home-page-calendar [calendar] = "calendar" (goToCalendar) = "goToCalendar($event)"></home-page-calendar>
-</div>
-

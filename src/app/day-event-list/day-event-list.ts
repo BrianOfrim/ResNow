@@ -13,30 +13,19 @@ import {Observable} from 'rxjs/Rx';
 })
 
 export class DayEventList{
-    @Input() events: Observable<any>; 
+    @Input() events: any[]; 
+    @Input() startOfDay: number; 
     @Output() update: EventEmitter<any> = new EventEmitter(false);
     @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
 
     ngOnInit(){
-        // console.log('Events1')
-        // console.log(this.events)
-        //this.events = this.events.sort(this.compare)
-        // console.log('Events2')
-        // console.log(this.events)
+
     }
 
-    
-    compare(a,b) {
-        if (a.start < b.start)
-            return -1;
-        if (a.start > b.start)
-            return 1;
-        return 0;
-    }
 
     getStartTime(event){
-        return new Date(parseInt(event.start));
+        return new Date(event.start);
     }
 
 }

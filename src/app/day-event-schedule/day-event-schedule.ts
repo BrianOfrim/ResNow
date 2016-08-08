@@ -12,8 +12,8 @@ import {Observable} from 'rxjs/Rx';
 })
 
 export class DayEventSchedule{
-    @Input() events: Observable<any>; 
-    @Input() startOfDay: string;
+    @Input() events: any[]; 
+    @Input() startOfDay: number;
     @Output() update: EventEmitter<any> = new EventEmitter(false);
     @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
@@ -25,15 +25,15 @@ export class DayEventSchedule{
         // this.events = this.events.sort(this.compare)
         // console.log('Events2')
         // console.log(this.events)
+
     }
 
-    createIntervals(startOfDayStr:string){
-        let startOfDayMs = parseInt(startOfDayStr)
+    createIntervals(startOfDay:number){
         let returnArr =[]
         for(let i = 0; i < 24; i++){
             returnArr.push({
-                startTime:(startOfDayMs + i*3600000),
-                endTime:(startOfDayMs + (i+1)*3600000 - 1)
+                startTime:(startOfDay + i*3600000),
+                endTime:(startOfDay + (i+1)*3600000 - 1)
             });
         }
         console.log(returnArr);
@@ -45,18 +45,6 @@ export class DayEventSchedule{
         return this.events.filter( event =>{
             return parseInt(event.start) >= hourInterval.startTime && parseInt(event.start) <= hourInterval.endTime;
         });
-    }
-
-    compare(a,b) {
-        if (a.start < b.start)
-            return -1;
-        if (a.start > b.start)
-            return 1;
-        return 0;
-    }
-
-    toInt(str){
-        return parseInt(str);
     }
 
     getMinutes(startVal:number){

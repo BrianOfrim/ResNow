@@ -34,11 +34,8 @@ export class ReservationService{
     addToUserEventList(key: string,res :IReservation2): Promise<any>{
         var newPostKey = firebase.database().ref().child(`/users/${this.auth.id}/events`).push().key;
         var updates = {}
-        updates[`/users/${this.auth.id}/events/${newPostKey}`] = {valid:true};
-        if(res.calendar != 'mine') updates[`/calendars/${res.calendar}/events/${newPostKey}`] = {valid:true};
-        updates[`/events/${newPostKey}`] = res;
-
-        //updates[`/calendars/${newPostKey}/events/${newPostKey}`] = {valid:true
+        updates[`/users/${this.auth.id}/events/${newPostKey}`] = res;
+        if(res.calendar != 'mine') updates[`/calendars/${res.calendar}/events/${newPostKey}`] = res;
         return firebase.database().ref().update(updates);
     }
     
@@ -49,6 +46,9 @@ export class ReservationService{
     
     removeReservation(reservation: IReservation2): Promise<any>{
         console.log("Item deleted" + reservation.$key)
+        //var updates = {};
+        //updates[`/users/${this.auth.id}/events/${reservation.$key}`] = null;
+        //if(reservation.calendar != 'mine') updates[`/calendars/${reservation.calendar}/events/${reservation.$key}`] = null;
         return this.removeFromUserEventList(reservation);
     }
 
@@ -56,7 +56,6 @@ export class ReservationService{
         var updates = {}
         updates[`/users/${this.auth.id}/events/${reservation.$key}`] = null;
         if(reservation.calendar != 'mine') updates[`/calendars/${reservation.calendar}/events/${reservation.$key}`] = null;
-        updates[`/events/${reservation.$key}`] = null;
         console.log(updates);
         return firebase.database().ref().update(updates);
     }
@@ -77,6 +76,9 @@ export class ReservationService{
         let updatedObj = this.pickSubset(keys,updatedReservation);
         var updates = {}
         updates[`/events/${updatedReservation.$key}`] = updatedObj;
+
+        updates[`/users/${this.auth.id}/events/${updatedReservation.$key}`] = updatedObj;
+        if(updatedReservation.calendar != 'mine') updates[`/calendars/${updatedReservation.calendar}/events/${updatedReservation.$key}`] = updatedObj;
         return firebase.database().ref().update(updates);
     }
 

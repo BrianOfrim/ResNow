@@ -1,6 +1,8 @@
 import {Component,OnInit, Input, Output,EventEmitter} from '@angular/core';
-import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
 import {Observable} from 'rxjs/Rx';
+
+import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
+import {CalendarService} from '../core/calendar.service/calendar.service';
 
 @Component({
   selector: 'week-day-event-schedule',
@@ -12,24 +14,26 @@ import {Observable} from 'rxjs/Rx';
 })
 
 export class WeekDayEventSchedule{
-    @Input() events: Observable<any>; 
-    @Input() startOfDay: string;
+    @Input() events: any[]; 
+    @Input() startOfDay: number;
     @Output() update: EventEmitter<any> = new EventEmitter(false);
     @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
+    public constructor(private calService:CalendarService){}
+
     hourIntervals: any[];
+
     ngOnInit(){
         this.hourIntervals = this.createIntervals(this.startOfDay)
         //this.events = this.events.sort(this.compare)
     }
 
-    createIntervals(startOfDayStr:string){
-        let startOfDayMs = parseInt(startOfDayStr)
+    createIntervals(startOfDay:number){
         let returnArr =[]
         for(let i = 0; i < 24; i++){
             returnArr.push({
-                startTime:(startOfDayMs + i*3600000),
-                endTime:(startOfDayMs + (i+1)*3600000 - 1)
+                startTime:(startOfDay + i*3600000),
+                endTime:(startOfDay + (i+1)*3600000 - 1)
             });
         }
         console.log(returnArr);
@@ -37,23 +41,14 @@ export class WeekDayEventSchedule{
         
     }
 
-    getHourEvents(hourInterval:any){
-        return this.events.filter( event =>{
-            return parseInt(event.start) >= hourInterval.startTime && parseInt(event.start) <= hourInterval.endTime;
-        });
+   getHourEvents(hourInterval:any){
+
+        return this.events.filter(event => {
+            return event.start >= hourInterval.startTime && event.start <= hourInterval.endTime;
+        })
     }
 
-    compare(a,b) {
-        if (a.start < b.start)
-            return -1;
-        if (a.start > b.start)
-            return 1;
-        return 0;
-    }
 
-    toInt(str){
-        return parseInt(str);
-    }
 
     getMinutes(startVal:number){
         let date = new Date(startVal)

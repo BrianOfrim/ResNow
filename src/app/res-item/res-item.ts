@@ -17,7 +17,7 @@ export class ResItem {
   startDate:Date;
   // endDate:Date;
   ngOnInit(){
-    this.startDate = new Date(parseInt(this.reservation.start));
+    this.startDate = new Date(this.reservation.start);
   }
 
   emitUpdate(){

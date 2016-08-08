@@ -14,9 +14,11 @@ import {Observable} from 'rxjs/Observable';
 
 export class ResDate{
     @Input() date: string;
-    @Input() events: Observable<any>; 
+    @Input() events: any[]; 
     @Output() displayRes: EventEmitter<any> = new EventEmitter(false);
     @Output() displayDay: EventEmitter<any> = new EventEmitter(false);
+
+    todaysEvents:Observable<any>;
     currDate:Date;
     daysOfWeek: String[] = ['S','M','T','W','R','F','S'];
     currDOW: String;
@@ -26,9 +28,20 @@ export class ResDate{
         // this.events.subscribe(x =>{
         //     console.log(x);
         // })
+        let startOfDayDate = new Date(this.currDate.getTime());
+        // startOfDayDate.setHours(0,0,0,0);
+        // var endOfDayDate = new Date(this.currDate.getTime());
+        // endOfDayDate.setHours(23,59,59,999);  
+
+        // this.todaysEvents = this.events.map(events =>{
+        //     console.log(events);
+        //     return events.filter(event =>{
+        //         return event.start >= startOfDayDate.getTime() && event.start <= endOfDayDate.getTime();
+        //     })
+        // });
     }
     getStartTime(event){
-        return new Date(parseInt(event.start));
+        return new Date(event.start);
     }
     getEventTitle(event){
         let eventTitle:string;

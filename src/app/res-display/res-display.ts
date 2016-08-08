@@ -7,7 +7,7 @@ import { MODAL_DIRECTIVES ,BS_VIEW_PROVIDERS,ModalDirective} from 'ng2-bootstrap
 
 import { Reservation2, IReservation2 } from '../core/reservation2/reservation2';
 import {UserService} from '../core/user.service/user.service';
-
+import {CalendarService} from '../core/calendar.service/calendar.service';
 import { ResDate } from '../res-date/res-date'
 import {  DateService } from '../core/date_services/date_service';
 import {ReservationService} from '../core/reservation2/reservation2.service';
@@ -34,9 +34,16 @@ import {Observable} from 'rxjs/Observable';
 
 export class ResDisplay{
     // @Input() reservations: IReservation2[];
+    
     public constructor(private dateService:DateService, public resService: ReservationService,
-     private userService: UserService, private route: ActivatedRoute, private router: Router){}
-    events:Observable<any> = new Observable;
+     private userService: UserService, private calService: CalendarService,private route: ActivatedRoute, private router: Router){
+        // this.route.params.subscribe(params => {
+        //     this.calendarKey = params['id']; 
+        //     console.log("The id = " + this.calendarKey);
+        //     this.events = this.calService.getCalendarEvents(this.calendarKey);
+        // })
+     }
+    events: any[] = [];
     createNew:boolean;
     dt:Date;
     currentDate:Date;
@@ -82,20 +89,20 @@ export class ResDisplay{
         this.route.params.subscribe(params => {
             this.calendarKey = params['id']; 
             console.log("The id = " + this.calendarKey);
-            // this.resService.getCalendarReservations(this.calendarKey).subscribe( events => {
-            //     this.events = [];
-            //     events.forEach(event =>{
-            //         firebase.database().ref(`/events/` + event['$key']).once('value').then(snapshot => {
-            //             let ev = snapshot.val();
-            //             ev["$key"] = snapshot.key;
-            //             this.events.push(ev);
-            //             console.log(ev);
-            //         })
-            //     })
-            // })
-            this.events = this.resService.getCalendarReservations(this.calendarKey);
+            
+            this.calService.getCalendarEvents(this.calendarKey).subscribe(events => {
+                this.events  = events;
+            });
         })
 
+    }
+
+    compareStart(a,b) {
+        if (a.start < b.start)
+            return -1;
+        if (a.start > b.start)
+            return 1;
+        return 0;
     }
 
     sortEvents(evs:any[]){
@@ -173,18 +180,14 @@ export class ResDisplay{
         let startOfDayDate = new Date(startOfDay);
         startOfDayDate.setHours(0,0,0,0);
         var endOfDayDate = new Date(startOfDay);
-        endOfDayDate.setHours(23,59,59,999);   
-        console.log(this.events);
-        //return this.events;
-        return this.events.map(x =>{
-            return x;
-            // return x.filter(event => {
-            //     return (parseInt(event.start) >= startOfDayDate.valueOf()) && (parseInt(event.start) <= endOfDayDate.valueOf())
-            // });
-        });
-        // return this.events.filter(event => {
-        //     return (parseInt(event.start) >= startOfDayDate.valueOf()) && (parseInt(event.start) <= endOfDayDate.valueOf())
-        // });
+        endOfDayDate.setHours(23,59,59,999);  
+
+        console.log(startOfDay);
+        return this.events
+            .filter(event => {
+                return event.start >= startOfDayDate.getTime() && event.start <= endOfDayDate.getTime() 
+            })
+            .sort(this.compareStart);
     }
 
     createRes(){
@@ -204,7 +207,7 @@ export class ResDisplay{
             this.showDayEventsModal = false;
         } 
         this.eventToDisplay = e;
-        this.dt = new Date(parseInt(this.eventToDisplay.start))
+        this.dt = new Date(this.eventToDisplay.start);
         this.createNew = false;
         this.lgModal.show()
         
@@ -218,7 +221,7 @@ export class ResDisplay{
         let newStart = this.dt
         newStart.setSeconds(0,0);
         updatedReservation.calendar = this.calendarKey;
-        updatedReservation.start = newStart.getTime().toString()
+        updatedReservation.start = newStart.getTime()
         if(this.createNew){
             this.resService.createReservation(updatedReservation);
         }else{

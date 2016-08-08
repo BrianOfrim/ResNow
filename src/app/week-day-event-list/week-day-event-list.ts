@@ -12,17 +12,14 @@ import {Observable} from 'rxjs/Rx';
 })
 
 export class WeekDayEventList{
-    @Input() events: Observable<any>; 
+    @Input() events: any[]; 
+    @Input() startOfDay: number;
     @Output() update: EventEmitter<any> = new EventEmitter(false);
     @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
-
+    todaysEvents:Observable<any>;
     ngOnInit(){
-        // console.log('Events1')
-        // console.log(this.events)
-        // this.events = this.events.sort(this.compare)
-        // console.log('Events2')
-        // console.log(this.events)
+
     }
 
     
@@ -35,7 +32,7 @@ export class WeekDayEventList{
     }
 
     getStartTime(event){
-        return new Date(parseInt(event.start));
+        return new Date(event.start);
     }
 
 }

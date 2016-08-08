@@ -42,7 +42,7 @@
     </div>
     <div class = "day-body"  *ngIf="displayOption == 'list'">
         <res-list 
-            [resItems$] = "sortEvents(getAllEvents())" 
+            [events] = "getAllEvents()" 
             (remove)= "deleteRes($event)"
             (toDisplay)= "displayReservation($event)">
         </res-list>
@@ -55,8 +55,8 @@
                     <span> {{ getDate(day) | date:'d' }} <sup>{{daysOfWeek[getDate(day).getDay()]}}</sup> </span>
                 </div>
                 <div class = "week-column">
-                    <week-day-event-list *ngIf = "displayIsList" [events] = "sortEvents(getEvents(day))" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></week-day-event-list>
-                    <week-day-event-schedule *ngIf = "!displayIsList" [startOfDay] = "getDate(day).getTime()" [events] = "sortEvents(getEvents(day))" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></week-day-event-schedule>
+                    <week-day-event-list *ngIf = "displayIsList" [startOfDay] = "getDate(day).getTime()" [events] = "getEvents(day)" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></week-day-event-list>
+                    <week-day-event-schedule *ngIf = "!displayIsList" [startOfDay] = "getDate(day).getTime()" [events] = "getEvents(day)" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></week-day-event-schedule>
                 </div>
                 <!--<day-event-schedule  [events] = "getEvents(day)" [startOfDay] = "getDate(day).getTime()" (remove) = "resService.removeReservation($event)" (update) = "displayReservation($event)"></day-event-schedule>-->
             </div>
@@ -64,15 +64,18 @@
     </div>
     <div *ngIf = "displayOption == 'day'" class = "day-body">
         <day-res-list 
-            [resItems$] = "sortEvents(getEvents(displayDate.getTime()))" 
-            (remove)= "deleteRes($event)"
-            (toDisplay)= "displayReservation($event)" *ngIf="displayIsList">
-        </day-res-list>
-        <day-res-schedule
-            [events] = "sortEvents(getEvents(displayDate.getTime()))" 
+            [events] = "getEvents(displayDate.getTime())" 
             [startOfDay] = "displayDate.getTime()"
             (remove)= "deleteRes($event)"
-            (update) = "displayReservation($event)" *ngIf="!displayIsList">
+            (toDisplay)= "displayReservation($event)"
+            *ngIf="displayIsList">
+        </day-res-list>
+        <day-res-schedule
+            [events] = "getEvents(displayDate.getTime())" 
+            [startOfDay] = "displayDate.getTime()"
+            (remove)= "deleteRes($event)"
+            (update) = "displayReservation($event)" 
+            *ngIf="!displayIsList">
         </day-res-schedule>
     </div>
 </div>
@@ -139,9 +142,10 @@
         <h4 class="modal-title" *ngIf = "showDayEventsModal">{{getDate(dateToShow) | date:"fullDate"}}</h4>
       </div>
       <div class="modal-body">
-          <day-event-list *ngIf = "showDayEventsModal && showDayEventList" [events] = "getEvents(dateToShow)" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></day-event-list>
-          <day-event-schedule *ngIf = "showDayEventsModal && !showDayEventList" [events] = "getEvents(dateToShow)" [startOfDay] = "getDate(dateToShow).getTime()" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></day-event-schedule>
+          <day-event-list *ngIf = "showDayEventsModal && showDayEventList" [events] = "getEvents(dateToShow)" [startOfDay] = "parseInt(dateToShow)" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></day-event-list>
+          <day-event-schedule *ngIf = "showDayEventsModal && !showDayEventList" [events] = "getEvents(dateToShow)" [startOfDay] = "parseInt(dateToShow)" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></day-event-schedule>
       </div>
     </div>
   </div>
 </div>
+

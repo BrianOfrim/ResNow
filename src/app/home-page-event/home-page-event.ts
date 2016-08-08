@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {Reservation2,IReservation2} from '../core/reservation2/reservation2'
 
 @Component({
@@ -11,13 +11,24 @@ import {Reservation2,IReservation2} from '../core/reservation2/reservation2'
 })
 export class HomePageEvent implements OnInit{
   @Input() event: IReservation2;
+  @Output() goToCalendar: EventEmitter<any> = new EventEmitter(false);
+  @Output() giveDetails: EventEmitter<any> = new EventEmitter(false);
   startDate:Date;
   showNote:boolean = false;
   ngOnInit(){
-    this.startDate = new Date(parseInt(this.event.start));
+    this.startDate = new Date(this.event.start);
   }
   toggleShowNote(){
       this.showNote = !this.showNote;
+  }
+
+  goTo(){
+      //console.log(this.event.);
+      this.goToCalendar.emit(this.event.calendar);
+  }
+
+  deleteEvent(){
+    this.giveDetails.emit(this.event);
   }
 }
   
