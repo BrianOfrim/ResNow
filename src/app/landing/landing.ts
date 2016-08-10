@@ -2,6 +2,7 @@ import {Component,ViewContainerRef} from '@angular/core';
 // import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS,Router} from '@angular/router-deprecated';
 // import {AngularFire,FirebaseAuth} from 'angularfire2';
 // import { ResMain } from '../res-main/res-main';
+import {AngularFire} from 'angularfire2';
 
 import { ROUTER_DIRECTIVES,Router } from '@angular/router';
 import {SignIn} from '../signIn/signIn';
@@ -23,7 +24,7 @@ import {Authentication} from '../authentication/authentication';
   pipes: []
 })
 export class Landing {
-  constructor(private router: Router,public viewContainerRef:ViewContainerRef, private auth: Authentication) {
+  constructor(private router: Router,public viewContainerRef:ViewContainerRef, private auth: Authentication, private af: AngularFire) {
     this.viewContainerRef = viewContainerRef;
   }
   
@@ -32,5 +33,10 @@ export class Landing {
      console.log("Hit signout")
      this.router.navigate(['/login']);
      
+   }
+
+   goHome(): void {
+     console.log("Go Home")
+     this.router.navigate(['/home']);
    }
 }

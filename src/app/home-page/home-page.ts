@@ -102,6 +102,8 @@ export class HomePage implements OnInit{
 
     deleteEvent(event:IReservation2){
         this.resService.removeReservation(event);
+        console.log("Hide delete event modal");
+        this.deleteEventModal.hide();
 
     }
 

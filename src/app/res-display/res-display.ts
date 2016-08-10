@@ -250,4 +250,8 @@ export class ResDisplay{
         this.showDayEventsModal = false;
         this.dateToShow = "";
     }
+
+    toNumber(numStr: string): number{
+        return parseInt(numStr);
+    }
 }

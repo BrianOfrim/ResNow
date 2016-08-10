@@ -8,23 +8,30 @@
                 {{ event.title}}
             </div>
         </div>
-        <div class = "col-xs-2">
-            <button type="button" class="btn btn-default btn-sm edit-btn" (click) = "deleteEvent()">
-                <span class = "glyphicon glyphicon-trash"></span>
-            </button>
-        </div>
-        <div class ="col-xs-2" style = "text-align:center">
-            <button type="button" class="btn btn-default btn-sm edit-btn" (click) = "toggleShowNote()">
-                <span class = "glyphicon glyphicon-chevron-right" *ngIf = "!showNote"></span>
-                <span class = "glyphicon glyphicon-chevron-up" *ngIf = "showNote"></span>
-            </button>
+        <div class = "col-xs-4">
+            <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-default btn-sm edit-btn" (click) = "deleteEvent()">
+                    <span class = "glyphicon glyphicon-trash"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm edit-btn" (click) = "toggleShowNote()">
+                    <span class = "glyphicon glyphicon-chevron-right" *ngIf = "!showNote"></span>
+                    <span class = "glyphicon glyphicon-chevron-up" *ngIf = "showNote"></span>
+                </button>
+            </div>
         </div>
     </div>
+    <hr *ngIf = "showNote">
     <div class = "row extra-row" *ngIf = "showNote">
-        <div class = "col-xs-8">
-            {{event.note}}
+        <div class = "col-xs-12" style = "text-align:left">
+            Note:&nbsp;{{event.note}}
         </div>
-        <div class = "col-xs-4">
+    </div>
+    <hr *ngIf = "showNote">
+    <div class = "row extra-row" *ngIf = "showNote">
+        <div class = "col-xs-9" style = "text-align:left">
+            Calendar:&nbsp;{{event.calendar}}
+        </div>
+        <div class = "col-xs-3">
             <button type="button" class="btn btn-default btn-sm" (click) = "goTo()">
                 Go to
             </button>

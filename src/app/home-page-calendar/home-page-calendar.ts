@@ -15,12 +15,14 @@ export class HomePageCalendar implements OnInit{
   @Output() giveDetails: EventEmitter<any> = new EventEmitter(false);
   ngOnInit(){
   }
-
+  showDescription:boolean = false;
   goTo(){
       console.log(this.calendar);
       this.goToCalendar.emit(this.calendar.$key);
   }
-
+  toggleShowDescription(){
+      this.showDescription = !this.showDescription;
+  }
   deleteCalendar(){
     this.giveDetails.emit(this.calendar);
   }

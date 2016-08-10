@@ -6,7 +6,8 @@
     padding-bottom: 4px;
     padding-left: 20px;
     padding-right: 20px;
-    width:350px;
+    /*width:350px;*/
+    width:100%;
     display: inline-block;
 
 }
@@ -15,4 +16,12 @@
     font-size: 15px;
     padding-top: 4.5px;
     padding-bottom: 4.5px;
+}
+
+.extra-row{
+    margin-top: 3px;
+}
+
+hr {
+    margin: 2px;
 }

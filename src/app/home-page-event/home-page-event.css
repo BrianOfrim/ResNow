@@ -13,11 +13,16 @@
     padding-bottom: 4px;
     padding-left: 20px;
     padding-right: 20px;
-    width:350px;
+    /*width:350px;*/
+    width: 46%;
     display: inline-block;
 
 }
 
 .extra-row{
-    margin-top: 5px;
+    margin-top: 3px;
+}
+
+hr {
+    margin: 2px;
 }

@@ -12,3 +12,19 @@
 .search-bar{
     margin-bottom: 30px;
 }
+
+.home-panel{
+    background-color: #cccccc;
+}
+
+.btn-home-page{
+    background-color: #45546f;
+    color: #f5deb3;
+    border-color: #f5deb3;
+}
+
+.btn-home-page:hover{
+    background-color: #f5deb3;
+    color: #45546f;
+    border-color: #45546f;
+}

@@ -102,7 +102,7 @@
         <div class="form-group">
           <label for="alterEgo">Start</label>
             <div class = "well well-sm" style = "text-align:center">
-                {{dt | date:'yMMMdjm'}}
+                {{dt | date:'short'}}
             </div>
             <div class = "row" *ngIf = "modalOpen">
                 <div class = "col-xs-7">
@@ -142,8 +142,8 @@
         <h4 class="modal-title" *ngIf = "showDayEventsModal">{{getDate(dateToShow) | date:"fullDate"}}</h4>
       </div>
       <div class="modal-body">
-          <day-event-list *ngIf = "showDayEventsModal && showDayEventList" [events] = "getEvents(dateToShow)" [startOfDay] = "parseInt(dateToShow)" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></day-event-list>
-          <day-event-schedule *ngIf = "showDayEventsModal && !showDayEventList" [events] = "getEvents(dateToShow)" [startOfDay] = "parseInt(dateToShow)" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></day-event-schedule>
+          <day-event-list *ngIf = "showDayEventsModal && showDayEventList" [events] = "getEvents(dateToShow)" [startOfDay] = "toNumber(dateToShow)" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></day-event-list>
+          <day-event-schedule *ngIf = "showDayEventsModal && !showDayEventList" [events] = "getEvents(dateToShow)" [startOfDay] = "toNumber(dateToShow)" (remove) = "deleteRes($event)" (update) = "displayReservation($event)"></day-event-schedule>
       </div>
     </div>
   </div>

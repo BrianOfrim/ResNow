@@ -6,8 +6,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/home">Res Now!</a>x
-      <button *ngIf = "auth.authenticated" type="button" class="btn btn-default navbar-btn navbar-right" (click) = "signOut()">Sign out</button>
+      <a class="navbar-brand" href="/home">Res Now!</a>
+      <div class="btn-group navbar-right" *ngIf = "af.auth | async" role="group">
+        <button  type="button" class="btn btn-default navbar-btn" (click) = "goHome()">
+          <span class="glyphicon glyphicon-home"></span>
+        </button>
+        <button type="button" class="btn btn-default navbar-btn" (click) = "signOut()">
+          Sign out
+        </button>
+      </div>
   </div>
 </nav>
 <div class="jumbotron">

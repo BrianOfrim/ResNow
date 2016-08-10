@@ -25,14 +25,6 @@ module.exports = function(defaults) {
       'zone.js/dist/*.js',
       'bootstrap/dist/css/bootstrap.css',
       'bootstrap/dist/fonts/*',
-      'primeui/primeui-ng-all.min.js',
-      'primeui/primeui-ng-all.min.css',
-      'primeui/themes/delta/**',
-      'primeng/primeng.js',
-      'primeng/components/**/*.js',
-      'fullcalendar/dist/*.js',
-      'fullcalendar/dist/*.css',
-      'angular2-modal/**',
       'firebase/**/*.js'
     ]
   });

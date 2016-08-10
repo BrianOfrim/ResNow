@@ -7,7 +7,7 @@ import {AngularFire, AuthProviders, FirebaseAuth, FirebaseAuthState } from 'angu
 export class Authentication {
   // private authState: FirebaseAuthData|FirebaseAuthState;
   public userAuth: FirebaseAuth;
-  private authState: FirebaseAuthState;
+  public authState: FirebaseAuthState;
   constructor(public af: AngularFire) {
     // this.authState = auth$.getAuth();
   
