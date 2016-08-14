@@ -18,6 +18,7 @@ export class WeekDayEventList{
     @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
     todaysEvents:Observable<any>;
+    
     ngOnInit(){
 
     }

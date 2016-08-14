@@ -9,7 +9,7 @@ import {Authentication} from '../../authentication/authentication';
 export class CalendarService{
 
     allCalendars: FirebaseListObservable<any>;
-    constructor(private af: AngularFire,private auth: Authentication){
+    constructor(private af: AngularFire,public auth: Authentication){
         this.allCalendars = this.af.database.list('calendars');
     }
 
@@ -24,29 +24,51 @@ export class CalendarService{
         return firebase.database().ref().update(updates); 
     }
 
-    deleteCalendar(calID:string){
-        this.af.database.list(`calendars/${calID}/events`).subscribe( 
-            events => {
-                if(events.length > 0){
-                console.log(events);
-                events.forEach(event => {
-                    console.log(event.title);
-                    let evUpdate = {};
-                    evUpdate[`users/${event.ownerUID}/events/${event.$key}`] = null;
-                    firebase.database().ref().update(evUpdate); 
-                });
-                console.log("for each done")
-                var updates = {};
-                updates[`/calendars/${calID}`] = null;
-                updates[`/users/${this.auth.id}/calendars/${calID}`] = null;
-                updates[`/calendarInfo/${calID}`] = null;
+    deleteCalendar(calID:string): Promise<any>{
+        // this.af.database.list(`calendars/${calID}/events`).subscribe( 
+        //     events => {
+        //         if(events.length > 0){
+        //         console.log(events);
+        //         events.forEach(event => {
+        //             console.log(event.title);
+        //             let evUpdate = {};
+        //             evUpdate[`users/${event.ownerUID}/events/${event.$key}`] = null;
+        //             firebase.database().ref().update(evUpdate); 
+        //         });
+        //         console.log("for each done")
+        //         var updates = {};
+        //         updates[`/calendars/${calID}`] = null;
+        //         updates[`/users/${this.auth.id}/calendars/${calID}`] = null;
+        //         updates[`/calendarInfo/${calID}`] = null;
 
-                firebase.database().ref().update(updates); 
+        //         firebase.database().ref().update(updates); 
+        //         }
+        //     },
+        //     e =>{console.log(e)},
+        //     () => {console.log('complete')}
+        // )
+        let id = this.auth.id;
+        //console.log(id);
+        return firebase.database().ref(`calendars/${calID}/events`).once('value').then(function(snapshot){
+            let events = snapshot.val();
+            for(var key in events){
+                if(events.hasOwnProperty(key)){
+                    console.log(key);
+                    console.log(events[key]);
+                    let evUpdate = {};
+                    evUpdate[`users/${events[key].ownerUID}/events/${key}`] = null;
+                    firebase.database().ref().update(evUpdate); 
                 }
-            },
-            e =>{console.log(e)},
-            () => {console.log('complete')}
-        )
+            }
+            var updates = {};
+            console.log(id);
+
+            updates[`/calendars/${calID}`] = null;
+            updates[`/users/${id}/calendars/${calID}`] = null;
+            updates[`/calendarInfo/${calID}`] = null;
+
+            firebase.database().ref().update(updates); 
+        })
     }
 
     getCalendarEvents(calID: string): FirebaseListObservable<any>{
