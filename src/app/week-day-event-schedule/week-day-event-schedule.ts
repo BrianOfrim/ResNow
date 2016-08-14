@@ -3,6 +3,7 @@ import {Observable} from 'rxjs/Rx';
 
 import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
 import {CalendarService} from '../core/calendar.service/calendar.service';
+import {Authentication} from '../authentication/authentication';
 
 @Component({
   selector: 'week-day-event-schedule',
@@ -19,7 +20,7 @@ export class WeekDayEventSchedule{
     @Output() update: EventEmitter<any> = new EventEmitter(false);
     @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
-    public constructor(private calService:CalendarService){}
+    constructor(public auth: Authentication){}
 
     hourIntervals: any[];
 
@@ -39,6 +40,17 @@ export class WeekDayEventSchedule{
         console.log(returnArr);
         return returnArr
         
+    }
+
+    eventBelongsToCurrentUser(event: any): boolean{
+        console.log(event.ownerUID)
+        console.log(this.auth.authState.uid)
+        if(this.auth.authState.uid== '') return false
+        if(event.ownerUID == this.auth.authState.uid){
+            return true;
+        }else{
+            return false;
+        }
     }
 
    getHourEvents(hourInterval:any){

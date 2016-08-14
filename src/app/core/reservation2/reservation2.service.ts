@@ -12,7 +12,7 @@ export class ReservationService{
         // af.auth.subscribe((state: FirebaseAuthState) => {
         //     this.authState = state;
         // });
-        this.reservationItems$ = af.database.list(`events/${auth.id}`)
+        this.reservationItems$ = af.database.list(`events/${auth.authState.uid}`)
         
     }
     
@@ -32,15 +32,15 @@ export class ReservationService{
     }
 
     addToUserEventList(key: string,res :IReservation2): Promise<any>{
-        var newPostKey = firebase.database().ref().child(`/users/${this.auth.id}/events`).push().key;
+        var newPostKey = firebase.database().ref().child(`/users/${this.auth.authState.uid}/events`).push().key;
         var updates = {}
-        updates[`/users/${this.auth.id}/events/${newPostKey}`] = res;
+        updates[`/users/${this.auth.authState.uid}/events/${newPostKey}`] = res;
         if(res.calendar != 'mine') updates[`/calendars/${res.calendar}/events/${newPostKey}`] = res;
         return firebase.database().ref().update(updates);
     }
     
     createReservation(reservation: IReservation2): Promise<any>{
-        reservation.ownerUID = this.auth.id;
+        reservation.ownerUID = this.auth.authState.uid;
         return this.addToUserEventList(reservation.$key,reservation);
     }
     
@@ -54,7 +54,7 @@ export class ReservationService{
 
     removeFromUserEventList(reservation: IReservation2): Promise<any>{
         var updates = {}
-        updates[`/users/${this.auth.id}/events/${reservation.$key}`] = null;
+        updates[`/users/${this.auth.authState.uid}/events/${reservation.$key}`] = null;
         if(reservation.calendar != 'mine') updates[`/calendars/${reservation.calendar}/events/${reservation.$key}`] = null;
         console.log(updates);
         return firebase.database().ref().update(updates);
@@ -77,14 +77,14 @@ export class ReservationService{
         var updates = {}
         updates[`/events/${updatedReservation.$key}`] = updatedObj;
 
-        updates[`/users/${this.auth.id}/events/${updatedReservation.$key}`] = updatedObj;
+        updates[`/users/${this.auth.authState.uid}/events/${updatedReservation.$key}`] = updatedObj;
         if(updatedReservation.calendar != 'mine') updates[`/calendars/${updatedReservation.calendar}/events/${updatedReservation.$key}`] = updatedObj;
         return firebase.database().ref().update(updates);
     }
 
     getCalendarReservations(calID:string): Observable<any>{
 
-        let path = (calID == 'mine') ? `/users/${this.auth.id}/events/` : `/calendars/${calID}/events/`;
+        let path = (calID == 'mine') ? `/users/${this.auth.authState.uid}/events/` : `/calendars/${calID}/events/`;
 
         let calObserv = this.af.database.list(path).map(reservations =>{
             return reservations.map(res =>{

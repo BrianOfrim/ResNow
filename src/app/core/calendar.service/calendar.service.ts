@@ -16,9 +16,9 @@ export class CalendarService{
     createCalendar(calName:string,calDescription:string): Promise<any>{
         var newPostKey = firebase.database().ref().child('calendars').push().key;
         var updates = {};
-        updates['/calendars/' + newPostKey] = {name: calName, owner: this.auth.id, description: calDescription};
-        updates['/users/' + this.auth.id + '/calendars/'+ newPostKey] = {name: calName, description: calDescription};
-        updates['/calendarInfo/' + newPostKey] = {name: calName, owner: this.auth.id, description: calDescription};
+        updates['/calendars/' + newPostKey] = {name: calName, owner: this.auth.authState.uid, description: calDescription};
+        updates['/users/' + this.auth.authState.uid + '/calendars/'+ newPostKey] = {name: calName, description: calDescription};
+        updates['/calendarInfo/' + newPostKey] = {name: calName, owner: this.auth.authState.uid, description: calDescription};
 
 
         return firebase.database().ref().update(updates); 
@@ -47,7 +47,7 @@ export class CalendarService{
         //     e =>{console.log(e)},
         //     () => {console.log('complete')}
         // )
-        let id = this.auth.id;
+        let id = this.auth.authState.uid;
         //console.log(id);
         return firebase.database().ref(`calendars/${calID}/events`).once('value').then(function(snapshot){
             let events = snapshot.val();
@@ -73,7 +73,7 @@ export class CalendarService{
 
     getCalendarEvents(calID: string): FirebaseListObservable<any>{
         if(calID == "mine"){
-            return this.af.database.list(`users/${this.auth.id}/events`)
+            return this.af.database.list(`users/${this.auth.authState.uid}/events`)
         }else{
             return this.af.database.list(`calendars/${calID}/events`);
         }

@@ -9,12 +9,14 @@
                     </span>
                 </div>
                 <div class = "col-xs-6" style = "text-align:center">
-                    <button type="button" class="btn btn-default btn-xs edit-btn" (click) = "update.emit(event)">
-                        <span class = "glyphicon glyphicon-pencil"></span>
-                    </button>
-                    <button type="button" class="btn btn-default btn-xs delete-btn" (click) = "remove.emit(event)">
-                        <span class = "glyphicon glyphicon-trash"></span>
-                    </button>
+                    <div *ngIf="eventBelongsToCurrentUser(event)">
+                        <button type="button" class="btn btn-default btn-xs edit-btn" (click) = "update.emit(event)">
+                            <span class = "glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="button" class="btn btn-default btn-xs delete-btn" (click) = "remove.emit(event)">
+                            <span class = "glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class = "row">

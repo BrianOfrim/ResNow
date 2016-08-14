@@ -182,7 +182,7 @@ export class ResDisplay{
         var endOfDayDate = new Date(startOfDay);
         endOfDayDate.setHours(23,59,59,999);  
 
-        console.log(startOfDay);
+        //console.log(startOfDay);
         return this.events
             .filter(event => {
                 return event.start >= startOfDayDate.getTime() && event.start <= endOfDayDate.getTime() 

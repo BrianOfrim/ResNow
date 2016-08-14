@@ -8,6 +8,8 @@ export class Authentication {
   // private authState: FirebaseAuthData|FirebaseAuthState;
   public userAuth: FirebaseAuth;
   public authState: FirebaseAuthState;
+  public 
+  //public id:string;
   constructor(public af: AngularFire) {
     // this.authState = auth$.getAuth();
   
@@ -18,9 +20,12 @@ export class Authentication {
     //   console.log(state);
     //   this.authState = state;
     // });
-    this.af.auth.subscribe(auth => {
+    this.userAuth = this.af.auth;
+
+    this.userAuth.subscribe(auth => {
       console.log(auth);
       this.authState = auth;
+      //this.id = auth.uid;
 
     });
   }

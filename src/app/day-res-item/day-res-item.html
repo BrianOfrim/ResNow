@@ -25,15 +25,17 @@
             </div>
         </div>
         <div class = "col-xs-2">
-            <div class = "row" style = "text-align:center">
+            <div *ngIf = "canEdit">
+                <div class = "row" style = "text-align:center">
                     <button type="button" class="btn btn-default btn-sm edit-btn" (click) = "update.emit()">
                         <span class = "glyphicon glyphicon-pencil"></span>
                     </button>
-            </div>
-            <div class = "row" style = "text-align:center">
+                </div>
+                <div class = "row" style = "text-align:center">
                     <button type="button" class="btn btn-default btn-sm delete-btn" (click) = "remove.emit()">
                         <span class = "glyphicon glyphicon-trash"></span>
                     </button>
+                </div>
             </div>
         </div>
     </div>

@@ -37,6 +37,7 @@ export class SignIn{
   //   this.router.navigate(['/events'])
   // }
   goToHome():void{
+    console.log('go home');
     this.router.navigate(['/home'])
   }
   

@@ -35,6 +35,5 @@ bootstrap(Landing, [
     CalendarService,
     UserService,
     ROUTER_PROVIDERS,
-    disableDeprecatedForms(),
     provideForms()
 ]);

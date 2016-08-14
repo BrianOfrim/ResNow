@@ -1,6 +1,7 @@
 import {Component,OnInit, Input, Output,EventEmitter} from '@angular/core';
 import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
 import {Observable} from 'rxjs/Rx';
+import {Authentication} from '../authentication/authentication';
 
 @Component({
   selector: 'week-day-event-list',
@@ -18,9 +19,20 @@ export class WeekDayEventList{
     @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
     todaysEvents:Observable<any>;
+    constructor(public auth: Authentication){
+    }
     
-    ngOnInit(){
+    ngOnInit(){}
 
+    eventBelongsToCurrentUser(event: any): boolean{
+        console.log(event.ownerUID)
+        console.log(this.auth.authState.uid)
+        if(this.auth.authState.uid== '') return false
+        if(event.ownerUID == this.auth.authState.uid){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     
