@@ -31,6 +31,7 @@ export class SignIn{
     this.auth.signInTwitter().then(()=>this.postSignIn());
   } 
   signOut():void{
+    this.router.navigate(['/login'])
     this.auth.signOut();
   }
   // goToEvents():void{

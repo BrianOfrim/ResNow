@@ -93,18 +93,18 @@
         <form>
         <div class="form-group">
           <label for="alterEgo">Name</label>
-          <input type="text" class="form-control" [(ngModel)] = "eventToDisplay.name" name = "name">
+          <input type="text" [readonly] = "!createNew && !canEdit(eventToDisplay)" class="form-control" [(ngModel)] = "eventToDisplay.name" name = "name">
         </div>
         <div class="form-group">
           <label for="alterEgo">Title</label>
-          <input type="text" class="form-control" [(ngModel)] = "eventToDisplay.title" name = "title">
+          <input type="text" [readonly] = "!createNew && !canEdit(eventToDisplay)" class="form-control" [(ngModel)] = "eventToDisplay.title" name = "title">
         </div>
         <div class="form-group">
           <label for="alterEgo">Start</label>
             <div class = "well well-sm" style = "text-align:center">
                 {{dt | date:'short'}}
             </div>
-            <div class = "row" *ngIf = "modalOpen">
+            <div class = "row" *ngIf = "modalOpen && (createNew || canEdit(eventToDisplay))">
                 <div class = "col-xs-7">
                     <datepicker [(ngModel)]="dt" [initDate]="dt" [minDate]="currentDate" [showWeeks]="true" name = "datepick"></datepicker>
                 </div>
@@ -115,13 +115,13 @@
         </div>
         <div class="form-group">
           <label for="alterEgo">Note</label>
-          <textarea class="form-control" rows="3"  required [(ngModel)]="eventToDisplay.note" name = "note"></textarea>
+          <textarea class="form-control" [readonly] = "!createNew && !canEdit(eventToDisplay)" rows="3"  required [(ngModel)]="eventToDisplay.note" name = "note"></textarea>
         </div>
         </form>
-        <div style = "text-align:right" [ngSwitch]="createNew">
+        <div style = "text-align:right" >
             <button class="btn btn-default" type="submit" (click) = "lgModal.hide()">Cancel</button>
-            <button class="btn btn-success" *ngSwitchCase="true" type="submit" (click) = "pushUpdate(eventToDisplay)" >Create</button>
-            <button class="btn btn-success" *ngSwitchCase="false" type="submit" (click) = "pushUpdate(eventToDisplay)" >Update</button>
+            <button class="btn btn-success" *ngIf="createNew" type="submit" (click) = "pushUpdate(eventToDisplay)" >Create</button>
+            <button class="btn btn-success" *ngIf="showUpdate(eventToDisplay)" type="submit" (click) = "pushUpdate(eventToDisplay)" >Update</button>
         </div>
       </div>
     </div>

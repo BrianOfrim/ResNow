@@ -29,14 +29,13 @@ export class Landing {
   }
   
    signOut(): void {
+     this.router.navigate(['/login']);
      this.auth.signOut();
      console.log("Hit signout")
-     this.router.navigate(['/login']);
-     
    }
 
    goHome(): void {
-     console.log("Go Home")
      this.router.navigate(['/home']);
+     console.log("Go Home")
    }
 }

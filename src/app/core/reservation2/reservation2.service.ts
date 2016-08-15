@@ -75,7 +75,6 @@ export class ReservationService{
         this.removeString(keys,"$key");
         let updatedObj = this.pickSubset(keys,updatedReservation);
         var updates = {}
-        updates[`/events/${updatedReservation.$key}`] = updatedObj;
 
         updates[`/users/${this.auth.authState.uid}/events/${updatedReservation.$key}`] = updatedObj;
         if(updatedReservation.calendar != 'mine') updates[`/calendars/${updatedReservation.calendar}/events/${updatedReservation.$key}`] = updatedObj;

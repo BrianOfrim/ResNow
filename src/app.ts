@@ -13,7 +13,7 @@ import {APP_ROUTER_PROVIDERS} from './app/core/routes/app.routes';
 
 import {ReservationService} from './app/core/reservation2/reservation2.service';  
 import {CalendarService} from './app/core/calendar.service/calendar.service';  
-import {UserService} from './app/core/user.service/user.service'; 
+// import {UserService} from './app/core/user.service/user.service'; 
 
 //enableProdMode();
 
@@ -33,7 +33,7 @@ bootstrap(Landing, [
     APP_ROUTER_PROVIDERS,
     ReservationService,
     CalendarService,
-    UserService,
+    // UserService,
     ROUTER_PROVIDERS,
     provideForms()
 ]);

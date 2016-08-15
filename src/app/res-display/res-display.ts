@@ -6,7 +6,6 @@ import { FirebaseListObservable } from 'angularfire2';
 import { MODAL_DIRECTIVES ,BS_VIEW_PROVIDERS,ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
 
 import { Reservation2, IReservation2 } from '../core/reservation2/reservation2';
-import {UserService} from '../core/user.service/user.service';
 import {CalendarService} from '../core/calendar.service/calendar.service';
 import { ResDate } from '../res-date/res-date'
 import {  DateService } from '../core/date_services/date_service';
@@ -19,6 +18,8 @@ import {WeekDayEventSchedule} from '../week-day-event-schedule/week-day-event-sc
 import { DayResList} from '../day-res-list/day-res-list';
 import {DayResSchedule} from '../day-res-schedule/day-res-schedule'
 import {Observable} from 'rxjs/Observable';
+
+import {Authentication} from '../authentication/authentication';
 
 @Component({
   selector: 'res-display',
@@ -35,8 +36,8 @@ import {Observable} from 'rxjs/Observable';
 export class ResDisplay{
     // @Input() reservations: IReservation2[];
     
-    public constructor(private dateService:DateService, public resService: ReservationService,
-     private userService: UserService, private calService: CalendarService,private route: ActivatedRoute, private router: Router){
+    public constructor(private dateService:DateService, public resService: ReservationService, private calService: CalendarService,
+    private route: ActivatedRoute, private router: Router,private auth: Authentication){
         // this.route.params.subscribe(params => {
         //     this.calendarKey = params['id']; 
         //     console.log("The id = " + this.calendarKey);
@@ -96,6 +97,7 @@ export class ResDisplay{
         })
 
     }
+    
 
     compareStart(a,b) {
         if (a.start < b.start)
@@ -254,4 +256,21 @@ export class ResDisplay{
     toNumber(numStr: string): number{
         return parseInt(numStr);
     }
+
+    canEdit(event: any): boolean{
+        // console.log(event.ownerUID)
+        // console.log(this.auth.authState.uid)
+        if(this.auth.authState.uid== '') return false
+        if(event.ownerUID == this.auth.authState.uid){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    showUpdate(event:any): boolean{
+        return !this.createNew && this.canEdit(event);
+    }
+
+
 }

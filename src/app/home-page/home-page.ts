@@ -22,7 +22,7 @@ import {Observable} from 'rxjs/Observable';
   selector: 'home-page',
   templateUrl:'app/home-page/home-page.html', 
   styleUrls: ['app/home-page/home-page.css'],
-  providers: [BS_VIEW_PROVIDERS],
+  providers: [BS_VIEW_PROVIDERS,UserService],
   directives: [HomePageEvent,HomePageCalendar,TYPEAHEAD_DIRECTIVES,MODAL_DIRECTIVES,ModalDirective],
   pipes: []
 })

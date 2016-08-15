@@ -1,7 +1,9 @@
 import {Component,OnInit, Input, Output,EventEmitter} from '@angular/core';
-import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
-
 import {Observable} from 'rxjs/Rx';
+
+import { IReservation2, Reservation2 } from '../core/reservation2/reservation2';
+import {Authentication} from '../authentication/authentication';
+
 
 @Component({
   selector: 'day-event-list',
@@ -18,11 +20,19 @@ export class DayEventList{
     @Output() update: EventEmitter<any> = new EventEmitter(false);
     @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
+    constructor(private auth: Authentication){}
+    ngOnInit(){}
 
-    ngOnInit(){
-
+    eventBelongsToCurrentUser(event: any): boolean{
+        console.log(event.ownerUID)
+        console.log(this.auth.authState.uid)
+        if(this.auth.authState.uid== '') return false
+        if(event.ownerUID == this.auth.authState.uid){
+            return true;
+        }else{
+            return false;
+        }
     }
-
 
     getStartTime(event){
         return new Date(event.start);

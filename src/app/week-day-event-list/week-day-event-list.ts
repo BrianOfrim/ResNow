@@ -19,8 +19,7 @@ export class WeekDayEventList{
     @Output() remove: EventEmitter<any> = new EventEmitter(false);
 
     todaysEvents:Observable<any>;
-    constructor(public auth: Authentication){
-    }
+    constructor(private auth: Authentication){}
     
     ngOnInit(){}
 
