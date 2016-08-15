@@ -34,6 +34,11 @@ export class Landing {
      console.log("Hit signout")
    }
 
+   goToLogin():void{
+     this.router.navigate(['/login']);
+     console.log('Go to Login')
+   }
+
    goHome(): void {
      this.router.navigate(['/home']);
      console.log("Go Home")
