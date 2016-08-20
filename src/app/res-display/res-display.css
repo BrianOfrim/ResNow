@@ -88,3 +88,19 @@
     height: 400px;
     overflow-y: auto;
 }
+
+.cal-header{
+    background-color:#45546F;
+    margin-top:0px;
+    padding-top:20px;
+}
+
+.cal-header h1{
+    background-color:#45546F;
+    margin-top:0px;
+    color: wheat;
+}
+.cal-header h3{
+    margin-top: 10px;
+    color: #cac2b5;
+}

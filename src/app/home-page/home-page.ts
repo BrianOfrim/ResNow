@@ -29,6 +29,8 @@ import {Observable} from 'rxjs/Observable';
 export class HomePage implements OnInit{
     events: FirebaseListObservable<any>;
     calendars: FirebaseListObservable<any>;
+    allCalendarInfo: Observable<any>;
+
     currentCalendars: any[] = [];
 
     newCalName:string = "";
@@ -44,27 +46,32 @@ export class HomePage implements OnInit{
     @ViewChild('deleteEventModal')
     deleteEventModal: ModalDirective;
 
-    public asyncSelected:string = '';
-    public dataSource:Observable<any>;
-    public typeaheadLoading:boolean = false;
-    public typeaheadNoResults:boolean = false;
-
+    asyncSelected:string = '';
+    dataSource:Observable<any>;
+    typeaheadLoading:boolean = false;
+    typeaheadNoResults:boolean = false;
+    typeAheadCalendars: any[] = []
+    searchTerm: string = "";
     constructor(private resService:ReservationService,private calService:CalendarService,private userService:UserService,
     private route: ActivatedRoute, private router: Router){
-        this.calendars = this.userService.userCalendars;
+        
+        
         this.events =  this.userService.userEvents;
         this.dataSource = Observable.create((observer:any) => {
         let query = new RegExp(this.asyncSelected, 'ig');
     
         observer.next(this.currentCalendars.filter((calendar:any) => {
+            console.log(calendar.name)
             return query.test(calendar.name);
         }));
         });
     }
     ngOnInit(){ 
-        this.calService.allCalendars.subscribe(incomingCalendars =>{
+        this.calendars = this.userService.userCalendars;
+        this.calService.allCalendarInfo.subscribe(incomingCalendars =>{
             //console.log(incomingCalendars);
             this.currentCalendars = incomingCalendars;
+
         });
 
     }
@@ -76,6 +83,20 @@ export class HomePage implements OnInit{
         return 0;
     }
 
+    getCalendarsContainingSearch(): any[]{
+        if(this.searchTerm == "") return [];
+        let searchRe = new RegExp(this.searchTerm, "i");
+        return this.currentCalendars.filter(calendar => {
+            console.log(calendar);
+            console.log(searchRe.test(calendar.name));
+            return searchRe.test(calendar.name);
+        }).slice(0,10);
+    }
+
+    noEventsFound(): boolean{
+        let foundEvents = this.getCalendarsContainingSearch()
+        return this.searchTerm != "" && foundEvents.length == 0;
+    }
 
     createCalendarDialog(){
         this.createCalModal.show()

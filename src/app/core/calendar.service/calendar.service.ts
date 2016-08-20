@@ -9,8 +9,10 @@ import {Authentication} from '../../authentication/authentication';
 export class CalendarService{
 
     allCalendars: FirebaseListObservable<any>;
+    allCalendarInfo:FirebaseListObservable<any>;
     constructor(private af: AngularFire,public auth: Authentication){
         this.allCalendars = this.af.database.list('calendars');
+        this.allCalendarInfo = this.af.database.list('calendarInfo');
     }
 
     createCalendar(calName:string,calDescription:string): Promise<any>{
@@ -98,6 +100,13 @@ export class CalendarService{
                 startAt: hourInterval.startTime,
                 endAt: hourInterval.endTime
             }
+        });
+    }
+
+    getCalendarInfo(calID: string): Promise<any>{
+        return firebase.database().ref(`calendarInfo/${calID}`).once('value').then(function(snapshot) {
+            console.log(snapshot.val().name)
+            return snapshot.val();
         });
     }
 }

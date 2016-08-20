@@ -1,8 +1,7 @@
 .event-text{
     font-size: 15px;
-    padding-top: 4.5px;
-    padding-bottom: 4.5px;
     text-align: left;
+    display: block;
 }
 
 .event-well{
@@ -25,4 +24,9 @@
 
 hr {
     margin: 2px;
+}
+
+.event-btns{
+    padding-top:6px;
+    padding-bottom: 6px;
 }

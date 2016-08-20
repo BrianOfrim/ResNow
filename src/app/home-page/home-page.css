@@ -28,3 +28,32 @@
     color: #45546f;
     border-color: #45546f;
 }
+
+.type-ahead-result{
+    width:100%
+}
+
+.home-header{
+    background-color:#45546F;
+    color: wheat;
+    margin-bottom: 20px;
+}
+
+.search-cal{
+    background-color:#f5f5f5;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right:0px;
+    margin-left:0px;
+    border-radius: 4px;
+}
+
+.search-cal-text{
+    padding-top:7.5px;
+    padding-bottom: 7.5px;
+}
+
+.search-cal-btn{
+    padding-top:2.5px;
+    padding-bottom:2.5px;
+}

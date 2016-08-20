@@ -53,7 +53,10 @@ export class ResDisplay{
     mstep:number = 10;
     showDayEventList:boolean = true;
     eventToDisplay:Reservation2;
+    eventToDelete:Reservation2;
     calendarKey: string = '';
+    calendarName: string = '';
+    calendarDescription: string = '';
     // firstOfCurrentMonth:Date;
     // firstOfCurrentWeek:Date;
     displayDate:Date;
@@ -70,8 +73,11 @@ export class ResDisplay{
     lgModal: ModalDirective;
     @ViewChild('dateModal')
     dateModal: ModalDirective;
+    @ViewChild('deleteEventModal')
+    deleteEventModal: ModalDirective;
     ngOnInit(){
         this.eventToDisplay = new Reservation2();
+        this.eventToDelete = new Reservation2();
         this.currentDate = new Date();
 
         this.dt = new Date();
@@ -94,6 +100,18 @@ export class ResDisplay{
             this.calService.getCalendarEvents(this.calendarKey).subscribe(events => {
                 this.events  = events;
             });
+            if(this.calendarKey == 'mine'){
+                this.calendarName = 'My calendar';
+                this.calendarDescription = 'Personal events';
+            }else{
+                this.calService.getCalendarInfo(this.calendarKey).then(info =>{
+                    console.log(name);
+                    this.calendarName = info.name;
+                    this.calendarDescription = info.description;
+                })
+            }
+
+            
         })
 
     }
@@ -199,9 +217,19 @@ export class ResDisplay{
         this.lgModal.show()
     }
 
-    deleteRes(ev:IReservation2){
-        this.resService.removeReservation(ev);
+    deleteResDialog(ev:IReservation2){
+        this.eventToDelete = ev;
+        this.deleteEventModal.show()
+        
     }
+
+    deleteRes(shouldDelete:boolean){
+        if(shouldDelete) this.resService.removeReservation(this.eventToDelete);
+        this.eventToDelete = new Reservation2();
+        this.deleteEventModal.hide()
+        if(shouldDelete) this.lgModal.hide()
+    }
+
 
     displayReservation(e){
         if(this.showDayEventsModal){
