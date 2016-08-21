@@ -4,10 +4,9 @@
     <p>Your reservation awaits...</p>
   </div>
 </div>
-<div classs="container">
-  <div class="row">
+<div class="container">
     <!--<span *ngIf="auth.userAuth | async">-->
-      <span *ngIf="auth.authenticated">
+      <div *ngIf="auth.authenticated">
       <!--<div class = "row">
         <div class = "sign-in-row">
           <button  type="button" class="btn btn-lg sign-in-btn" (click)= "goToEvents()">
@@ -29,9 +28,9 @@
           </button>
         </div>
       </div>         
-    </span>
+    </div>
     <!--<span *ngIf="!(auth.userAuth  | async)">-->
-      <span *ngIf="!auth.authenticated">
+      <div *ngIf="!auth.authenticated">
       <h2 style = "text-align:center">Sign in with</h2>
       <div class = "row">
         <div class = "sign-in-row">
@@ -61,5 +60,9 @@
           </button>
         </div>
       </div>
-  </span>
+  </div>
+<h3>About</h3>
+<p>
+  ResNow is an application for reservation taking and making. It's a perfect way for small buisnesses to take reservations. Use-cases include: hair salons, restaurants... etc. Basically anywhere that reservations are required. Create a calendar then tell your friends/clients to search for it in the "Discover calendars" section of their home page. Once they've found it they can create reservations.
+</p>
 </div>
