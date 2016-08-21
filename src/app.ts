@@ -15,7 +15,7 @@ import {ReservationService} from './app/core/reservation2/reservation2.service';
 import {CalendarService} from './app/core/calendar.service/calendar.service';  
 // import {UserService} from './app/core/user.service/user.service'; 
 
-enableProdMode();
+// enableProdMode(); 
 
 bootstrap(Landing, [
     FIREBASE_PROVIDERS,

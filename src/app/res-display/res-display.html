@@ -29,7 +29,7 @@
                     <span class = "nav-text">{{getDate(displayDate.getTime()) | date:'longDate'}}</span>
                     <button type="button" (click) = "incrementDay()" class = "btn btn-default btn-sm navbar-btn cal-navbar-btn"><span class = "glyphicon glyphicon-menu-right"></span></button>
                 </div>
-                <button (click) = "createRes()" class = "btn btn-default btn-md navbar-btn cal-navbar-btn navbar-right display-opts">+ Create</button>
+                <button (click) = "createRes()" class = "btn btn-default btn-md navbar-btn cal-navbar-btn navbar-right display-opts">+ Create event</button>
                 <div *ngIf="displayOption == 'week' || displayOption == 'day'" class = "btn-group navbar-right display-opts" style = "display: inline">
                     <button type="button" (click) = "displayIsList = true" [ngClass] = "{active: displayIsList}" class="btn btn-default btn-md navbar-btn cal-navbar-btn">List</button>
                     <button type="button" (click) = "displayIsList = false" [ngClass] = "{active: !displayIsList}" class="btn btn-default btn-md navbar-btn cal-navbar-btn">Schedule</button>
